@@ -1,5 +1,43 @@
-// Kalkulator & Gambar Kurva Z-Score
+// Render tabel Z secara otomatis saat dimuat
+function generateZTables() {
+    const posTable = document.getElementById('posZTable');
+    const negTable = document.getElementById('negZTable');
+    
+    if (posTable && posTable.children.length === 0) {
+        posTable.innerHTML = buildTableHTML(false);
+    }
+    if (negTable && negTable.children.length === 0) {
+        negTable.innerHTML = buildTableHTML(true);
+    }
+}
+
+function buildTableHTML(isNegative) {
+    let html = '<thead><tr><th>z</th>';
+    for (let c = 0; c <= 9; c++) {
+        html += `<th>0.0${c}</th>`;
+    }
+    html += '</tr></thead><tbody>';
+
+    const rows = isNegative ? 
+        Array.from({length: 35}, (_, i) => -3.4 + i * 0.1) : 
+        Array.from({length: 35}, (_, i) => i * 0.1);
+
+    rows.forEach(rVal => {
+        const rowLabel = rVal.toFixed(1);
+        html += `<tr><td><strong>${rowLabel}</strong></td>`;
+        for (let c = 0; c <= 9; c++) {
+            const z = isNegative ? (rVal - c * 0.01) : (rVal + c * 0.01);
+            const prob = cumulativeStdNormal(z);
+            html += `<td>${prob.toFixed(4)}</td>`;
+        }
+        html += '</tr>';
+    });
+    html += '</tbody>';
+    return html;
+}
+
 function calculateZ() {
+    generateZTables();
     const zInput = document.getElementById('zInput');
     if (!zInput) return;
     
@@ -51,13 +89,8 @@ function drawBellCurve(z) {
     ctx.lineTo(width - margin, height - margin);
     ctx.stroke();
 
-    function zToX(val) {
-        return margin + ((val + 4) / 8) * plotWidth;
-    }
-
-    function stdNormalPDF(x) {
-        return Math.exp(-0.5 * x * x) / Math.sqrt(2 * Math.PI);
-    }
+    function zToX(val) { return margin + ((val + 4) / 8) * plotWidth; }
+    function stdNormalPDF(x) { return Math.exp(-0.5 * x * x) / Math.sqrt(2 * Math.PI); }
 
     const maxY = stdNormalPDF(0);
 
@@ -118,3 +151,7 @@ function switchTable(type) {
         if (btnNeg) btnNeg.classList.add('active');
     }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    generateZTables();
+});
