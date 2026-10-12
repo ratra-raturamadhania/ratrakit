@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biostatistics Hub - Epidemiologi Penyakit Menular</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="hero">
+        <h1>Biostatistics Hub</h1>
+        <p>Latihan Soal & Evaluasi Pemahaman Epidemiologi Penyakit Menular</p>
+    </header>
+    
+    <!-- Navigasi Halaman -->
+    <nav style="text-align: center; margin-top: 1.5rem;">
+        <a href="index.html" class="tab-btn" style="text-decoration: none; display: inline-block;">🏠 Kalkulator & Tabel Z</a>
+        <a href="uts.html" class="tab-btn" style="text-decoration: none; display: inline-block;">📝 Latihan Soal UTS</a>
+        <a href="epidemiologi.html" class="tab-btn active" style="text-decoration: none; display: inline-block;">📚 Epidemiologi</a>
+    </nav>
+
+    <main class="container">
+        <section class="card">
+            <h2>Latihan Soal Epidemiologi Penyakit Menular</h2>
+            <p class="subtitle">Uji pemahaman materi seputar etiologi, faktor risiko, dan pencegahan penyakit menular.</p>
+
+            <!-- Bar Kemajuan Progress -->
+            <div style="background-color: var(--border-color); height: 8px; border-radius: 4px; overflow: hidden; margin-bottom: 1.5rem;">
+                <div id="quiz-progress-fill" style="background-color: var(--secondary-color); height: 100%; width: 0%; transition: width 0.3s ease;"></div>
+            </div>
+
+            <!-- Card Pertanyaan Interactive -->
+            <div id="quiz-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <span id="quiz-topic-tag" style="background-color: #e8f5e9; color: var(--secondary-color); padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 600; font-size: 0.85rem;">Topik</span>
+                    <span style="font-size: 0.9rem; color: var(--text-muted);">Soal <strong id="quiz-current-num">1</strong> dari <strong id="quiz-total-num">40</strong></span>
+                </div>
+
+                <h3 id="quiz-question" style="font-size: 1.15rem; color: var(--primary-color); margin-bottom: 1.2rem; line-height: 1.5;">Memuat soal...</h3>
+
+                <div id="quiz-options" style="display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.2rem;"></div>
+
+                <div id="quiz-feedback" class="info-box hidden"></div>
+
+                <div style="margin-top: 1.5rem;">
+                    <button id="quiz-next-btn" class="hidden" type="button">Soal Selanjutnya &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Tampilan Hasil Akhir -->
+            <div id="quiz-result-card" class="hidden" style="text-align: center; padding: 1rem 0;">
+                <h3 style="font-size: 1.4rem; color: var(--primary-color); margin-bottom: 0.5rem;">Latihan Selesai! 🎉</h3>
+                <p id="quiz-final-score" style="font-size: 1.1rem; margin-bottom: 1.5rem; color: var(--text-color);"></p>
+                <button id="quiz-restart-btn" type="button" style="max-width: 200px; margin: 0 auto;">Coba Lagi</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Biostatistics Hub. Built with Vanilla JS & CSS Grid.</p>
+    </footer>
+
+    <script src="epidemiologi.js"></script>
+</body>
+</html>
