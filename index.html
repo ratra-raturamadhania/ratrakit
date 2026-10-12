@@ -6,7 +6,7 @@
     <title>Ratrakit - Interactive Web Tools & Modular Suites</title>
     <link rel="stylesheet" href="style.css">
 
-    <!-- MathJax tanpa Polyfill eksternal -->
+    <!-- MathJax tanpa Polyfill -->
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
@@ -35,7 +35,7 @@
 
     <main class="app-container">
 
-        <!-- 1. BERANDA / LANDING PAGE -->
+        <!-- 1. BERANDA -->
         <section id="tab-home" class="tab-content active">
             <div class="hero-banner">
                 <div class="hero-badge">Interactive Web Tools Suite</div>
@@ -234,10 +234,6 @@
 
             if (tabName === 'kalkulator' && typeof calculateZ === 'function') {
                 setTimeout(calculateZ, 100);
-            }
-
-            if (tabName === 'epidemiologi') {
-                startEpidemiologiQuiz();
             }
         }
 
