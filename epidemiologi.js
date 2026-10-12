@@ -1,5 +1,5 @@
 // Bank Soal Materi Epidemiologi Penyakit Menular (40 Soal)
-const quizData = [
+const epidemiologiQuizData = [
   // --- ISPA & PNEUMONIA (Soal 1-5) ---
   {
     id: 1,
@@ -555,7 +555,7 @@ function shuffleArray(array) {
 }
 
 function initQuiz() {
-  currentQuizData = shuffleArray(quizData);
+  currentQuizData = shuffleArray(epidemiologiQuizData);
   currentIndex = 0;
   userAnswers = new Array(currentQuizData.length).fill(null);
   
@@ -738,7 +738,11 @@ function renderResult() {
   }
 }
 
-// Jalankan otomatis saat file dimuat
-document.addEventListener("DOMContentLoaded", () => {
-  initQuiz();
-});
+// Inisialisasi otomatis saat dimuat
+if (document.readyState === 'loading') {
+    document.addEventListener("DOMContentLoaded", () => {
+        if (typeof initQuiz === 'function') initQuiz();
+    });
+} else {
+    if (typeof initQuiz === 'function') initQuiz();
+}
