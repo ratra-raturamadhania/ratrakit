@@ -193,7 +193,7 @@ const dinamikaKelompokQuizData = [
     question: "Perbedaan mendasar antara Kelompok (Group) dan Tim (Team) terletak pada...",
     options: [
       "Jumlah anggotanya yang selalu berbeda jauh",
-      "AdanyaShared Goal (tujuan bersama) dan saling ketergantungan (interdependent) pada Tim",
+      "Adanya Shared Goal (tujuan bersama) dan saling ketergantungan (interdependent) pada Tim",
       "Kelompok tidak memiliki pemimpin sedangkan Tim selalu memiliki struktur tertulis",
       "Tim hanya dibentuk untuk hubungan sosial jangka panjang"
     ],
@@ -324,7 +324,7 @@ const dinamikaKelompokQuizData = [
   {
     id: 25,
     topic: "Komunikasi Kelompok",
-    question: "Kelompok yang formed untuk memfasilitasi dukungan emosional dan berbagi pengalaman pribadi (seperti kelompok parenting) tergolong kelompok...",
+    question: "Kelompok yang dibentuk untuk memfasilitasi dukungan emosional dan berbagi pengalaman pribadi (seperti kelompok parenting) tergolong kelompok...",
     options: [
       "Kelompok Instruksional",
       "Kelompok Ekspresif",
@@ -403,12 +403,12 @@ const dinamikaKelompokQuizData = [
   }
 ];
 
-// State Management
-let currentQuizData = [];
-let currentIndex = 0;
-let userAnswers = [];
+// State Management khusus Dinamika Kelompok
+let dinamikaCurrentQuizData = [];
+let dinamikaCurrentIndex = 0;
+let dinamikaUserAnswers = [];
 
-function shuffleArray(array) {
+function dinamikaShuffleArray(array) {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -417,39 +417,39 @@ function shuffleArray(array) {
   return shuffled;
 }
 
-function initQuiz() {
-  currentQuizData = shuffleArray(dinamikaKelompokQuizData);
-  currentIndex = 0;
-  userAnswers = new Array(currentQuizData.length).fill(null);
+function initDinamikaQuiz() {
+  dinamikaCurrentQuizData = dinamikaShuffleArray(dinamikaKelompokQuizData);
+  dinamikaCurrentIndex = 0;
+  dinamikaUserAnswers = new Array(dinamikaCurrentQuizData.length).fill(null);
   
-  const totalNumEl = document.getElementById("quiz-total-num");
-  const resultCard = document.getElementById("quiz-result-card");
+  const totalNumEl = document.getElementById("quiz-total-num-dinamika");
+  const resultCard = document.getElementById("quiz-result-card-dinamika");
   
-  if (totalNumEl) totalNumEl.textContent = currentQuizData.length;
+  if (totalNumEl) totalNumEl.textContent = dinamikaCurrentQuizData.length;
   if (resultCard) resultCard.classList.add("hidden");
   
-  renderPalette();
-  renderQuestion();
+  renderDinamikaPalette();
+  renderDinamikaQuestion();
 }
 
-function renderPalette() {
-  const numberPalette = document.getElementById("quiz-number-palette");
+function renderDinamikaPalette() {
+  const numberPalette = document.getElementById("quiz-number-palette-dinamika");
   if (!numberPalette) return;
   numberPalette.innerHTML = "";
 
-  currentQuizData.forEach((_, idx) => {
+  dinamikaCurrentQuizData.forEach((_, idx) => {
     const pBtn = document.createElement("button");
     pBtn.type = "button";
     pBtn.textContent = idx + 1;
     pBtn.style.cssText = "width: 32px; height: 32px; padding: 0; font-size: 0.8rem; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer;";
     
-    if (idx === currentIndex) {
+    if (idx === dinamikaCurrentIndex) {
       pBtn.style.border = "2px solid var(--accent-blue)";
       pBtn.style.fontWeight = "bold";
     }
     
-    if (userAnswers[idx] !== null) {
-      const isCorrect = userAnswers[idx] === currentQuizData[idx].answer;
+    if (dinamikaUserAnswers[idx] !== null) {
+      const isCorrect = dinamikaUserAnswers[idx] === dinamikaCurrentQuizData[idx].answer;
       pBtn.style.backgroundColor = isCorrect ? "#10b981" : "#ef4444";
       pBtn.style.color = "#ffffff";
       pBtn.style.border = "none";
@@ -460,52 +460,52 @@ function renderPalette() {
     }
 
     pBtn.onclick = () => {
-      currentIndex = idx;
-      renderQuestion();
+      dinamikaCurrentIndex = idx;
+      renderDinamikaQuestion();
     };
 
     numberPalette.appendChild(pBtn);
   });
 }
 
-function renderQuestion() {
-  resetQuizState();
-  renderPalette();
+function renderDinamikaQuestion() {
+  resetDinamikaQuizState();
+  renderDinamikaPalette();
 
-  const item = currentQuizData[currentIndex];
+  const item = dinamikaCurrentQuizData[dinamikaCurrentIndex];
 
-  const currentNumEl = document.getElementById("quiz-current-num");
-  const topicTag = document.getElementById("quiz-topic-tag");
-  const questionText = document.getElementById("quiz-question");
-  const progressFill = document.getElementById("quiz-progress-fill");
-  const prevButton = document.getElementById("quiz-prev-btn");
-  const nextButton = document.getElementById("quiz-next-btn");
-  const optionsGrid = document.getElementById("quiz-options");
+  const currentNumEl = document.getElementById("quiz-current-num-dinamika");
+  const topicTag = document.getElementById("quiz-topic-tag-dinamika");
+  const questionText = document.getElementById("quiz-question-dinamika");
+  const progressFill = document.getElementById("quiz-progress-fill-dinamika");
+  const prevButton = document.getElementById("quiz-prev-btn-dinamika");
+  const nextButton = document.getElementById("quiz-next-btn-dinamika");
+  const optionsGrid = document.getElementById("quiz-options-dinamika");
 
-  if (currentNumEl) currentNumEl.textContent = currentIndex + 1;
+  if (currentNumEl) currentNumEl.textContent = dinamikaCurrentIndex + 1;
   if (topicTag) topicTag.textContent = item.topic;
   if (questionText) questionText.textContent = item.question;
 
-  const answeredCount = userAnswers.filter(a => a !== null).length;
-  const pct = (answeredCount / currentQuizData.length) * 100;
+  const answeredCount = dinamikaUserAnswers.filter(a => a !== null).length;
+  const pct = (answeredCount / dinamikaCurrentQuizData.length) * 100;
   if (progressFill) progressFill.style.width = `${pct}%`;
 
   if (prevButton) {
-    if (currentIndex > 0) prevButton.classList.remove("hidden");
+    if (dinamikaCurrentIndex > 0) prevButton.classList.remove("hidden");
     else prevButton.classList.add("hidden");
     prevButton.onclick = () => {
-      if (currentIndex > 0) { currentIndex--; renderQuestion(); }
+      if (dinamikaCurrentIndex > 0) { dinamikaCurrentIndex--; renderDinamikaQuestion(); }
     };
   }
 
   if (nextButton) {
-    nextButton.textContent = (currentIndex === currentQuizData.length - 1) ? "Lihat Hasil Akhir 🎉" : "Soal Selanjutnya \u2192";
+    nextButton.textContent = (dinamikaCurrentIndex === dinamikaCurrentQuizData.length - 1) ? "Lihat Hasil Akhir 🎉" : "Soal Selanjutnya \u2192";
     nextButton.onclick = () => {
-      if (currentIndex < currentQuizData.length - 1) {
-        currentIndex++;
-        renderQuestion();
+      if (dinamikaCurrentIndex < dinamikaCurrentQuizData.length - 1) {
+        dinamikaCurrentIndex++;
+        renderDinamikaQuestion();
       } else {
-        renderResult();
+        renderDinamikaResult();
       }
     };
   }
@@ -517,30 +517,30 @@ function renderQuestion() {
       btn.className = "quiz-opt-btn";
       btn.innerHTML = `<span style="font-weight: 700; color: var(--text-muted);">${String.fromCharCode(65 + idx)}.</span> <span>${optText}</span>`;
       
-      if (userAnswers[currentIndex] !== null) {
+      if (dinamikaUserAnswers[dinamikaCurrentIndex] !== null) {
         btn.disabled = true;
         if (idx === item.answer) {
           btn.classList.add("is-correct");
         }
-        if (userAnswers[currentIndex] === idx && idx !== item.answer) {
+        if (dinamikaUserAnswers[dinamikaCurrentIndex] === idx && idx !== item.answer) {
           btn.classList.add("is-wrong");
         }
       } else {
-        btn.onclick = () => handleSelectOption(idx);
+        btn.onclick = () => handleDinamikaSelectOption(idx);
       }
 
       optionsGrid.appendChild(btn);
     });
   }
 
-  if (userAnswers[currentIndex] !== null) {
-    showFeedback(userAnswers[currentIndex] === item.answer, item.explanation);
+  if (dinamikaUserAnswers[dinamikaCurrentIndex] !== null) {
+    showDinamikaFeedback(dinamikaUserAnswers[dinamikaCurrentIndex] === item.answer, item.explanation);
   }
 }
 
-function resetQuizState() {
-  const feedbackBox = document.getElementById("quiz-feedback");
-  const optionsGrid = document.getElementById("quiz-options");
+function resetDinamikaQuizState() {
+  const feedbackBox = document.getElementById("quiz-feedback-dinamika");
+  const optionsGrid = document.getElementById("quiz-options-dinamika");
 
   if (feedbackBox) {
     feedbackBox.className = "info-box hidden";
@@ -549,13 +549,13 @@ function resetQuizState() {
   if (optionsGrid) optionsGrid.innerHTML = "";
 }
 
-function handleSelectOption(chosenIdx) {
-  userAnswers[currentIndex] = chosenIdx;
-  renderQuestion();
+function handleDinamikaSelectOption(chosenIdx) {
+  dinamikaUserAnswers[dinamikaCurrentIndex] = chosenIdx;
+  renderDinamikaQuestion();
 }
 
-function showFeedback(isCorrect, explanation) {
-  const feedbackBox = document.getElementById("quiz-feedback");
+function showDinamikaFeedback(isCorrect, explanation) {
+  const feedbackBox = document.getElementById("quiz-feedback-dinamika");
   if (!feedbackBox) return;
 
   if (isCorrect) {
@@ -570,32 +570,32 @@ function showFeedback(isCorrect, explanation) {
   feedbackBox.classList.remove("hidden");
 }
 
-function renderResult() {
-  const mainContainer = document.getElementById("quiz-main-container");
-  const resultCard = document.getElementById("quiz-result-card");
-  const finalScoreVal = document.getElementById("quiz-final-score-val");
-  const finalDetailEl = document.getElementById("quiz-final-detail");
-  const restartBtn = document.getElementById("quiz-restart-btn");
+function renderDinamikaResult() {
+  const mainContainer = document.getElementById("quiz-main-container-dinamika");
+  const resultCard = document.getElementById("quiz-result-card-dinamika");
+  const finalScoreVal = document.getElementById("quiz-final-score-val-dinamika");
+  const finalDetailEl = document.getElementById("quiz-final-detail-dinamika");
+  const restartBtn = document.getElementById("quiz-restart-btn-dinamika");
 
   if (mainContainer) mainContainer.classList.add("hidden");
   if (resultCard) resultCard.classList.remove("hidden");
 
   let correctCount = 0;
-  userAnswers.forEach((ans, idx) => {
-    if (ans === currentQuizData[idx].answer) correctCount++;
+  dinamikaUserAnswers.forEach((ans, idx) => {
+    if (ans === dinamikaCurrentQuizData[idx].answer) correctCount++;
   });
 
-  const percentage = Math.round((correctCount / currentQuizData.length) * 100);
+  const percentage = Math.round((correctCount / dinamikaCurrentQuizData.length) * 100);
 
   if (finalScoreVal) finalScoreVal.textContent = percentage;
   if (finalDetailEl) {
-    finalDetailEl.innerHTML = `Kamu berhasil menjawab <strong>${correctCount} dari ${currentQuizData.length} soal</strong> dengan benar.`;
+    finalDetailEl.innerHTML = `Kamu berhasil menjawab <strong>${correctCount} dari ${dinamikaCurrentQuizData.length} soal</strong> dengan benar.`;
   }
 
   if (restartBtn) {
     restartBtn.onclick = () => {
       if (resultCard) resultCard.classList.add("hidden");
-      const startScreen = document.getElementById("quiz-start-screen");
+      const startScreen = document.getElementById("quiz-start-screen-dinamika");
       if (startScreen) startScreen.classList.remove("hidden");
     };
   }
