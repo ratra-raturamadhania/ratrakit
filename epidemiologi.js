@@ -540,28 +540,9 @@ const quizData = [
 ];
 
 // State Management
-let currentQuizData = []; // Array penampung soal yang teracak
+let currentQuizData = [];
 let currentIndex = 0;
 let userAnswers = [];
-
-// Element Selector
-const startScreen = document.getElementById("quiz-start-screen");
-const startBtn = document.getElementById("quiz-start-btn");
-const mainContainer = document.getElementById("quiz-main-container");
-const questionText = document.getElementById("quiz-question");
-const optionsGrid = document.getElementById("quiz-options");
-const feedbackBox = document.getElementById("quiz-feedback");
-const prevButton = document.getElementById("quiz-prev-btn");
-const nextButton = document.getElementById("quiz-next-btn");
-const progressFill = document.getElementById("quiz-progress-fill");
-const currentNumEl = document.getElementById("quiz-current-num");
-const totalNumEl = document.getElementById("quiz-total-num");
-const topicTag = document.getElementById("quiz-topic-tag");
-const numberPalette = document.getElementById("quiz-number-palette");
-const resultCard = document.getElementById("quiz-result-card");
-const finalScoreVal = document.getElementById("quiz-final-score-val");
-const finalDetailEl = document.getElementById("quiz-final-detail");
-const restartBtn = document.getElementById("quiz-restart-btn");
 
 // Algoritma Pengacak Array (Fisher-Yates)
 function shuffleArray(array) {
@@ -573,28 +554,23 @@ function shuffleArray(array) {
   return shuffled;
 }
 
-// Init Event Listeners
-if (startBtn) {
-  startBtn.addEventListener("click", () => {
-    startScreen.classList.add("hidden");
-    mainContainer.classList.remove("hidden");
-    initQuiz();
-  });
-}
-
 function initQuiz() {
-  // Setiap kali kuis dimulai, urutan 40 soal diacak secara otomatis
   currentQuizData = shuffleArray(quizData);
   currentIndex = 0;
   userAnswers = new Array(currentQuizData.length).fill(null);
   
+  const totalNumEl = document.getElementById("quiz-total-num");
+  const resultCard = document.getElementById("quiz-result-card");
+  
   if (totalNumEl) totalNumEl.textContent = currentQuizData.length;
   if (resultCard) resultCard.classList.add("hidden");
+  
   renderPalette();
   renderQuestion();
 }
 
 function renderPalette() {
+  const numberPalette = document.getElementById("quiz-number-palette");
   if (!numberPalette) return;
   numberPalette.innerHTML = "";
 
@@ -602,7 +578,7 @@ function renderPalette() {
     const pBtn = document.createElement("button");
     pBtn.type = "button";
     pBtn.textContent = idx + 1;
-    pBtn.style.cssText = "width: 32px; height: 32px; padding: 0; font-size: 0.8rem; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center;";
+    pBtn.style.cssText = "width: 32px; height: 32px; padding: 0; font-size: 0.8rem; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer;";
     
     if (idx === currentIndex) {
       pBtn.style.border = "2px solid var(--accent-blue)";
@@ -613,6 +589,7 @@ function renderPalette() {
       const isCorrect = userAnswers[idx] === currentQuizData[idx].answer;
       pBtn.style.backgroundColor = isCorrect ? "#10b981" : "#ef4444";
       pBtn.style.color = "#ffffff";
+      pBtn.style.border = "none";
     } else {
       pBtn.style.backgroundColor = "#ffffff";
       pBtn.style.color = "var(--text-color)";
@@ -634,46 +611,64 @@ function renderQuestion() {
 
   const item = currentQuizData[currentIndex];
 
+  const currentNumEl = document.getElementById("quiz-current-num");
+  const topicTag = document.getElementById("quiz-topic-tag");
+  const questionText = document.getElementById("quiz-question");
+  const progressFill = document.getElementById("quiz-progress-fill");
+  const prevButton = document.getElementById("quiz-prev-btn");
+  const nextButton = document.getElementById("quiz-next-btn");
+  const optionsGrid = document.getElementById("quiz-options");
+
   if (currentNumEl) currentNumEl.textContent = currentIndex + 1;
   if (topicTag) topicTag.textContent = item.topic;
   if (questionText) questionText.textContent = item.question;
 
-  // Update Progress Line
   const answeredCount = userAnswers.filter(a => a !== null).length;
   const pct = (answeredCount / currentQuizData.length) * 100;
   if (progressFill) progressFill.style.width = `${pct}%`;
 
-  // Control Prev/Next Button
   if (prevButton) {
     if (currentIndex > 0) prevButton.classList.remove("hidden");
     else prevButton.classList.add("hidden");
+    prevButton.onclick = () => {
+      if (currentIndex > 0) { currentIndex--; renderQuestion(); }
+    };
   }
 
   if (nextButton) {
     nextButton.textContent = (currentIndex === currentQuizData.length - 1) ? "Lihat Hasil Akhir 🎉" : "Soal Selanjutnya \u2192";
+    nextButton.onclick = () => {
+      if (currentIndex < currentQuizData.length - 1) {
+        currentIndex++;
+        renderQuestion();
+      } else {
+        renderResult();
+      }
+    };
   }
 
-  // Render Options
-  item.options.forEach((optText, idx) => {
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "quiz-opt-btn";
-    btn.innerHTML = `<span class="opt-key">${String.fromCharCode(65 + idx)}.</span> <span>${optText}</span>`;
-    
-    if (userAnswers[currentIndex] !== null) {
-      btn.disabled = true;
-      if (idx === item.answer) {
-        btn.classList.add("is-correct");
+  if (optionsGrid) {
+    item.options.forEach((optText, idx) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "quiz-opt-btn";
+      btn.innerHTML = `<span style="font-weight: 700; color: var(--text-muted);">${String.fromCharCode(65 + idx)}.</span> <span>${optText}</span>`;
+      
+      if (userAnswers[currentIndex] !== null) {
+        btn.disabled = true;
+        if (idx === item.answer) {
+          btn.classList.add("is-correct");
+        }
+        if (userAnswers[currentIndex] === idx && idx !== item.answer) {
+          btn.classList.add("is-wrong");
+        }
+      } else {
+        btn.onclick = () => handleSelectOption(idx);
       }
-      if (userAnswers[currentIndex] === idx && idx !== item.answer) {
-        btn.classList.add("is-wrong");
-      }
-    } else {
-      btn.onclick = () => handleSelectOption(idx);
-    }
 
-    optionsGrid.appendChild(btn);
-  });
+      optionsGrid.appendChild(btn);
+    });
+  }
 
   if (userAnswers[currentIndex] !== null) {
     showFeedback(userAnswers[currentIndex] === item.answer, item.explanation);
@@ -681,6 +676,9 @@ function renderQuestion() {
 }
 
 function resetQuizState() {
+  const feedbackBox = document.getElementById("quiz-feedback");
+  const optionsGrid = document.getElementById("quiz-options");
+
   if (feedbackBox) {
     feedbackBox.className = "info-box hidden";
     feedbackBox.innerHTML = "";
@@ -694,40 +692,30 @@ function handleSelectOption(chosenIdx) {
 }
 
 function showFeedback(isCorrect, explanation) {
+  const feedbackBox = document.getElementById("quiz-feedback");
+  if (!feedbackBox) return;
+
   if (isCorrect) {
-    feedbackBox.className = "info-box is-correct-box";
+    feedbackBox.className = "info-box";
+    feedbackBox.style.cssText = "background-color: var(--success-bg); border-left: 4px solid var(--secondary-color); color: #065f46;";
     feedbackBox.innerHTML = `<strong>Jawaban Benar!</strong> ${explanation}`;
   } else {
-    feedbackBox.className = "info-box is-wrong-box";
+    feedbackBox.className = "info-box";
+    feedbackBox.style.cssText = "background-color: var(--danger-bg); border-left: 4px solid var(--danger-color); color: #991b1b;";
     feedbackBox.innerHTML = `<strong>Kurang Tepat.</strong> ${explanation}`;
   }
   feedbackBox.classList.remove("hidden");
 }
 
-// Navigation Handlers
-if (prevButton) {
-  prevButton.addEventListener("click", () => {
-    if (currentIndex > 0) {
-      currentIndex--;
-      renderQuestion();
-    }
-  });
-}
-
-if (nextButton) {
-  nextButton.addEventListener("click", () => {
-    if (currentIndex < currentQuizData.length - 1) {
-      currentIndex++;
-      renderQuestion();
-    } else {
-      renderResult();
-    }
-  });
-}
-
 function renderResult() {
-  mainContainer.classList.add("hidden");
-  resultCard.classList.remove("hidden");
+  const mainContainer = document.getElementById("quiz-main-container");
+  const resultCard = document.getElementById("quiz-result-card");
+  const finalScoreVal = document.getElementById("quiz-final-score-val");
+  const finalDetailEl = document.getElementById("quiz-final-detail");
+  const restartBtn = document.getElementById("quiz-restart-btn");
+
+  if (mainContainer) mainContainer.classList.add("hidden");
+  if (resultCard) resultCard.classList.remove("hidden");
 
   let correctCount = 0;
   userAnswers.forEach((ans, idx) => {
@@ -740,11 +728,12 @@ function renderResult() {
   if (finalDetailEl) {
     finalDetailEl.innerHTML = `Kamu berhasil menjawab <strong>${correctCount} dari ${currentQuizData.length} soal</strong> dengan benar.`;
   }
-}
 
-if (restartBtn) {
-  restartBtn.addEventListener("click", () => {
-    resultCard.classList.add("hidden");
-    startScreen.classList.remove("hidden");
-  });
+  if (restartBtn) {
+    restartBtn.onclick = () => {
+      if (resultCard) resultCard.classList.add("hidden");
+      const startScreen = document.getElementById("quiz-start-screen");
+      if (startScreen) startScreen.classList.remove("hidden");
+    };
+  }
 }
