@@ -6,7 +6,7 @@
     <title>Ratrakit - Interactive Web Tools & Modular Suites</title>
     <link rel="stylesheet" href="style.css">
 
-    <!-- MathJax versi aman tanpa polyfill.io -->
+    <!-- MathJax tanpa polyfill -->
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
@@ -35,7 +35,7 @@
 
     <main class="app-container">
 
-        <!-- 1. BERANDA / LANDING PAGE -->
+        <!-- BERANDA -->
         <section id="tab-home" class="tab-content active">
             <div class="hero-banner">
                 <div class="hero-badge">Interactive Web Tools Suite</div>
@@ -78,7 +78,7 @@
             </div>
         </section>
 
-        <!-- 2. KALKULATOR Z-SCORE -->
+        <!-- KALKULATOR Z-SCORE -->
         <section id="tab-kalkulator" class="tab-content">
             <div class="page-title">
                 <h2>Kalkulator & Visualisasi Kurva Z-Score</h2>
@@ -135,7 +135,7 @@
             </div>
         </section>
 
-        <!-- 3. LATIHAN SOAL UTS -->
+        <!-- LATIHAN SOAL UTS -->
         <section id="tab-uts" class="tab-content">
             <div class="page-title">
                 <h2>Modul Latihan Soal UTS Biostatistik</h2>
@@ -156,7 +156,7 @@
             </div>
         </section>
 
-        <!-- 4. EPIDEMIOLOGI -->
+        <!-- EPIDEMIOLOGI -->
         <section id="tab-epidemiologi" class="tab-content">
             <div class="page-title">
                 <h2>Epidemiologi Penyakit Menular</h2>
@@ -237,7 +237,7 @@
             }
 
             if (tabName === 'epidemiologi') {
-                runEpidemiologiDirect();
+                startEpidemiologiQuiz();
             }
         }
 
@@ -245,7 +245,7 @@
             document.getElementById('navLinks').classList.toggle('open');
         }
 
-        function runEpidemiologiDirect() {
+        function startEpidemiologiQuiz() {
             const startScreen = document.getElementById("quiz-start-screen");
             const mainContainer = document.getElementById("quiz-main-container");
             
@@ -256,17 +256,6 @@
                 initQuiz();
             }
         }
-
-        function startEpidemiologiQuiz() {
-            runEpidemiologiDirect();
-        }
-
-        // Panggil saat pertama kali dimuat jika user langsung di tab epidemiologi
-        document.addEventListener("DOMContentLoaded", () => {
-            if (typeof initQuiz === 'function') {
-                initQuiz();
-            }
-        });
     </script>
 </body>
 </html>
