@@ -16,6 +16,7 @@
     <header class="top-nav">
         <div class="nav-container">
             <div class="brand" onclick="switchMainTab('home')">
+                <span class="brand-logo">R</span>
                 <span class="brand-name">Ratrakit</span>
                 <span class="brand-tag">v2.0</span>
             </div>
@@ -35,50 +36,50 @@
 
     <main class="app-container">
 
-        <!-- 1. LANDING PAGE / BERANDA -->
+        <!-- 1. BERANDA / LANDING PAGE -->
         <section id="tab-home" class="tab-content active">
             <div class="hero-banner">
-                <div class="hero-badge">Interactive Learning & Web Tools</div>
-                <h1>Platform Tools & Modul Interaktif Modern</h1>
-                <p>Eksplorasi kalkulator kurva statistik real-time, modul simulasi ujian, dan bank latihan soal interaktif dalam satu ekosistem web.</p>
+                <div class="hero-badge">Interactive Web Tools Suite</div>
+                <h1>Platform Tools & Learning Space Modern</h1>
+                <p>Eksplorasi kalkulator kurva statistik real-time, modul simulasi ujian, dan bank kuis interaktif dalam satu portal visual yang bersih.</p>
                 
                 <div class="hero-actions">
                     <button class="btn-primary" onclick="switchMainTab('kalkulator')">Coba Kalkulator Z</button>
-                    <button class="btn-secondary" onclick="switchMainTab('epidemiologi')">Mulai Latihan Kuis</button>
+                    <button class="btn-secondary" onclick="switchMainTab('epidemiologi')">Mulai Kuis Epidemiologi</button>
                 </div>
             </div>
 
             <div class="features-grid">
                 <div class="feature-card" onclick="switchMainTab('kalkulator')">
-                    <div class="feature-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
+                    <div class="feature-icon icon-blue">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
                     </div>
                     <h3>Kalkulator & Kurva Z-Score</h3>
-                    <p>Hitung probabilitas distribusi normal standar dan lihat visualisasi pengarsiran area kurva secara dinamis via HTML5 Canvas.</p>
+                    <p>Hitung probabilitas distribusi normal standar dan lihat arsir area kurva secara otomatis via HTML5 Canvas.</p>
                     <span class="card-link">Buka Tools &rarr;</span>
                 </div>
 
                 <div class="feature-card" onclick="switchMainTab('uts')">
-                    <div class="feature-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    <div class="feature-icon icon-purple">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
                     </div>
                     <h3>Latihan Soal UTS Biostatistik</h3>
-                    <p>Modul simulasi soal-soal perhitungan distribusi Poisson, Binomial, dan Normal lengkap dengan perenderan rumus MathJax.</p>
-                    <span class="card-link">Mulai Latihan &rarr;</span>
+                    <p>Simulasi pembahasan soal Poisson, Binomial, dan Normal dengan perenderan rumus MathJax yang presisi.</p>
+                    <span class="card-link">Lihat Pembahasan &rarr;</span>
                 </div>
 
                 <div class="feature-card" onclick="switchMainTab('epidemiologi')">
-                    <div class="feature-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    <div class="feature-icon icon-emerald">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
                     </div>
                     <h3>Epidemiologi Penyakit Menular</h3>
-                    <p>40 bank soal kuis pilihan ganda teracak dengan navigasi nomor CBT, feedback jawaban seketika, dan kalkulasi skor.</p>
+                    <p>40 bank soal kuis pilihan ganda teracak dengan navigasi CBT, feedback jawaban, dan visualisasi skor.</p>
                     <span class="card-link">Mulai Kuis &rarr;</span>
                 </div>
             </div>
         </section>
 
-        <!-- 2. KALKULATOR & TABEL Z -->
+        <!-- 2. KALKULATOR Z-SCORE -->
         <section id="tab-kalkulator" class="tab-content">
             <div class="page-title">
                 <h2>Kalkulator & Visualisasi Kurva Z-Score</h2>
@@ -87,10 +88,10 @@
 
             <div class="card">
                 <div class="curve-legend">
-                    <p style="margin: 0; font-size: 0.9rem;">
+                    <p style="margin: 0;">
                         <strong>Cara Membaca Kurva:</strong> 
-                        <span style="color: #10b981;">■ Area Berwarna</span> melambangkan <strong>Area Kiri P(Z &lt; z)</strong>. 
-                        <span style="color: #64748b;">□ Area Putih</span> melambangkan <strong>Area Kanan P(Z &gt; z)</strong>.
+                        <span class="badge-emerald">■ Area Berwarna</span> melambangkan <strong>Area Kiri P(Z &lt; z)</strong>. 
+                        <span class="badge-slate">□ Area Putih</span> melambangkan <strong>Area Kanan P(Z &gt; z)</strong>.
                     </p>
                 </div>
 
@@ -121,9 +122,9 @@
 
             <div class="card">
                 <h2>Tabel Distribusi Normal Standar</h2>
-                <div class="tab-buttons" style="margin-bottom: 1rem;">
-                    <button class="tab-btn active" onclick="switchTable('positive')">Nilai Z Positif (0.0 s/d 3.4)</button>
-                    <button class="tab-btn" onclick="switchTable('negative')">Nilai Z Negatif (-3.4 s/d 0.0)</button>
+                <div class="pill-tabs">
+                    <button class="pill-btn active" id="btn-pos-table" onclick="switchTable('positive')">Nilai Z Positif (0.0 s/d 3.4)</button>
+                    <button class="pill-btn" id="btn-neg-table" onclick="switchTable('negative')">Nilai Z Negatif (-3.4 s/d 0.0)</button>
                 </div>
 
                 <div id="posTableWrapper" class="table-responsive">
@@ -135,24 +136,24 @@
             </div>
         </section>
 
-        <!-- 3. SOAL UTS -->
+        <!-- 3. LATIHAN SOAL UTS -->
         <section id="tab-uts" class="tab-content">
             <div class="page-title">
-                <h2>Modul Latihan Soal UTS</h2>
-                <p>Pilih nomor soal, ketik jawaban kamu, lalu cek pembahasan resminya.</p>
+                <h2>Modul Latihan Soal UTS Biostatistik</h2>
+                <p>Pilih nomor soal, ketik jawaban kamu, lalu cek pembahasan resminya secara interaktif.</p>
             </div>
 
             <div class="card">
-                <div class="tab-buttons" style="flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
-                    <button class="tab-btn active" onclick="showQuiz(1)">Soal 1 (Z-Hb)</button>
-                    <button class="tab-btn" onclick="showQuiz(2)">Soal 2 (Z-Buku)</button>
-                    <button class="tab-btn" onclick="showQuiz(3)">Soal 3 (Poisson)</button>
-                    <button class="tab-btn" onclick="showQuiz(4)">Soal 4 (Binomial)</button>
-                    <button class="tab-btn" onclick="showQuiz(5)">Soal 5 (Peluang Tabel)</button>
-                    <button class="tab-btn" onclick="showQuiz(6)">Soal 6 (Boxplot)</button>
+                <div class="pill-tabs">
+                    <button class="pill-btn active" onclick="showQuiz(1)">Soal 1 (Z-Hb)</button>
+                    <button class="pill-btn" onclick="showQuiz(2)">Soal 2 (Z-Buku)</button>
+                    <button class="pill-btn" onclick="showQuiz(3)">Soal 3 (Poisson)</button>
+                    <button class="pill-btn" onclick="showQuiz(4)">Soal 4 (Binomial)</button>
+                    <button class="pill-btn" onclick="showQuiz(5)">Soal 5 (Peluang Tabel)</button>
+                    <button class="pill-btn" onclick="showQuiz(6)">Soal 6 (Boxplot)</button>
                 </div>
 
-                <div id="quizContainer" class="info-box" style="background: #ffffff; border: 1px solid var(--border-color); padding: 1.5rem;"></div>
+                <div id="quizContainer" class="uts-container-box"></div>
             </div>
         </section>
 
@@ -164,47 +165,47 @@
             </div>
 
             <div class="card">
-                <div id="quiz-start-screen" style="text-align: center; padding: 2.5rem 1rem;">
-                    <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--primary-color);">Modul Latihan Epidemiologi</h3>
-                    <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95rem;">Terdiri dari 40 soal pilihan ganda acak dengan navigasi nomor dan pembahasan langsung.</p>
-                    <button id="quiz-start-btn" type="button" class="btn-primary" style="max-width: 200px; margin: 0 auto;">Mulai Latihan</button>
+                <div id="quiz-start-screen" class="start-banner">
+                    <h3>Modul Latihan Epidemiologi</h3>
+                    <p>Terdiri dari 40 soal pilihan ganda acak dengan navigasi nomor dan pembahasan langsung.</p>
+                    <button id="quiz-start-btn" type="button" class="btn-primary" onclick="startEpidemiologiQuiz()">Mulai Latihan</button>
                 </div>
 
                 <div id="quiz-main-container" class="hidden">
-                    <div style="background-color: var(--border-color); height: 6px; border-radius: 3px; overflow: hidden; margin-bottom: 1.25rem;">
-                        <div id="quiz-progress-fill" style="background-color: var(--secondary-color); height: 100%; width: 0%; transition: width 0.3s ease;"></div>
+                    <div class="progress-bar-bg">
+                        <div id="quiz-progress-fill" class="progress-bar-fill"></div>
                     </div>
 
                     <div style="margin-bottom: 1.5rem;">
-                        <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 0.5rem;">Navigasi Nomor Soal:</span>
-                        <div id="quiz-number-palette" style="display: flex; flex-wrap: wrap; gap: 0.4rem; max-height: 120px; overflow-y: auto; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); background: #f8fafc;"></div>
+                        <span class="palette-title">Navigasi Nomor Soal:</span>
+                        <div id="quiz-number-palette" class="palette-grid"></div>
                     </div>
 
                     <div id="quiz-card">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                            <span id="quiz-topic-tag" style="background-color: #f1f5f9; color: var(--primary-light); padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 600; font-size: 0.8rem; border: 1px solid var(--border-color);">Topik</span>
-                            <span style="font-size: 0.85rem; color: var(--text-muted);">Soal <strong id="quiz-current-num">1</strong> dari <strong id="quiz-total-num">40</strong></span>
+                        <div class="quiz-card-header">
+                            <span id="quiz-topic-tag" class="topic-tag">Topik</span>
+                            <span class="question-counter">Soal <strong id="quiz-current-num">1</strong> dari <strong id="quiz-total-num">40</strong></span>
                         </div>
 
-                        <h3 id="quiz-question" style="font-size: 1.1rem; color: var(--primary-color); margin-bottom: 1.2rem; line-height: 1.5;">Memuat soal...</h3>
-                        <div id="quiz-options" style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.2rem;"></div>
+                        <h3 id="quiz-question" class="question-text">Memuat soal...</h3>
+                        <div id="quiz-options" class="options-container"></div>
                         <div id="quiz-feedback" class="info-box hidden"></div>
 
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; gap: 1rem;">
-                            <button id="quiz-prev-btn" type="button" class="btn-secondary hidden" style="width: auto;">&larr; Soal Sebelumnya</button>
-                            <button id="quiz-next-btn" type="button" class="btn-primary" style="width: auto; margin-left: auto;">Soal Selanjutnya &rarr;</button>
+                        <div class="quiz-nav-footer">
+                            <button id="quiz-prev-btn" type="button" class="btn-secondary hidden">&larr; Soal Sebelumnya</button>
+                            <button id="quiz-next-btn" type="button" class="btn-primary" style="margin-left: auto;">Soal Selanjutnya &rarr;</button>
                         </div>
                     </div>
                 </div>
 
-                <div id="quiz-result-card" class="hidden" style="text-align: center; padding: 2rem 0;">
-                    <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem;">Latihan Selesai</h3>
-                    <div style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; width: 120px; height: 120px; border-radius: 50%; background: var(--success-bg); border: 3px solid var(--secondary-color); margin: 1.25rem 0;">
-                        <span id="quiz-final-score-val" style="font-size: 2.2rem; font-weight: 800; color: #065f46;">0</span>
-                        <span style="font-size: 0.75rem; color: #047857; font-weight: 600; letter-spacing: 0.05em;">SKOR AKHIR</span>
+                <div id="quiz-result-card" class="hidden result-banner">
+                    <h3>Latihan Selesai</h3>
+                    <div class="score-circle">
+                        <span id="quiz-final-score-val" class="score-num">0</span>
+                        <span class="score-label">SKOR AKHIR</span>
                     </div>
-                    <p id="quiz-final-detail" style="margin-bottom: 1.5rem; font-size: 0.95rem; color: var(--text-muted);"></p>
-                    <button id="quiz-restart-btn" type="button" class="btn-primary" style="max-width: 200px; margin: 0 auto;">Coba Lagi</button>
+                    <p id="quiz-final-detail" class="score-detail"></p>
+                    <button id="quiz-restart-btn" type="button" class="btn-primary" style="margin: 0 auto;">Coba Lagi</button>
                 </div>
             </div>
         </section>
@@ -230,18 +231,25 @@
             if(targetTab) targetTab.classList.add('active');
             if(targetBtn) targetBtn.classList.add('active');
 
-            // Scroll ke atas dengan halus saat ganti tab
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // Pemicu khusus agar kalkulator canvas langsung digambar ulang pas tab dibuka
             if (tabName === 'kalkulator' && typeof calculateZ === 'function') {
                 setTimeout(calculateZ, 100);
             }
         }
 
         function toggleNavMenu() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('open');
+            document.getElementById('navLinks').classList.toggle('open');
+        }
+
+        function startEpidemiologiQuiz() {
+            if (typeof initQuiz === 'function') {
+                const startScreen = document.getElementById("quiz-start-screen");
+                const mainContainer = document.getElementById("quiz-main-container");
+                if (startScreen) startScreen.classList.add("hidden");
+                if (mainContainer) mainContainer.classList.remove("hidden");
+                initQuiz();
+            }
         }
     </script>
 </body>
