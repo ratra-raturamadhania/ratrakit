@@ -1,4 +1,4 @@
-// Bank Soal Epidemiologi Penyakit Menular
+// Data Soal Latihan Epidemiologi Penyakit Menular
 const quizData = [
   {
     id: 1,
@@ -24,7 +24,7 @@ const quizData = [
       "Penggunaan sarung tangan medis saat merawat pasien"
     ],
     answer: 1,
-    explanation: "Virus Ebola ditularkan melalui cairan tubuh. Tradisi memandikan/memeluk jenazah penderita Ebola menjadi salah satu rantai penularan paling utama."
+    explanation: "Virus Ebola ditularkan melalui cairan tubuh. Tradisi memandikan atau memeluk jenazah penderita Ebola menjadi salah satu rantai penularan utama."
   },
   {
     id: 3,
@@ -37,7 +37,7 @@ const quizData = [
       "Tikus rumah"
     ],
     answer: 2,
-    explanation: "MERS-CoV (Middle East Respiratory Syndrome) menular ke manusia terutama dari kontak langsung/tidak langsung dengan unta dromedaris."
+    explanation: "MERS-CoV (Middle East Respiratory Syndrome) menular ke manusia terutama dari kontak langsung atau tidak langsung dengan unta dromedaris."
   },
   {
     id: 4,
@@ -50,7 +50,7 @@ const quizData = [
       "Mengonsumsi telur setengah matang"
     ],
     answer: 1,
-    explanation: "Virus Influenza A (H5N1) mati pada suhu pemasakan yang tinggi. Mengonsumsi daging unggas matang sempurna dan memprosesnya higienis mencegah risiko penularan."
+    explanation: "Virus Influenza A (H5N1) mati pada suhu pemasakan yang tinggi. Mengonsumsi daging unggas matang sempurna dan memprosesnya secara higienis mencegah risiko penularan."
   },
   {
     id: 5,
@@ -80,104 +80,110 @@ const quizData = [
   }
 ];
 
-// State Management
-let currentQuestionIndex = 0;
-let score = 0;
-let userAnswers = [];
+// Variable State
+let currentIndex = 0;
+let userScore = 0;
 
-// DOM Elements
+// Element Selector
 const quizCard = document.getElementById("quiz-card");
-const questionText = document.getElementById("question-text");
-const optionsContainer = document.getElementById("options-container");
-const feedbackText = document.getElementById("feedback-text");
-const nextBtn = document.getElementById("next-btn");
-const progressFill = document.getElementById("progress-fill");
-const currentNumEl = document.getElementById("current-num");
-const totalNumEl = document.getElementById("total-num");
-const topicBadge = document.getElementById("topic-badge");
-const resultCard = document.getElementById("result-card");
-const scoreText = document.getElementById("score-text");
+const questionText = document.getElementById("quiz-question");
+const optionsGrid = document.getElementById("quiz-options");
+const feedbackBox = document.getElementById("quiz-feedback");
+const nextButton = document.getElementById("quiz-next-btn");
+const progressFill = document.getElementById("quiz-progress-fill");
+const currentNumEl = document.getElementById("quiz-current-num");
+const totalNumEl = document.getElementById("quiz-total-num");
+const topicTag = document.getElementById("quiz-topic-tag");
+const resultCard = document.getElementById("quiz-result-card");
+const finalScoreEl = document.getElementById("quiz-final-score");
 
-function initQuiz() {
-  currentQuestionIndex = 0;
-  score = 0;
-  userAnswers = [];
-  totalNumEl.textContent = quizData.length;
-  resultCard.classList.add("hidden");
-  quizCard.classList.remove("hidden");
-  showQuestion();
+function startQuiz() {
+  currentIndex = 0;
+  userScore = 0;
+  if (totalNumEl) totalNumEl.textContent = quizData.length;
+  if (resultCard) resultCard.classList.add("hidden");
+  if (quizCard) quizCard.classList.remove("hidden");
+  renderQuestion();
 }
 
-function showQuestion() {
-  resetState();
-  const q = quizData[currentQuestionIndex];
-  
-  currentNumEl.textContent = currentQuestionIndex + 1;
-  topicBadge.textContent = q.topic;
-  questionText.textContent = q.question;
-  
-  // Progress bar update
-  const progressPercent = ((currentQuestionIndex) / quizData.length) * 100;
-  progressFill.style.width = `${progressPercent}%`;
+function renderQuestion() {
+  resetQuizState();
+  const item = quizData[currentIndex];
 
-  q.options.forEach((opt, idx) => {
+  if (currentNumEl) currentNumEl.textContent = currentIndex + 1;
+  if (topicTag) topicTag.textContent = item.topic;
+  if (questionText) questionText.textContent = item.question;
+
+  // Update Progress Line
+  const pct = ((currentIndex) / quizData.length) * 100;
+  if (progressFill) progressFill.style.width = `${pct}%`;
+
+  item.options.forEach((optText, idx) => {
     const btn = document.createElement("button");
-    btn.className = "opt-btn";
-    btn.innerHTML = `<span class="opt-prefix">${String.fromCharCode(65 + idx)}.</span> <span class="opt-label">${opt}</span>`;
-    btn.addEventListener("click", () => selectAnswer(idx));
-    optionsContainer.appendChild(btn);
+    btn.type = "button";
+    btn.className = "quiz-opt-btn";
+    btn.innerHTML = `<span class="opt-key">${String.fromCharCode(65 + idx)}.</span> <span>${optText}</span>`;
+    btn.onclick = () => handleSelectOption(idx);
+    optionsGrid.appendChild(btn);
   });
 }
 
-function resetState() {
-  nextBtn.classList.add("hidden");
-  feedbackText.classList.add("hidden");
-  feedbackText.className = "feedback-box hidden";
-  optionsContainer.innerHTML = "";
+function resetQuizState() {
+  if (nextButton) nextButton.classList.add("hidden");
+  if (feedbackBox) {
+    feedbackBox.className = "info-box hidden";
+    feedbackBox.innerHTML = "";
+  }
+  if (optionsGrid) optionsGrid.innerHTML = "";
 }
 
-function selectAnswer(selectedIdx) {
-  const q = quizData[currentQuestionIndex];
-  const buttons = optionsContainer.querySelectorAll(".opt-btn");
-  
-  // Disable all options after selection
-  buttons.forEach(btn => btn.disabled = true);
+function handleSelectOption(chosenIdx) {
+  const item = quizData[currentIndex];
+  const allBtns = optionsGrid.querySelectorAll(".quiz-opt-btn");
 
-  if (selectedIdx === q.answer) {
-    score++;
-    buttons[selectedIdx].classList.add("correct");
-    feedbackText.innerHTML = `<strong>Benar!</strong> ${q.explanation}`;
-    feedbackText.classList.add("correct");
+  allBtns.forEach(b => b.disabled = true);
+
+  if (chosenIdx === item.answer) {
+    userScore++;
+    allBtns[chosenIdx].classList.add("is-correct");
+    feedbackBox.className = "info-box is-correct-box";
+    feedbackBox.innerHTML = `<strong>Jawaban Tepat!</strong> ${item.explanation}`;
   } else {
-    buttons[selectedIdx].classList.add("wrong");
-    buttons[q.answer].classList.add("correct");
-    feedbackText.innerHTML = `<strong>Kurang tepat.</strong> ${q.explanation}`;
-    feedbackText.classList.add("wrong");
+    allBtns[chosenIdx].classList.add("is-wrong");
+    allBtns[item.answer].classList.add("is-correct");
+    feedbackBox.className = "info-box is-wrong-box";
+    feedbackBox.innerHTML = `<strong>Kurang Tepat.</strong> ${item.explanation}`;
   }
 
-  feedbackText.classList.remove("hidden");
-  nextBtn.classList.remove("hidden");
+  feedbackBox.classList.remove("hidden");
+  nextButton.classList.remove("hidden");
 }
 
-nextBtn.addEventListener("click", () => {
-  currentQuestionIndex++;
-  if (currentQuestionIndex < quizData.length) {
-    showQuestion();
-  } else {
-    showResult();
-  }
-});
+if (nextButton) {
+  nextButton.addEventListener("click", () => {
+    currentIndex++;
+    if (currentIndex < quizData.length) {
+      renderQuestion();
+    } else {
+      renderResult();
+    }
+  });
+}
 
-function showResult() {
+function renderResult() {
   quizCard.classList.add("hidden");
   resultCard.classList.remove("hidden");
-  progressFill.style.width = "100%";
-  
-  const percentage = Math.round((score / quizData.length) * 100);
-  scoreText.innerHTML = `Skor Kamu: <strong>${score} / ${quizData.length}</strong> (${percentage}%)`;
+  if (progressFill) progressFill.style.width = "100%";
+
+  const percentage = Math.round((userScore / quizData.length) * 100);
+  if (finalScoreEl) {
+    finalScoreEl.innerHTML = `Skor Akhir Anda: <strong>${userScore} dari ${quizData.length}</strong> (${percentage}%)`;
+  }
 }
 
-document.getElementById("restart-btn")?.addEventListener("click", initQuiz);
+const restartBtn = document.getElementById("quiz-restart-btn");
+if (restartBtn) {
+  restartBtn.addEventListener("click", startQuiz);
+}
 
-// Start
-document.addEventListener("DOMContentLoaded", initQuiz);
+document.addEventListener("DOMContentLoaded", startQuiz);
