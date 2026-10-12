@@ -540,10 +540,11 @@ const quizData = [
 ];
 
 // State Management
+let currentQuizData = []; // Array penampung soal yang teracak
 let currentIndex = 0;
-let userAnswers = new Array(quizData.length).fill(null); // Menyimpan pilihan user per soal
+let userAnswers = [];
 
-// Elements
+// Element Selector
 const startScreen = document.getElementById("quiz-start-screen");
 const startBtn = document.getElementById("quiz-start-btn");
 const mainContainer = document.getElementById("quiz-main-container");
@@ -562,6 +563,16 @@ const finalScoreVal = document.getElementById("quiz-final-score-val");
 const finalDetailEl = document.getElementById("quiz-final-detail");
 const restartBtn = document.getElementById("quiz-restart-btn");
 
+// Algoritma Pengacak Array (Fisher-Yates)
+function shuffleArray(array) {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
 // Init Event Listeners
 if (startBtn) {
   startBtn.addEventListener("click", () => {
@@ -572,9 +583,12 @@ if (startBtn) {
 }
 
 function initQuiz() {
+  // Setiap kali kuis dimulai, urutan 40 soal diacak secara otomatis
+  currentQuizData = shuffleArray(quizData);
   currentIndex = 0;
-  userAnswers.fill(null);
-  if (totalNumEl) totalNumEl.textContent = quizData.length;
+  userAnswers = new Array(currentQuizData.length).fill(null);
+  
+  if (totalNumEl) totalNumEl.textContent = currentQuizData.length;
   if (resultCard) resultCard.classList.add("hidden");
   renderPalette();
   renderQuestion();
@@ -584,20 +598,19 @@ function renderPalette() {
   if (!numberPalette) return;
   numberPalette.innerHTML = "";
 
-  quizData.forEach((_, idx) => {
+  currentQuizData.forEach((_, idx) => {
     const pBtn = document.createElement("button");
     pBtn.type = "button";
     pBtn.textContent = idx + 1;
     pBtn.style.cssText = "width: 32px; height: 32px; padding: 0; font-size: 0.8rem; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center;";
     
-    // Style Status Soal di Palette
     if (idx === currentIndex) {
       pBtn.style.border = "2px solid var(--accent-blue)";
       pBtn.style.fontWeight = "bold";
     }
     
     if (userAnswers[idx] !== null) {
-      const isCorrect = userAnswers[idx] === quizData[idx].answer;
+      const isCorrect = userAnswers[idx] === currentQuizData[idx].answer;
       pBtn.style.backgroundColor = isCorrect ? "#10b981" : "#ef4444";
       pBtn.style.color = "#ffffff";
     } else {
@@ -619,15 +632,15 @@ function renderQuestion() {
   resetQuizState();
   renderPalette();
 
-  const item = quizData[currentIndex];
+  const item = currentQuizData[currentIndex];
 
   if (currentNumEl) currentNumEl.textContent = currentIndex + 1;
   if (topicTag) topicTag.textContent = item.topic;
   if (questionText) questionText.textContent = item.question;
 
-  // Update Progress Bar
+  // Update Progress Line
   const answeredCount = userAnswers.filter(a => a !== null).length;
-  const pct = (answeredCount / quizData.length) * 100;
+  const pct = (answeredCount / currentQuizData.length) * 100;
   if (progressFill) progressFill.style.width = `${pct}%`;
 
   // Control Prev/Next Button
@@ -637,7 +650,7 @@ function renderQuestion() {
   }
 
   if (nextButton) {
-    nextButton.textContent = (currentIndex === quizData.length - 1) ? "Lihat Hasil Akhir 🎉" : "Soal Selanjutnya \u2192";
+    nextButton.textContent = (currentIndex === currentQuizData.length - 1) ? "Lihat Hasil Akhir 🎉" : "Soal Selanjutnya \u2192";
   }
 
   // Render Options
@@ -647,7 +660,6 @@ function renderQuestion() {
     btn.className = "quiz-opt-btn";
     btn.innerHTML = `<span class="opt-key">${String.fromCharCode(65 + idx)}.</span> <span>${optText}</span>`;
     
-    // Check Status Jika Sudah Pernah Dijawab
     if (userAnswers[currentIndex] !== null) {
       btn.disabled = true;
       if (idx === item.answer) {
@@ -663,7 +675,6 @@ function renderQuestion() {
     optionsGrid.appendChild(btn);
   });
 
-  // Render Feedback Jika Sudah Dijawab
   if (userAnswers[currentIndex] !== null) {
     showFeedback(userAnswers[currentIndex] === item.answer, item.explanation);
   }
@@ -679,9 +690,7 @@ function resetQuizState() {
 
 function handleSelectOption(chosenIdx) {
   userAnswers[currentIndex] = chosenIdx;
-  const item = quizData[currentIndex];
-
-  renderQuestion(); // Re-render option state & feedback
+  renderQuestion();
 }
 
 function showFeedback(isCorrect, explanation) {
@@ -707,7 +716,7 @@ if (prevButton) {
 
 if (nextButton) {
   nextButton.addEventListener("click", () => {
-    if (currentIndex < quizData.length - 1) {
+    if (currentIndex < currentQuizData.length - 1) {
       currentIndex++;
       renderQuestion();
     } else {
@@ -722,14 +731,14 @@ function renderResult() {
 
   let correctCount = 0;
   userAnswers.forEach((ans, idx) => {
-    if (ans === quizData[idx].answer) correctCount++;
+    if (ans === currentQuizData[idx].answer) correctCount++;
   });
 
-  const percentage = Math.round((correctCount / quizData.length) * 100);
+  const percentage = Math.round((correctCount / currentQuizData.length) * 100);
 
   if (finalScoreVal) finalScoreVal.textContent = percentage;
   if (finalDetailEl) {
-    finalDetailEl.innerHTML = `Kamu berhasil menjawab <strong>${correctCount} dari ${quizData.length} soal</strong> dengan benar.`;
+    finalDetailEl.innerHTML = `Kamu berhasil menjawab <strong>${correctCount} dari ${currentQuizData.length} soal</strong> dengan benar.`;
   }
 }
 
