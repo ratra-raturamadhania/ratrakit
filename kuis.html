@@ -1,0 +1,36 @@
+<!-- Kuis Latihan Epidemiologi -->
+<section class="quiz-wrapper">
+  <div class="quiz-header">
+    <h2>Latihan Soal Epidemiologi Penyakit Menular</h2>
+    <div class="progress-bar-bg">
+      <div id="progress-fill" class="progress-fill"></div>
+    </div>
+  </div>
+
+  <!-- Quiz Main Card -->
+  <div id="quiz-card" class="quiz-card">
+    <div class="quiz-meta">
+      <span id="topic-badge" class="topic-badge">Topik</span>
+      <span class="q-counter">Soal <span id="current-num">1</span> dari <span id="total-num">6</span></span>
+    </div>
+
+    <h3 id="question-text" class="question-text">Memuat pertanyaan...</h3>
+
+    <div id="options-container" class="options-grid"></div>
+
+    <div id="feedback-text" class="feedback-box hidden"></div>
+
+    <div class="quiz-footer">
+      <button id="next-btn" class="btn-primary hidden">Soal Berikutnya &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Result Screen -->
+  <div id="result-card" class="quiz-card hidden text-center">
+    <h3>Selesai! 🎉</h3>
+    <p id="score-text" class="score-display">Skor kamu: 0</p>
+    <button id="restart-btn" class="btn-primary">Coba Lagi</button>
+  </div>
+</section>
+
+<script src="kuis.js"></script>
