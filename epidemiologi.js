@@ -541,54 +541,135 @@ const quizData = [
 
 // State Management
 let currentIndex = 0;
-let userScore = 0;
+let userAnswers = new Array(quizData.length).fill(null); // Menyimpan pilihan user per soal
 
-// Element Selector
-const quizCard = document.getElementById("quiz-card");
+// Elements
+const startScreen = document.getElementById("quiz-start-screen");
+const startBtn = document.getElementById("quiz-start-btn");
+const mainContainer = document.getElementById("quiz-main-container");
 const questionText = document.getElementById("quiz-question");
 const optionsGrid = document.getElementById("quiz-options");
 const feedbackBox = document.getElementById("quiz-feedback");
+const prevButton = document.getElementById("quiz-prev-btn");
 const nextButton = document.getElementById("quiz-next-btn");
 const progressFill = document.getElementById("quiz-progress-fill");
 const currentNumEl = document.getElementById("quiz-current-num");
 const totalNumEl = document.getElementById("quiz-total-num");
 const topicTag = document.getElementById("quiz-topic-tag");
+const numberPalette = document.getElementById("quiz-number-palette");
 const resultCard = document.getElementById("quiz-result-card");
-const finalScoreEl = document.getElementById("quiz-final-score");
+const finalScoreVal = document.getElementById("quiz-final-score-val");
+const finalDetailEl = document.getElementById("quiz-final-detail");
+const restartBtn = document.getElementById("quiz-restart-btn");
 
-function startQuiz() {
+// Init Event Listeners
+if (startBtn) {
+  startBtn.addEventListener("click", () => {
+    startScreen.classList.add("hidden");
+    mainContainer.classList.remove("hidden");
+    initQuiz();
+  });
+}
+
+function initQuiz() {
   currentIndex = 0;
-  userScore = 0;
+  userAnswers.fill(null);
   if (totalNumEl) totalNumEl.textContent = quizData.length;
   if (resultCard) resultCard.classList.add("hidden");
-  if (quizCard) quizCard.classList.remove("hidden");
+  renderPalette();
   renderQuestion();
+}
+
+function renderPalette() {
+  if (!numberPalette) return;
+  numberPalette.innerHTML = "";
+
+  quizData.forEach((_, idx) => {
+    const pBtn = document.createElement("button");
+    pBtn.type = "button";
+    pBtn.textContent = idx + 1;
+    pBtn.style.cssText = "width: 32px; height: 32px; padding: 0; font-size: 0.8rem; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center;";
+    
+    // Style Status Soal di Palette
+    if (idx === currentIndex) {
+      pBtn.style.border = "2px solid var(--accent-blue)";
+      pBtn.style.fontWeight = "bold";
+    }
+    
+    if (userAnswers[idx] !== null) {
+      const isCorrect = userAnswers[idx] === quizData[idx].answer;
+      pBtn.style.backgroundColor = isCorrect ? "#10b981" : "#ef4444";
+      pBtn.style.color = "#ffffff";
+    } else {
+      pBtn.style.backgroundColor = "#ffffff";
+      pBtn.style.color = "var(--text-color)";
+      pBtn.style.border = "1px solid var(--border-color)";
+    }
+
+    pBtn.onclick = () => {
+      currentIndex = idx;
+      renderQuestion();
+    };
+
+    numberPalette.appendChild(pBtn);
+  });
 }
 
 function renderQuestion() {
   resetQuizState();
+  renderPalette();
+
   const item = quizData[currentIndex];
 
   if (currentNumEl) currentNumEl.textContent = currentIndex + 1;
   if (topicTag) topicTag.textContent = item.topic;
   if (questionText) questionText.textContent = item.question;
 
-  // Update Progress Line
-  const pct = ((currentIndex) / quizData.length) * 100;
+  // Update Progress Bar
+  const answeredCount = userAnswers.filter(a => a !== null).length;
+  const pct = (answeredCount / quizData.length) * 100;
   if (progressFill) progressFill.style.width = `${pct}%`;
 
+  // Control Prev/Next Button
+  if (prevButton) {
+    if (currentIndex > 0) prevButton.classList.remove("hidden");
+    else prevButton.classList.add("hidden");
+  }
+
+  if (nextButton) {
+    nextButton.textContent = (currentIndex === quizData.length - 1) ? "Lihat Hasil Akhir 🎉" : "Soal Selanjutnya \u2192";
+  }
+
+  // Render Options
   item.options.forEach((optText, idx) => {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "quiz-opt-btn";
     btn.innerHTML = `<span class="opt-key">${String.fromCharCode(65 + idx)}.</span> <span>${optText}</span>`;
-    btn.onclick = () => handleSelectOption(idx);
+    
+    // Check Status Jika Sudah Pernah Dijawab
+    if (userAnswers[currentIndex] !== null) {
+      btn.disabled = true;
+      if (idx === item.answer) {
+        btn.classList.add("is-correct");
+      }
+      if (userAnswers[currentIndex] === idx && idx !== item.answer) {
+        btn.classList.add("is-wrong");
+      }
+    } else {
+      btn.onclick = () => handleSelectOption(idx);
+    }
+
     optionsGrid.appendChild(btn);
   });
+
+  // Render Feedback Jika Sudah Dijawab
+  if (userAnswers[currentIndex] !== null) {
+    showFeedback(userAnswers[currentIndex] === item.answer, item.explanation);
+  }
 }
 
 function resetQuizState() {
-  if (nextButton) nextButton.classList.add("hidden");
   if (feedbackBox) {
     feedbackBox.className = "info-box hidden";
     feedbackBox.innerHTML = "";
@@ -597,31 +678,37 @@ function resetQuizState() {
 }
 
 function handleSelectOption(chosenIdx) {
+  userAnswers[currentIndex] = chosenIdx;
   const item = quizData[currentIndex];
-  const allBtns = optionsGrid.querySelectorAll(".quiz-opt-btn");
 
-  allBtns.forEach(b => b.disabled = true);
+  renderQuestion(); // Re-render option state & feedback
+}
 
-  if (chosenIdx === item.answer) {
-    userScore++;
-    allBtns[chosenIdx].classList.add("is-correct");
+function showFeedback(isCorrect, explanation) {
+  if (isCorrect) {
     feedbackBox.className = "info-box is-correct-box";
-    feedbackBox.innerHTML = `<strong>Jawaban Benar!</strong> ${item.explanation}`;
+    feedbackBox.innerHTML = `<strong>Jawaban Benar!</strong> ${explanation}`;
   } else {
-    allBtns[chosenIdx].classList.add("is-wrong");
-    allBtns[item.answer].classList.add("is-correct");
     feedbackBox.className = "info-box is-wrong-box";
-    feedbackBox.innerHTML = `<strong>Kurang Tepat.</strong> ${item.explanation}`;
+    feedbackBox.innerHTML = `<strong>Kurang Tepat.</strong> ${explanation}`;
   }
-
   feedbackBox.classList.remove("hidden");
-  nextButton.classList.remove("hidden");
+}
+
+// Navigation Handlers
+if (prevButton) {
+  prevButton.addEventListener("click", () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      renderQuestion();
+    }
+  });
 }
 
 if (nextButton) {
   nextButton.addEventListener("click", () => {
-    currentIndex++;
-    if (currentIndex < quizData.length) {
+    if (currentIndex < quizData.length - 1) {
+      currentIndex++;
       renderQuestion();
     } else {
       renderResult();
@@ -630,19 +717,25 @@ if (nextButton) {
 }
 
 function renderResult() {
-  quizCard.classList.add("hidden");
+  mainContainer.classList.add("hidden");
   resultCard.classList.remove("hidden");
-  if (progressFill) progressFill.style.width = "100%";
 
-  const percentage = Math.round((userScore / quizData.length) * 100);
-  if (finalScoreEl) {
-    finalScoreEl.innerHTML = `Skor Akhir Anda: <strong>${userScore} dari ${quizData.length}</strong> (${percentage}%)`;
+  let correctCount = 0;
+  userAnswers.forEach((ans, idx) => {
+    if (ans === quizData[idx].answer) correctCount++;
+  });
+
+  const percentage = Math.round((correctCount / quizData.length) * 100);
+
+  if (finalScoreVal) finalScoreVal.textContent = percentage;
+  if (finalDetailEl) {
+    finalDetailEl.innerHTML = `Kamu berhasil menjawab <strong>${correctCount} dari ${quizData.length} soal</strong> dengan benar.`;
   }
 }
 
-const restartBtn = document.getElementById("quiz-restart-btn");
 if (restartBtn) {
-  restartBtn.addEventListener("click", startQuiz);
+  restartBtn.addEventListener("click", () => {
+    resultCard.classList.add("hidden");
+    startScreen.classList.remove("hidden");
+  });
 }
-
-document.addEventListener("DOMContentLoaded", startQuiz);
