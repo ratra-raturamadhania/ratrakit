@@ -5,118 +5,190 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ratrakit - Interactive Web Tools & Learning Suite</title>
     <link rel="stylesheet" href="style.css">
+
+    <!-- MathJax untuk merender rumus matematika -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-    <header class="hero">
-        <h1>Ratrakit</h1>
-        <p>Interactive Web Tools, Canvas Visualizations & Modular Practice Suites</p>
-    </header>
-    
-    <!-- Navigasi Halaman -->
-    <nav>
-        <a href="index.html" class="tab-btn active" style="text-decoration: none; display: inline-block;">🏠 Kalkulator & Tabel Z</a>
-        <a href="uts.html" class="tab-btn" style="text-decoration: none; display: inline-block;">📝 Latihan Soal UTS</a>
-        <a href="epidemiologi.html" class="tab-btn" style="text-decoration: none; display: inline-block;">📚 Epidemiologi</a>
-    </nav>
 
-    <main class="container">
-        
-        <!-- Section 1: Kalkulator & Kurva Visual -->
-        <section class="card">
-            <h2>Kalkulator & Visualisasi Kurva Z-Score</h2>
-            <p class="subtitle">Masukkan nilai Z-score untuk menghitung probabilitas dan melihat arsir kurva secara otomatis.</p>
-
-            <!-- Keterangan Legenda Area Kurva -->
-            <div class="curve-legend">
-                <p style="margin: 0; font-size: 0.95rem; color: #333;">
-                    <strong>💡 Cara Membaca Kurva:</strong> 
-                    <span style="color: #27ae60;">■ Area Berwarna</span> melambangkan <strong>Area Kiri P(Z &lt; z)</strong> (Nilai pada Tabel Z). 
-                    <span style="color: #6c757d;">□ Area Putih</span> melambangkan <strong>Area Kanan P(Z &gt; z)</strong> dengan nilai 1 - P(Z &lt; z).
-                </p>
+    <div class="app-layout">
+        <!-- SIDEBAR NAVIGASI KIRI -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <h2>Ratrakit</h2>
+                <p>Web Tools & Learning Suite</p>
             </div>
 
-            <div class="calculator-layout">
-                <div class="input-section">
-                    <div class="input-group">
-                        <label for="zInput">Nilai Z-score:</label>
-                        <input type="number" id="zInput" step="0.01" value="1.96" placeholder="Contoh: 1.96">
-                    </div>
-                    <button onclick="calculateZ()">Hitung & Gambar Kurva</button>
+            <nav class="sidebar-menu">
+                <button class="nav-item active" onclick="switchMainTab('kalkulator', this)">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
+                    <span class="label">Kalkulator Z-Score</span>
+                </button>
+                <button class="nav-item" onclick="switchMainTab('uts', this)">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    <span class="label">Latihan Soal UTS</span>
+                </button>
+                <button class="nav-item" onclick="switchMainTab('epidemiologi', this)">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    <span class="label">Epidemiologi</span>
+                </button>
+            </nav>
 
-                    <div id="zResult" class="result-box">
-                        <h3>Hasil Perhitungan:</h3>
-                        <ul>
-                            <li><strong>Nilai Z:</strong> <span id="outZ">1.96</span></li>
-                            <li><strong>Luas Area Kiri P(Z &lt; z) (Arsir):</strong> <span id="outProbLeft">-</span></li>
-                            <li><strong>Luas Area Kanan P(Z &gt; z) (Putih):</strong> <span id="outProbRight">-</span></li>
-                            <li><strong>Uji 2 Arah (2-tailed p-value):</strong> <span id="outTwoTail">-</span></li>
-                        </ul>
+            <div class="sidebar-footer">
+                <p>&copy; 2026 Ratrakit<br>Engineered by <a href="https://github.com/ratra-raturamadhania" target="_blank">ratra-raturamadhania</a></p>
+            </div>
+        </aside>
+
+        <!-- KONTEN UTAMA -->
+        <main class="main-content">
+
+            <!-- TAB 1: KALKULATOR & TABEL Z -->
+            <section id="tab-kalkulator" class="tab-content active">
+                <div class="content-header">
+                    <h1>Kalkulator & Visualisasi Kurva Z-Score</h1>
+                    <p>Masukkan nilai Z-score untuk menghitung probabilitas dan melihat arsir kurva secara otomatis.</p>
+                </div>
+
+                <div class="card">
+                    <div class="curve-legend">
+                        <p style="margin: 0; font-size: 0.9rem;">
+                            <strong>Cara Membaca Kurva:</strong> 
+                            <span style="color: #10b981;">■ Area Berwarna</span> melambangkan <strong>Area Kiri P(Z &lt; z)</strong>. 
+                            <span style="color: #64748b;">□ Area Putih</span> melambangkan <strong>Area Kanan P(Z &gt; z)</strong>.
+                        </p>
+                    </div>
+
+                    <div class="calculator-layout">
+                        <div class="input-section">
+                            <div class="input-group">
+                                <label for="zInput">Nilai Z-score:</label>
+                                <input type="number" id="zInput" step="0.01" value="1.96" placeholder="Contoh: 1.96">
+                            </div>
+                            <button onclick="calculateZ()">Hitung & Gambar Kurva</button>
+
+                            <div id="zResult" class="result-box">
+                                <h3>Hasil Perhitungan:</h3>
+                                <ul>
+                                    <li><strong>Nilai Z:</strong> <span id="outZ">1.96</span></li>
+                                    <li><strong>Luas Area Kiri P(Z &lt; z):</strong> <span id="outProbLeft">-</span></li>
+                                    <li><strong>Luas Area Kanan P(Z &gt; z):</strong> <span id="outProbRight">-</span></li>
+                                    <li><strong>Uji 2 Arah (2-tailed):</strong> <span id="outTwoTail">-</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="canvas-section">
+                            <canvas id="bellCurve" width="550" height="260"></canvas>
+                        </div>
                     </div>
                 </div>
 
-                <div class="canvas-section">
-                    <canvas id="bellCurve" width="550" height="260"></canvas>
+                <div class="card">
+                    <h2>Tabel Distribusi Normal Standar</h2>
+                    <div class="tab-buttons" style="margin-bottom: 1rem;">
+                        <button class="tab-btn active" onclick="switchTable('positive')">Nilai Z Positif (0.0 s/d 3.4)</button>
+                        <button class="tab-btn" onclick="switchTable('negative')">Nilai Z Negatif (-3.4 s/d 0.0)</button>
+                    </div>
+
+                    <div id="posTableWrapper" class="table-responsive">
+                        <table class="styled-table z-matrix-table" id="posZTable"></table>
+                    </div>
+                    <div id="negTableWrapper" class="table-responsive" style="display: none;">
+                        <table class="styled-table z-matrix-table" id="negZTable"></table>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Section 2: Ringkasan Nilai Kritis -->
-        <section class="card">
-            <h2>Ringkasan Nilai Z Kritis Populer</h2>
-            <p class="subtitle">Nilai Z yang sering digunakan dalam tingkat kepercayaan (Confidence Interval) riset kesehatan.</p>
-            <div class="table-responsive">
-                <table class="styled-table center-table">
-                    <thead>
-                        <tr>
-                            <th>Tingkat Kepercayaan (1-α)</th>
-                            <th>Alpha (α)</th>
-                            <th>Nilai Z Kritis (Z<sub>α/2</sub>)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>90%</td><td>0.10</td><td><strong>1.645</strong></td></tr>
-                        <tr><td>95%</td><td>0.05</td><td><strong>1.960</strong></td></tr>
-                        <tr><td>99%</td><td>0.01</td><td><strong>2.576</strong></td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+            <!-- TAB 2: SOAL UTS -->
+            <section id="tab-uts" class="tab-content">
+                <div class="content-header">
+                    <h1>Modul Latihan Soal UTS</h1>
+                    <p>Pilih nomor soal, ketik jawaban kamu, lalu cek pembahasan resminya.</p>
+                </div>
 
-        <!-- Section 3: Tabel Z Lengkap (Positif & Negatif) -->
-        <section class="card">
-            <h2>Tabel Distribusi Normal Standar (Tabel Z Kumulatif)</h2>
-            <p class="subtitle">Menampilkan luas area kumulatif di bawah kurva dari -&infin; hingga Z (P(Z &lt; z)).</p>
+                <div class="card">
+                    <div class="tab-buttons" style="flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
+                        <button class="tab-btn active" onclick="showQuiz(1)">Soal 1 (Z-Hb)</button>
+                        <button class="tab-btn" onclick="showQuiz(2)">Soal 2 (Z-Buku)</button>
+                        <button class="tab-btn" onclick="showQuiz(3)">Soal 3 (Poisson)</button>
+                        <button class="tab-btn" onclick="showQuiz(4)">Soal 4 (Binomial)</button>
+                        <button class="tab-btn" onclick="showQuiz(5)">Soal 5 (Peluang Tabel)</button>
+                        <button class="tab-btn" onclick="showQuiz(6)">Soal 6 (Boxplot)</button>
+                    </div>
 
-            <!-- Box Penjelasan Format Tabel Z -->
-            <div class="info-box" style="background: #e9ecef; padding: 10px 15px; border-radius: 6px; margin-bottom: 15px; font-size: 0.9rem;">
-                <strong>Catatan Format Tabel:</strong> Angka dalam tabel ini adalah <strong>Area Kiri Kumulatif</strong>. Jika Anda membutuhkan luas <strong>Area Putih (Ekor Kanan)</strong>, pengurangannya adalah <code>1 - Nilai Tabel</code>.
-            </div>
+                    <div id="quizContainer" class="info-box" style="background: #ffffff; border: 1px solid var(--border-color); padding: 1.5rem;"></div>
+                </div>
+            </section>
 
-            <div class="tab-buttons">
-                <button class="tab-btn active" onclick="switchTable('positive')">Nilai Z Positif (0.0 hingga 3.4)</button>
-                <button class="tab-btn" onclick="switchTable('negative')">Nilai Z Negatif (-3.4 hingga 0.0)</button>
-            </div>
+            <!-- TAB 3: EPIDEMIOLOGI -->
+            <section id="tab-epidemiologi" class="tab-content">
+                <div class="content-header">
+                    <h1>Epidemiologi Penyakit Menular</h1>
+                    <p>Modul evaluasi mandiri seputar etiologi, faktor risiko, dan pencegahan penyakit menular.</p>
+                </div>
 
-            <!-- Tabel Z Positif -->
-            <div id="posTableWrapper" class="table-responsive">
-                <table class="styled-table z-matrix-table" id="posZTable">
-                    <!-- Digenerate via JS -->
-                </table>
-            </div>
+                <div class="card">
+                    <div id="quiz-start-screen" style="text-align: center; padding: 2.5rem 1rem;">
+                        <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem;">Modul Latihan Epidemiologi</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95rem;">Terdiri dari 40 soal pilihan ganda acak dengan navigasi nomor dan pembahasan langsung.</p>
+                        <button id="quiz-start-btn" type="button" style="max-width: 200px; margin: 0 auto;">Mulai Latihan</button>
+                    </div>
 
-            <!-- Tabel Z Negatif -->
-            <div id="negTableWrapper" class="table-responsive" style="display: none;">
-                <table class="styled-table z-matrix-table" id="negZTable">
-                    <!-- Digenerate via JS -->
-                </table>
-            </div>
-        </section>
-    </main>
+                    <div id="quiz-main-container" class="hidden">
+                        <div style="background-color: var(--border-color); height: 6px; border-radius: 3px; overflow: hidden; margin-bottom: 1.25rem;">
+                            <div id="quiz-progress-fill" style="background-color: var(--secondary-color); height: 100%; width: 0%; transition: width 0.3s ease;"></div>
+                        </div>
 
-    <footer>
-        <p>&copy; 2026 Ratrakit. Engineered with Vanilla JS by <a href="https://github.com/ratra-raturamadhania" target="_blank" style="color: var(--accent-blue); text-decoration: none; font-weight: 600;">ratra-raturamadhania</a>.</p>
-    </footer>
+                        <div style="margin-bottom: 1.5rem;">
+                            <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 0.5rem;">Navigasi Nomor Soal:</span>
+                            <div id="quiz-number-palette" style="display: flex; flex-wrap: wrap; gap: 0.4rem; max-height: 120px; overflow-y: auto; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); background: #f8fafc;"></div>
+                        </div>
 
+                        <div id="quiz-card">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <span id="quiz-topic-tag" style="background-color: #f1f5f9; color: var(--primary-light); padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 600; font-size: 0.8rem; border: 1px solid var(--border-color);">Topik</span>
+                                <span style="font-size: 0.85rem; color: var(--text-muted);">Soal <strong id="quiz-current-num">1</strong> dari <strong id="quiz-total-num">40</strong></span>
+                            </div>
+
+                            <h3 id="quiz-question" style="font-size: 1.1rem; color: var(--primary-color); margin-bottom: 1.2rem; line-height: 1.5;">Memuat soal...</h3>
+                            <div id="quiz-options" style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.2rem;"></div>
+                            <div id="quiz-feedback" class="info-box hidden"></div>
+
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; gap: 1rem;">
+                                <button id="quiz-prev-btn" type="button" class="hidden" style="background-color: var(--primary-light); width: auto;">&larr; Soal Sebelumnya</button>
+                                <button id="quiz-next-btn" type="button" style="width: auto; margin-left: auto;">Soal Selanjutnya &rarr;</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="quiz-result-card" class="hidden" style="text-align: center; padding: 2rem 0;">
+                        <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem;">Latihan Selesai</h3>
+                        <div style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; width: 120px; height: 120px; border-radius: 50%; background: var(--success-bg); border: 3px solid var(--secondary-color); margin: 1.25rem 0;">
+                            <span id="quiz-final-score-val" style="font-size: 2.2rem; font-weight: 800; color: #065f46;">0</span>
+                            <span style="font-size: 0.75rem; color: #047857; font-weight: 600; letter-spacing: 0.05em;">SKOR AKHIR</span>
+                        </div>
+                        <p id="quiz-final-detail" style="margin-bottom: 1.5rem; font-size: 0.95rem; color: var(--text-muted);"></p>
+                        <button id="quiz-restart-btn" type="button" style="max-width: 200px; margin: 0 auto;">Coba Lagi</button>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- SCRIPT ALL IN ONE -->
     <script src="script.js"></script>
+    <script src="uts.js"></script>
+    <script src="epidemiologi.js"></script>
+    <script>
+        function switchMainTab(tabName, element) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById('tab-' + tabName).classList.add('active');
+            element.classList.add('active');
+        }
+    </script>
 </body>
 </html>
