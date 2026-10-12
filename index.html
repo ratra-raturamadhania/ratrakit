@@ -6,7 +6,7 @@
     <title>Ratrakit - Interactive Web Tools & Modular Suites</title>
     <link rel="stylesheet" href="style.css">
 
-    <!-- MathJax tanpa Polyfill -->
+    <!-- MathJax tanpa Polyfill eksternal -->
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
@@ -29,13 +29,14 @@
                 <button class="nav-btn" id="btn-kalkulator" onclick="switchMainTab('kalkulator')">Kalkulator Z-Score</button>
                 <button class="nav-btn" id="btn-uts" onclick="switchMainTab('uts')">Latihan Soal UTS</button>
                 <button class="nav-btn" id="btn-epidemiologi" onclick="switchMainTab('epidemiologi')">Epidemiologi</button>
+                <button class="nav-btn" id="btn-dinamika" onclick="switchMainTab('dinamika')">Dinamika Kelompok</button>
             </nav>
         </div>
     </header>
 
     <main class="app-container">
 
-        <!-- 1. BERANDA -->
+        <!-- 1. BERANDA / LANDING PAGE -->
         <section id="tab-home" class="tab-content active">
             <div class="hero-banner">
                 <div class="hero-badge">Interactive Web Tools Suite</div>
@@ -44,7 +45,8 @@
                 
                 <div class="hero-actions">
                     <button class="btn-primary" onclick="switchMainTab('kalkulator')">Coba Kalkulator Z</button>
-                    <button class="btn-secondary" onclick="switchMainTab('epidemiologi')">Mulai Kuis Epidemiologi</button>
+                    <button class="btn-secondary" onclick="switchMainTab('epidemiologi')">Kuis Epidemiologi</button>
+                    <button class="btn-secondary" onclick="switchMainTab('dinamika')">Kuis Dinamika Kelompok</button>
                 </div>
             </div>
 
@@ -73,6 +75,15 @@
                     </div>
                     <h3>Epidemiologi Penyakit Menular</h3>
                     <p>40 bank soal kuis pilihan ganda teracak dengan navigasi CBT, feedback jawaban, dan visualisasi skor.</p>
+                    <span class="card-link">Mulai Kuis &rarr;</span>
+                </div>
+
+                <div class="feature-card" onclick="switchMainTab('dinamika')">
+                    <div class="feature-icon icon-purple">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3>Dinamika Kelompok Kesmas</h3>
+                    <p>30 bank soal seputar pembentukan kelompok, team building, komunikasi transaksional, dan Johari Window.</p>
                     <span class="card-link">Mulai Kuis &rarr;</span>
                 </div>
             </div>
@@ -209,6 +220,59 @@
             </div>
         </section>
 
+        <!-- 5. DINAMIKA KELOMPOK -->
+        <section id="tab-dinamika" class="tab-content">
+            <div class="page-title">
+                <h2>Dinamika Kelompok dalam Kesehatan Masyarakat</h2>
+                <p>Modul evaluasi mandiri seputar konsep kelompok, tahapan Tuckman, team building, dan Johari Window.</p>
+            </div>
+
+            <div class="card">
+                <div id="quiz-start-screen-dinamika" class="start-banner">
+                    <h3>Modul Latihan Dinamika Kelompok</h3>
+                    <p>Terdiri dari 30 soal pilihan ganda acak dari seluruh materi perkuliahan.</p>
+                    <button type="button" class="btn-primary" onclick="startDinamikaQuiz()">Mulai Latihan</button>
+                </div>
+
+                <div id="quiz-main-container-dinamika" class="hidden">
+                    <div class="progress-bar-bg">
+                        <div id="quiz-progress-fill-dinamika" class="progress-bar-fill"></div>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <span class="palette-title">Navigasi Nomor Soal:</span>
+                        <div id="quiz-number-palette-dinamika" class="palette-grid"></div>
+                    </div>
+
+                    <div id="quiz-card-dinamika">
+                        <div class="quiz-card-header">
+                            <span id="quiz-topic-tag-dinamika" class="topic-tag">Topik</span>
+                            <span class="question-counter">Soal <strong id="quiz-current-num-dinamika">1</strong> dari <strong id="quiz-total-num-dinamika">30</strong></span>
+                        </div>
+
+                        <h3 id="quiz-question-dinamika" class="question-text">Memuat soal...</h3>
+                        <div id="quiz-options-dinamika" class="options-container"></div>
+                        <div id="quiz-feedback-dinamika" class="info-box hidden"></div>
+
+                        <div class="quiz-nav-footer">
+                            <button id="quiz-prev-btn-dinamika" type="button" class="btn-secondary hidden">&larr; Soal Sebelumnya</button>
+                            <button id="quiz-next-btn-dinamika" type="button" class="btn-primary" style="margin-left: auto;">Soal Selanjutnya &rarr;</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="quiz-result-card-dinamika" class="hidden result-banner">
+                    <h3>Latihan Selesai</h3>
+                    <div class="score-circle">
+                        <span id="quiz-final-score-val-dinamika" class="score-num">0</span>
+                        <span class="score-label">SKOR AKHIR</span>
+                    </div>
+                    <p id="quiz-final-detail-dinamika" class="score-detail"></p>
+                    <button id="quiz-restart-btn-dinamika" type="button" class="btn-primary" style="margin: 0 auto;">Coba Lagi</button>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <footer>
@@ -219,6 +283,7 @@
     <script src="script.js"></script>
     <script src="uts.js"></script>
     <script src="epidemiologi.js"></script>
+    <script src="dinamika.js"></script>
     <script>
         function switchMainTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
@@ -250,6 +315,18 @@
             
             if (typeof initQuiz === 'function') {
                 initQuiz();
+            }
+        }
+
+        function startDinamikaQuiz() {
+            const startScreen = document.getElementById("quiz-start-screen-dinamika");
+            const mainContainer = document.getElementById("quiz-main-container-dinamika");
+            
+            if (startScreen) startScreen.classList.add("hidden");
+            if (mainContainer) mainContainer.classList.remove("hidden");
+            
+            if (typeof initDinamikaQuiz === 'function') {
+                initDinamikaQuiz();
             }
         }
     </script>
