@@ -1,188 +1,120 @@
-window.onload = function() {
-    calculateZ();
-    generateZTables();
-};
-
-// 1. Fungsi CDF Distribusi Normal Standar
-function normCDF(x) {
-    const t = 1 / (1 + 0.2316419 * Math.abs(x));
-    const d = 0.3989423 * Math.exp(-x * x / 2);
-    let prob = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
-    if (x > 0) prob = 1 - prob;
-    return prob;
-}
-
-// 2. Kalkulator Z
+// Kalkulator & Gambar Kurva Z-Score
 function calculateZ() {
-    const z = parseFloat(document.getElementById('zInput').value);
+    const zInput = document.getElementById('zInput');
+    if (!zInput) return;
+    
+    const z = parseFloat(zInput.value);
+    if (isNaN(z)) return;
 
-    if (isNaN(z)) {
-        alert("Silakan masukkan nilai Z yang valid!");
-        return;
-    }
-
-    const probLeft = normCDF(z);
+    const probLeft = cumulativeStdNormal(z);
     const probRight = 1 - probLeft;
-    const twoTail = 2 * normCDF(-Math.abs(z));
+    const twoTail = 2 * (1 - cumulativeStdNormal(Math.abs(z)));
 
-    document.getElementById('outZ').innerText = z;
-    document.getElementById('outProbLeft').innerText = probLeft.toFixed(4) + ` (${(probLeft * 100).toFixed(2)}%)`;
-    document.getElementById('outProbRight').innerText = probRight.toFixed(4) + ` (${(probRight * 100).toFixed(2)}%)`;
-    document.getElementById('outTwoTail').innerText = twoTail.toFixed(4);
+    const outZ = document.getElementById('outZ');
+    const outProbLeft = document.getElementById('outProbLeft');
+    const outProbRight = document.getElementById('outProbRight');
+    const outTwoTail = document.getElementById('outTwoTail');
+
+    if (outZ) outZ.textContent = z.toFixed(2);
+    if (outProbLeft) outProbLeft.textContent = probLeft.toFixed(4);
+    if (outProbRight) outProbRight.textContent = probRight.toFixed(4);
+    if (outTwoTail) outTwoTail.textContent = twoTail.toFixed(4);
 
     drawBellCurve(z);
 }
 
-// 3. Visualisasi Kurva Lonceng
-function drawBellCurve(zVal) {
+function cumulativeStdNormal(z) {
+    const t = 1 / (1 + 0.2316419 * Math.abs(z));
+    const d = 0.3989423 * Math.exp(-z * z / 2);
+    let p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+    if (z > 0) p = 1 - p;
+    return p;
+}
+
+function drawBellCurve(z) {
     const canvas = document.getElementById('bellCurve');
+    if (!canvas) return;
     const ctx = canvas.getContext('2d');
+    
     const width = canvas.width;
     const height = canvas.height;
-
     ctx.clearRect(0, 0, width, height);
 
-    const meanX = width / 2;
-    const scaleX = width / 8;
-    const scaleY = height * 0.7;
-    const baselineY = height - 35;
+    const margin = 40;
+    const plotWidth = width - 2 * margin;
+    const plotHeight = height - 2 * margin;
 
-    function pdf(x) {
-        return (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-0.5 * x * x);
-    }
-
-    // Arsir area kiri nilai Z (Area Berwarna / P(Z < z))
     ctx.beginPath();
-    ctx.moveTo(0, baselineY);
-    for (let xPixel = 0; xPixel <= width; xPixel++) {
-        let zCurrent = (xPixel - meanX) / scaleX;
-        if (zCurrent <= zVal) {
-            let yPixel = baselineY - (pdf(zCurrent) * scaleY);
-            ctx.lineTo(xPixel, yPixel);
-        }
+    ctx.strokeStyle = '#cbd5e1';
+    ctx.lineWidth = 2;
+    ctx.moveTo(margin, height - margin);
+    ctx.lineTo(width - margin, height - margin);
+    ctx.stroke();
+
+    function zToX(val) {
+        return margin + ((val + 4) / 8) * plotWidth;
     }
-    let zPixelCut = meanX + (zVal * scaleX);
-    ctx.lineTo(zPixelCut, baselineY);
+
+    function stdNormalPDF(x) {
+        return Math.exp(-0.5 * x * x) / Math.sqrt(2 * Math.PI);
+    }
+
+    const maxY = stdNormalPDF(0);
+
+    ctx.beginPath();
+    ctx.fillStyle = 'rgba(16, 185, 129, 0.35)';
+    ctx.moveTo(margin, height - margin);
+
+    for (let px = -4; px <= z; px += 0.05) {
+        const x = zToX(px);
+        const y = height - margin - (stdNormalPDF(px) / maxY) * plotHeight;
+        ctx.lineTo(x, y);
+    }
+    ctx.lineTo(zToX(z), height - margin);
     ctx.closePath();
-    ctx.fillStyle = 'rgba(39, 174, 96, 0.35)';
     ctx.fill();
 
-    // Garis kurva utama
     ctx.beginPath();
-    for (let xPixel = 0; xPixel <= width; xPixel++) {
-        let zCurrent = (xPixel - meanX) / scaleX;
-        let yPixel = baselineY - (pdf(zCurrent) * scaleY);
-        if (xPixel === 0) ctx.moveTo(xPixel, yPixel);
-        else ctx.lineTo(xPixel, yPixel);
+    ctx.strokeStyle = '#2563eb';
+    ctx.lineWidth = 3;
+    for (let px = -4; px <= 4; px += 0.05) {
+        const x = zToX(px);
+        const y = height - margin - (stdNormalPDF(px) / maxY) * plotHeight;
+        if (px === -4) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
     }
-    ctx.strokeStyle = '#2c3e50';
-    ctx.lineWidth = 2.5;
     ctx.stroke();
 
-    // Sumbu X
+    const zX = zToX(z);
     ctx.beginPath();
-    ctx.moveTo(0, baselineY);
-    ctx.lineTo(width, baselineY);
-    ctx.strokeStyle = '#cbd5e1';
-    ctx.lineWidth = 1;
+    ctx.strokeStyle = '#ef4444';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([4, 4]);
+    ctx.moveTo(zX, margin);
+    ctx.lineTo(zX, height - margin);
     ctx.stroke();
+    ctx.setLineDash([]);
 
-    // Garis batas Z (Merah)
-    if (zPixelCut >= 0 && zPixelCut <= width) {
-        ctx.beginPath();
-        ctx.moveTo(zPixelCut, baselineY);
-        ctx.lineTo(zPixelCut, baselineY - (pdf(zVal) * scaleY));
-        ctx.strokeStyle = '#e74c3c';
-        ctx.lineWidth = 2;
-        ctx.setLineDash([4, 4]);
-        ctx.stroke();
-        ctx.setLineDash([]);
-
-        ctx.fillStyle = '#e74c3c';
-        ctx.font = 'bold 12px Inter, sans-serif';
-        ctx.fillText(`Z = ${zVal}`, zPixelCut - 18, baselineY - (pdf(zVal) * scaleY) - 10);
-    }
-
-    // Label Sumbu Z (-3 sampai 3)
-    ctx.fillStyle = '#64748b';
-    ctx.font = '11px Inter, sans-serif';
-    for (let i = -3; i <= 3; i++) {
-        let tickX = meanX + (i * scaleX);
-        ctx.fillText(i, tickX - 3, baselineY + 18);
-    }
-
-    // Label Legenda Visual di Atas Canvas
-    ctx.fillStyle = '#27ae60';
-    ctx.fillRect(15, 12, 12, 12);
-    ctx.fillStyle = '#2c3e50';
-    ctx.font = '11px Inter, sans-serif';
-    ctx.fillText('Area Kiri P(Z < z) [Arsir]', 32, 22);
-
-    ctx.strokeStyle = '#64748b';
-    ctx.strokeRect(185, 12, 12, 12);
-    ctx.fillText('Area Kanan P(Z > z) [Putih]', 202, 22);
+    ctx.fillStyle = '#ef4444';
+    ctx.font = 'bold 12px sans-serif';
+    ctx.fillText(`Z = ${z}`, zX - 15, margin - 10);
 }
 
-// 4. Generate Tabel Z Positif & Negatif Secara Otomatis
-function generateZTables() {
-    buildMatrixTable('posZTable', 0.0, 3.4, 0.1);
-    buildMatrixTable('negZTable', -3.4, 0.0, 0.1);
-}
-
-function buildMatrixTable(tableId, startZ, endZ, step) {
-    const table = document.getElementById(tableId);
-    let html = '<thead><tr><th>z</th>';
-
-    // Header 0.00 - 0.09
-    for (let col = 0; col <= 9; col++) {
-        html += `<th>0.0${col}</th>`;
-    }
-    html += '</tr></thead><tbody>';
-
-    // Baris Z
-    if (startZ >= 0) {
-        for (let r = startZ; r <= endZ + 0.01; r += step) {
-            let rowVal = parseFloat(r.toFixed(1));
-            html += `<tr><td><strong>${rowVal.toFixed(1)}</strong></td>`;
-            for (let c = 0; c <= 9; c++) {
-                let zVal = rowVal + (c * 0.01);
-                let p = normCDF(zVal).toFixed(4);
-                html += `<td>${p}</td>`;
-            }
-            html += '</tr>';
-        }
-    } else {
-        for (let r = startZ; r <= endZ + 0.01; r += step) {
-            let rowVal = parseFloat(r.toFixed(1));
-            html += `<tr><td><strong>${rowVal.toFixed(1)}</strong></td>`;
-            for (let c = 0; c <= 9; c++) {
-                let zVal = rowVal - (c * 0.01);
-                let p = normCDF(zVal).toFixed(4);
-                html += `<td>${p}</td>`;
-            }
-            html += '</tr>';
-        }
-    }
-
-    html += '</tbody>';
-    table.innerHTML = html;
-}
-
-// 5. Switch Tab Tabel Positif/Negatif
 function switchTable(type) {
     const posWrapper = document.getElementById('posTableWrapper');
     const negWrapper = document.getElementById('negTableWrapper');
-    const btns = document.querySelectorAll('.tab-btn');
+    const btnPos = document.getElementById('btn-pos-table');
+    const btnNeg = document.getElementById('btn-neg-table');
 
     if (type === 'positive') {
-        posWrapper.style.display = 'block';
-        negWrapper.style.display = 'none';
-        btns[0].classList.add('active');
-        btns[1].classList.remove('active');
+        if (posWrapper) posWrapper.style.display = 'block';
+        if (negWrapper) negWrapper.style.display = 'none';
+        if (btnPos) btnPos.classList.add('active');
+        if (btnNeg) btnNeg.classList.remove('active');
     } else {
-        posWrapper.style.display = 'none';
-        negWrapper.style.display = 'block';
-        btns[0].classList.remove('active');
-        btns[1].classList.add('active');
+        if (posWrapper) posWrapper.style.display = 'none';
+        if (negWrapper) negWrapper.style.display = 'block';
+        if (btnPos) btnPos.classList.remove('active');
+        if (btnNeg) btnNeg.classList.add('active');
     }
 }
