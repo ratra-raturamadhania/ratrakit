@@ -737,3 +737,8 @@ function renderResult() {
     };
   }
 }
+
+// Jalankan otomatis saat file dimuat
+document.addEventListener("DOMContentLoaded", () => {
+  initQuiz();
+});
