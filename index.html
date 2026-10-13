@@ -31,6 +31,7 @@
                 <button class="nav-btn" id="btn-uts" onclick="switchMainTab('uts')">Biostatistik</button>
                 <button class="nav-btn" id="btn-epidemiologi" onclick="switchMainTab('epidemiologi')">Epidemiologi</button>
                 <button class="nav-btn" id="btn-dinamika" onclick="switchMainTab('dinamika')">Dinamika Kelompok</button>
+                <button class="nav-btn" id="btn-citasi" onclick="switchMainTab('citasi')">Generator Citasi</button>
             </nav>
         </div>
     </header>
@@ -269,6 +270,54 @@
                     </div>
                     <p id="quiz-final-detail-dinamika" class="score-detail"></p>
                     <button id="quiz-restart-btn-dinamika" type="button" class="btn-primary" style="margin: 0 auto;">Coba Lagi</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. GENERATOR CITASI -->
+        <section id="tab-citasi" class="tab-content">
+            <div class="page-title">
+                <h2>Generator Referensi & Citasi Otomatis</h2>
+                <p>Format daftar pustaka standar APA 7th Edition dan Vancouver secara instan untuk tugas kuliah dan laporan.</p>
+            </div>
+
+            <div class="card">
+                <div class="citation-grid">
+                    <div class="input-group">
+                        <label for="citAuthor">Nama Penulis (Format: Belakang, Inisial Depan):</label>
+                        <input type="text" id="citAuthor" placeholder="Contoh: Ramadhania, R. atau Smith, J. D.">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="citYear">Tahun Terbit:</label>
+                        <input type="text" id="citYear" placeholder="Contoh: 2026">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="citTitle">Judul Artikel / Buku:</label>
+                        <input type="text" id="citTitle" placeholder="Contoh: Penerapan Biostatistik dalam Kesehatan Masyarakat">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="citJournal">Nama Jurnal / Penerbit:</label>
+                        <input type="text" id="citJournal" placeholder="Contoh: Jurnal Kesehatan Masyarakat Indonesia">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="citStyle">Gaya Format Citasi:</label>
+                        <select id="citStyle" class="styled-select">
+                            <option value="apa">APA 7th Edition</option>
+                            <option value="vancouver">Vancouver</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="btn-primary" type="button" onclick="generateCitation()" style="width: 100%; margin-top: 1rem;">Buat Citasi</button>
+
+                <div id="citResultBox" class="result-box hidden" style="margin-top: 1.5rem;">
+                    <h3>Hasil Citasi (Siap Salin):</h3>
+                    <div id="citOutputText" class="citation-output"></div>
+                    <button class="btn-secondary" type="button" onclick="copyCitation()" style="margin-top: 0.8rem; width: 100%;">📋 Salin ke Clipboard</button>
                 </div>
             </div>
         </section>
