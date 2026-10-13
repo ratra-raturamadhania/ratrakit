@@ -215,6 +215,21 @@ function copyCitation() {
     });
 }
 
+// Toggle Dropdown Menu
+function toggleDropdown(event) {
+    event.stopPropagation();
+    const dropdown = document.getElementById('toolsDropdown');
+    if (dropdown) dropdown.classList.toggle('show');
+}
+
+// Tutup dropdown kalau klik di luar area menu
+window.addEventListener('click', () => {
+    const dropdown = document.getElementById('toolsDropdown');
+    if (dropdown && dropdown.classList.contains('show')) {
+        dropdown.classList.remove('show');
+    }
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     generateZTables();
 });
