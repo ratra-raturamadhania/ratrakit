@@ -145,7 +145,7 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* LANDING PAGE HERO */
+/* LANDING PAGE HERO & SEARCH */
 .hero-banner {
     text-align: center;
     padding: 3.5rem 2rem;
@@ -181,14 +181,30 @@ body {
     font-size: 1.05rem;
     color: var(--text-muted);
     max-width: 620px;
-    margin: 0 auto 2rem auto;
+    margin: 0 auto 1.5rem auto;
 }
 
-.hero-actions {
+.hero-search-box {
     display: flex;
     justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
+    gap: 0.5rem;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.hero-search-box input {
+    width: 100%;
+    padding: 0.65rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    outline: none;
+    transition: var(--transition-fast);
+}
+
+.hero-search-box input:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 .btn-primary {
@@ -313,7 +329,7 @@ body {
 .badge-emerald { color: #10b981; font-weight: 700; }
 .badge-slate { color: #64748b; font-weight: 700; }
 
-/* PILL BUTTON TABS (UNTUK UTS & TABEL Z) */
+/* PILL BUTTON TABS */
 .pill-tabs {
     display: flex;
     flex-wrap: wrap;
@@ -394,7 +410,7 @@ input[type="number"] {
 .styled-table th, .styled-table td { padding: 9px 12px; text-align: center; border: 1px solid var(--border-color); }
 .styled-table th { background: #f8fafc; position: sticky; top: 0; z-index: 2; }
 
-/* EPIDEMIOLOGI QUIZ COMPONENTS */
+/* EPIDEMIOLOGI & DINAMIKA QUIZ COMPONENTS */
 .start-banner {
     text-align: center;
     padding: 2.5rem 1rem;
@@ -477,13 +493,11 @@ footer a { color: var(--accent-blue); text-decoration: none; font-weight: 600; }
    PERBAIKAN KHUSUS RESPONGSIF HP & TABLET
    ========================================== */
 
-/* 1. Supaya Gambar Kurva Canvas Pas di Layar HP */
 #bellCurve {
     max-width: 100% !important;
     height: auto !important;
 }
 
-/* 2. Supaya Container Canvas Bisa di-scroll Jika Perlu */
 .canvas-section {
     width: 100%;
     overflow-x: auto;
@@ -495,7 +509,6 @@ footer a { color: var(--accent-blue); text-decoration: none; font-weight: 600; }
     padding: 0.5rem;
 }
 
-/* 3. Penyesuaian Ukuran Tombol & Padding di HP */
 @media (max-width: 640px) {
     .app-container {
         padding: 0 0.75rem;
@@ -512,6 +525,14 @@ footer a { color: var(--accent-blue); text-decoration: none; font-weight: 600; }
 
     .hero-banner h1 {
         font-size: 1.5rem;
+    }
+
+    .hero-search-box {
+        flex-direction: column;
+    }
+
+    .hero-search-box button {
+        width: 100%;
     }
 
     .quiz-nav-footer {
