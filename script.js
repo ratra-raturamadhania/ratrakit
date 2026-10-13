@@ -170,6 +170,51 @@ function filterFeatures() {
     });
 }
 
+// Fungsi Generator Citasi
+function generateCitation() {
+    const author = document.getElementById('citAuthor').value.trim();
+    const year = document.getElementById('citYear').value.trim();
+    const title = document.getElementById('citTitle').value.trim();
+    const journal = document.getElementById('citJournal').value.trim();
+    const style = document.getElementById('citStyle').value;
+    const resultBox = document.getElementById('citResultBox');
+    const outputText = document.getElementById('citOutputText');
+
+    if (!author || !title) {
+        alert('Mohon isi minimal Nama Penulis dan Judul!');
+        return;
+    }
+
+    let result = '';
+
+    if (style === 'apa') {
+        // APA 7th: Penulis. (Tahun). Judul. Nama Jurnal.
+        const formattedYear = year ? `(${year})` : '(n.d.)';
+        const formattedJournal = journal ? `<em>${journal}</em>.` : '';
+        result = `${author} ${formattedYear}. ${title}. ${formattedJournal}`;
+    } else if (style === 'vancouver') {
+        // Vancouver: Penulis. Judul. Nama Jurnal. Tahun.
+        const vanAuthor = author.replace(/,/g, '');
+        const formattedYear = year ? `${year}.` : '';
+        const formattedJournal = journal ? `${journal}.` : '';
+        result = `${vanAuthor}. ${title}. ${formattedJournal} ${formattedYear}`;
+    }
+
+    outputText.innerHTML = result;
+    resultBox.classList.remove('hidden');
+}
+
+function copyCitation() {
+    const outputText = document.getElementById('citOutputText');
+    const textToCopy = outputText.innerText;
+
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        alert('Citasi berhasil disalin ke clipboard!');
+    }).catch(err => {
+        alert('Gagal menyalin citasi.');
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     generateZTables();
 });
