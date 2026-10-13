@@ -28,17 +28,17 @@
             <nav class="nav-links" id="navLinks">
                 <button class="nav-btn active" id="btn-home" onclick="switchMainTab('home')">Beranda</button>
 
-                <!-- DROPDOWN MENU BERSIH & MODERN -->
+                <!-- DROPDOWN MENU BERSIH TANPA EMOJI -->
                 <div class="dropdown">
                     <button class="nav-btn dropdown-toggle" onclick="toggleDropdown(event)">
                         Modul & Tools <span class="arrow">▾</span>
                     </button>
                     <div class="dropdown-menu" id="toolsDropdown">
-                        <button class="dropdown-item" id="btn-kalkulator" onclick="switchMainTab('kalkulator')">🧮 Kalkulator Z-Score</button>
-                        <button class="dropdown-item" id="btn-uts" onclick="switchMainTab('uts')">📊 Biostatistik</button>
-                        <button class="dropdown-item" id="btn-epidemiologi" onclick="switchMainTab('epidemiologi')">🦠 Epidemiologi</button>
-                        <button class="dropdown-item" id="btn-dinamika" onclick="switchMainTab('dinamika')">👥 Dinamika Kelompok</button>
-                        <button class="dropdown-item" id="btn-citasi" onclick="switchMainTab('citasi')">📝 Generator Citasi</button>
+                        <button class="dropdown-item" id="btn-kalkulator" onclick="switchMainTab('kalkulator')">Kalkulator Z-Score</button>
+                        <button class="dropdown-item" id="btn-uts" onclick="switchMainTab('uts')">Biostatistik</button>
+                        <button class="dropdown-item" id="btn-epidemiologi" onclick="switchMainTab('epidemiologi')">Epidemiologi</button>
+                        <button class="dropdown-item" id="btn-dinamika" onclick="switchMainTab('dinamika')">Dinamika Kelompok</button>
+                        <button class="dropdown-item" id="btn-citasi" onclick="switchMainTab('citasi')">Generator Citasi</button>
                     </div>
                 </div>
             </nav>
@@ -56,7 +56,7 @@
                 
                 <div class="hero-search-box">
                     <input type="text" id="heroSearchInput" placeholder="Cari kuis, kalkulator, atau materi..." onkeyup="filterFeatures()">
-                    <button class="btn-primary" type="button" onclick="filterFeatures()">Cari</button>
+                    <button class="btn-primary btn-search" type="button" onclick="filterFeatures()">Cari</button>
                 </div>
             </div>
 
@@ -90,7 +90,7 @@
 
                 <div class="feature-card" onclick="switchMainTab('dinamika')">
                     <div class="feature-icon icon-purple">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 1 0 7.75"/></svg>
                     </div>
                     <h3>Dinamika Kelompok Kesmas</h3>
                     <p>30 bank soal seputar pembentukan kelompok, team building, komunikasi transaksional, dan Johari Window.</p>
@@ -335,7 +335,7 @@
                 <div id="citResultBox" class="result-box hidden" style="margin-top: 1.5rem;">
                     <h3>Hasil Citasi (Siap Salin):</h3>
                     <div id="citOutputText" class="citation-output"></div>
-                    <button class="btn-secondary" type="button" onclick="copyCitation()" style="margin-top: 0.8rem; width: 100%;">📋 Salin ke Clipboard</button>
+                    <button class="btn-secondary" type="button" onclick="copyCitation()" style="margin-top: 0.8rem; width: 100%;">Salin ke Clipboard</button>
                 </div>
             </div>
         </section>
