@@ -472,3 +472,58 @@ footer a { color: var(--accent-blue); text-decoration: none; font-weight: 600; }
     .calculator-layout { grid-template-columns: 1fr; }
     .hero-banner h1 { font-size: 1.75rem; }
 }
+
+/* ==========================================
+   PERBAIKAN KHUSUS RESPONGSIF HP & TABLET
+   ========================================== */
+
+/* 1. Supaya Gambar Kurva Canvas Pas di Layar HP */
+#bellCurve {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+/* 2. Supaya Container Canvas Bisa di-scroll Jika Perlu */
+.canvas-section {
+    width: 100%;
+    overflow-x: auto;
+    display: flex;
+    justify-content: center;
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem;
+}
+
+/* 3. Penyesuaian Ukuran Tombol & Padding di HP */
+@media (max-width: 640px) {
+    .app-container {
+        padding: 0 0.75rem;
+        margin: 1.2rem auto;
+    }
+
+    .card {
+        padding: 1rem;
+    }
+
+    .hero-banner {
+        padding: 2rem 1rem;
+    }
+
+    .hero-banner h1 {
+        font-size: 1.5rem;
+    }
+
+    .quiz-nav-footer {
+        flex-direction: column-reverse;
+    }
+
+    .quiz-nav-footer button {
+        width: 100%;
+    }
+
+    .styled-table th, .styled-table td {
+        padding: 6px 8px;
+        font-size: 0.75rem;
+    }
+}
