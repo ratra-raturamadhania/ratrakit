@@ -40,14 +40,13 @@
         <!-- 1. BERANDA / LANDING PAGE -->
         <section id="tab-home" class="tab-content active">
             <div class="hero-banner">
-                <div class="hero-badge">Interactive Web Tools Suite</div>
-                <h1>Platform Tools & Learning Space Modern</h1>
-                <p>Eksplorasi kalkulator kurva statistik real-time, modul simulasi ujian, dan bank kuis interaktif dalam satu portal.</p>
+                <div class="hero-badge">Ruang Belajar & Tools</div>
+                <h1>Kalkulator Statistik & Latihan Soal</h1>
+                <p>Kumpulan tools buat hitung Z-score, lihat visualisasi kurva, dan latihan soal kuliah secara interaktif.</p>
                 
-                <div class="hero-actions">
-                    <button class="btn-primary" onclick="switchMainTab('kalkulator')">Coba Kalkulator Z</button>
-                    <button class="btn-secondary" onclick="switchMainTab('epidemiologi')">Kuis Epidemiologi</button>
-                    <button class="btn-secondary" onclick="switchMainTab('dinamika')">Kuis Dinamika Kelompok</button>
+                <div class="hero-search-box">
+                    <input type="text" id="heroSearchInput" placeholder="Cari kuis, kalkulator, atau materi..." onkeyup="filterFeatures()">
+                    <button class="btn-primary" type="button" onclick="filterFeatures()">Cari</button>
                 </div>
             </div>
 
@@ -57,7 +56,7 @@
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
                     </div>
                     <h3>Kalkulator & Kurva Z-Score</h3>
-                    <p>Hitung probabilitas distribusi normal standar dan lihat arsir area kurva secara otomatis via HTML5 Canvas.</p>
+                    <p>Hitung nilai Z-score dan lihat arsir kurva distribusi normal secara otomatis.</p>
                     <span class="card-link">Buka Tools &rarr;</span>
                 </div>
 
@@ -65,8 +64,8 @@
                     <div class="feature-icon icon-purple">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
                     </div>
-                    <h3>Biostatistik</h3>
-                    <p>Simulasi pembahasan soal Poisson, Binomial, dan Normal dengan perenderan rumus MathJax yang presisi.</p>
+                    <h3>Latihan Soal Biostatistik</h3>
+                    <p>Soal dan pembahasan Biostatistik (Poisson, Binomial, Z-Score) secara interaktif.</p>
                     <span class="card-link">Lihat Pembahasan &rarr;</span>
                 </div>
 
@@ -75,7 +74,7 @@
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
                     </div>
                     <h3>Epidemiologi Penyakit Menular</h3>
-                    <p>40 bank soal kuis pilihan ganda teracak dengan navigasi CBT, feedback jawaban, dan visualisasi skor.</p>
+                    <p>40 latihan soal pilihan ganda seputar epidemiologi penyakit menular.</p>
                     <span class="card-link">Mulai Kuis &rarr;</span>
                 </div>
 
@@ -84,7 +83,7 @@
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                     </div>
                     <h3>Dinamika Kelompok Kesmas</h3>
-                    <p>30 bank soal seputar pembentukan kelompok, team building, komunikasi transaksional, dan Johari Window.</p>
+                    <p>30 latihan soal seputar team building, interaksi kelompok, dan komunikasi.</p>
                     <span class="card-link">Mulai Kuis &rarr;</span>
                 </div>
             </div>
@@ -147,7 +146,7 @@
             </div>
         </section>
 
-        <!-- 3. LATIHAN SOAL UTS -->
+        <!-- 3. LATIHAN SOAL BIOSTATISTIK -->
         <section id="tab-uts" class="tab-content">
             <div class="page-title">
                 <h2>Modul Latihan Soal Biostatistik</h2>
@@ -305,6 +304,20 @@
 
         function toggleNavMenu() {
             document.getElementById('navLinks').classList.toggle('open');
+        }
+
+        function filterFeatures() {
+            const input = document.getElementById('heroSearchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.feature-card');
+
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         }
 
         function startEpidemiologiQuiz() {
