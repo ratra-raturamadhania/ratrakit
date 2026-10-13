@@ -27,11 +27,20 @@
 
             <nav class="nav-links" id="navLinks">
                 <button class="nav-btn active" id="btn-home" onclick="switchMainTab('home')">Beranda</button>
-                <button class="nav-btn" id="btn-kalkulator" onclick="switchMainTab('kalkulator')">Kalkulator Z-Score</button>
-                <button class="nav-btn" id="btn-uts" onclick="switchMainTab('uts')">Biostatistik</button>
-                <button class="nav-btn" id="btn-epidemiologi" onclick="switchMainTab('epidemiologi')">Epidemiologi</button>
-                <button class="nav-btn" id="btn-dinamika" onclick="switchMainTab('dinamika')">Dinamika Kelompok</button>
-                <button class="nav-btn" id="btn-citasi" onclick="switchMainTab('citasi')">Generator Citasi</button>
+
+                <!-- DROPDOWN MENU BERSIH & MODERN -->
+                <div class="dropdown">
+                    <button class="nav-btn dropdown-toggle" onclick="toggleDropdown(event)">
+                        Modul & Tools <span class="arrow">▾</span>
+                    </button>
+                    <div class="dropdown-menu" id="toolsDropdown">
+                        <button class="dropdown-item" id="btn-kalkulator" onclick="switchMainTab('kalkulator')">🧮 Kalkulator Z-Score</button>
+                        <button class="dropdown-item" id="btn-uts" onclick="switchMainTab('uts')">📊 Biostatistik</button>
+                        <button class="dropdown-item" id="btn-epidemiologi" onclick="switchMainTab('epidemiologi')">🦠 Epidemiologi</button>
+                        <button class="dropdown-item" id="btn-dinamika" onclick="switchMainTab('dinamika')">👥 Dinamika Kelompok</button>
+                        <button class="dropdown-item" id="btn-citasi" onclick="switchMainTab('citasi')">📝 Generator Citasi</button>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
@@ -86,6 +95,15 @@
                     <h3>Dinamika Kelompok Kesmas</h3>
                     <p>30 bank soal seputar pembentukan kelompok, team building, komunikasi transaksional, dan Johari Window.</p>
                     <span class="card-link">Mulai Kuis &rarr;</span>
+                </div>
+
+                <div class="feature-card" onclick="switchMainTab('citasi')">
+                    <div class="feature-icon icon-blue">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M9 10h6"/><path d="M9 14h4"/></svg>
+                    </div>
+                    <h3>Generator Citasi</h3>
+                    <p>Format daftar pustaka otomatis APA 7th Edition dan Vancouver untuk laporan atau tugas kuliah.</p>
+                    <span class="card-link">Buat Citasi &rarr;</span>
                 </div>
             </div>
         </section>
@@ -337,6 +355,7 @@
         function switchMainTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.dropdown-item').forEach(btn => btn.classList.remove('active'));
             
             const targetTab = document.getElementById('tab-' + tabName);
             const targetBtn = document.getElementById('btn-' + tabName);
