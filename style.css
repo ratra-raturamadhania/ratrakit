@@ -376,7 +376,7 @@ body {
 }
 
 label { font-size: 0.875rem; font-weight: 600; }
-input[type="number"] {
+input[type="number"], input[type="text"] {
     width: 100%;
     padding: 0.7rem 0.9rem;
     border: 1px solid var(--border-color);
@@ -455,6 +455,42 @@ input[type="number"] {
 .score-num { font-size: 2.2rem; font-weight: 800; color: #065f46; line-height: 1; }
 .score-label { font-size: 0.75rem; color: #047857; font-weight: 600; letter-spacing: 0.05em; }
 .score-detail { margin-bottom: 1.5rem; font-size: 0.95rem; color: var(--text-muted); }
+
+/* CITATION GENERATOR STYLES */
+.citation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.styled-select {
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    margin-top: 0.4rem;
+    margin-bottom: 1rem;
+    background-color: #ffffff;
+    color: var(--text-color);
+    outline: none;
+    transition: var(--transition-fast);
+}
+
+.styled-select:focus {
+    border-color: var(--accent-blue);
+}
+
+.citation-output {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    padding: 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    color: var(--primary-color);
+    line-height: 1.5;
+    word-break: break-word;
+}
 
 .hidden { display: none !important; }
 
