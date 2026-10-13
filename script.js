@@ -152,6 +152,24 @@ function switchTable(type) {
     }
 }
 
+// Fungsi Filter/Pencarian Modul di Beranda
+function filterFeatures() {
+    const input = document.getElementById('heroSearchInput');
+    if (!input) return;
+    
+    const query = input.value.toLowerCase();
+    const cards = document.querySelectorAll('.feature-card');
+
+    cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(query)) {
+            card.style.display = 'flex';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     generateZTables();
 });
