@@ -488,7 +488,7 @@ input[type="number"], input[type="text"] {
 .styled-table th, .styled-table td { padding: 9px 12px; text-align: center; border: 1px solid var(--border-color); }
 .styled-table th { background: #f8fafc; position: sticky; top: 0; z-index: 2; }
 
-/* QUIZ & CBT COMPONENTS (EPIDEMIOLOGI, DINAMIKA, ERGONOMI, GIZI) */
+/* QUIZ & CBT COMPONENTS (EPIDEMIOLOGI, DINAMIKA, ERGONOMI, GIZI, DASKESPRO) */
 .start-banner {
     text-align: center;
     padding: 2.5rem 1rem;
