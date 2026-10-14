@@ -40,6 +40,7 @@
                         <button class="dropdown-item" id="btn-dinamika" onclick="switchMainTab('dinamika')">Dinamika Kelompok</button>
                         <button class="dropdown-item" id="btn-ergonomi" onclick="switchMainTab('ergonomi')">Ergonomi & Lingkungan Kerja</button>
                         <button class="dropdown-item" id="btn-gizi" onclick="switchMainTab('gizi')">Gizi Kesmas</button>
+                        <button class="dropdown-item" id="btn-daskespro" onclick="switchMainTab('daskespro')">Dasar Kespro</button>
                         <button class="dropdown-item" id="btn-citasi" onclick="switchMainTab('citasi')">Generator Citasi</button>
                     </div>
                 </div>
@@ -114,6 +115,15 @@
                     </div>
                     <h3>Gizi Kesehatan Masyarakat</h3>
                     <p>40 bank soal kuis seputar gizi daur kehidupan, transisi epidemiologi, stunting, dan gizi kerja.</p>
+                    <span class="card-link">Mulai Kuis &rarr;</span>
+                </div>
+
+                <div class="feature-card" onclick="switchMainTab('daskespro')">
+                    <div class="feature-icon icon-emerald">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    </div>
+                    <h3>Dasar Kesehatan Reproduksi</h3>
+                    <p>40 bank soal kuis seputar PKPR, KB, Safe Motherhood, ANC terpadu, dan kesehatan reproduksi remaja.</p>
                     <span class="card-link">Mulai Kuis &rarr;</span>
                 </div>
 
@@ -418,7 +428,60 @@
             </div>
         </section>
 
-        <!-- 8. GENERATOR CITASI -->
+        <!-- 8. DASAR KESEHATAN REPRODUKSI -->
+        <section id="tab-daskespro" class="tab-content">
+            <div class="page-title">
+                <h2>Dasar Kesehatan Reproduksi & Keluarga</h2>
+                <p>Modul evaluasi mandiri seputar PKPR, KB, Safe Motherhood, ANC terpadu, dan kesehatan reproduksi remaja.</p>
+            </div>
+
+            <div class="card">
+                <div id="quiz-start-screen-daskespro" class="start-banner">
+                    <h3>Modul Latihan Dasar Kesehatan Reproduksi</h3>
+                    <p>Terdiri dari 40 soal pilihan ganda dari seluruh materi perkuliahan DasKesPro.</p>
+                    <button type="button" class="btn-primary" onclick="startDaskesproQuiz()">Mulai Latihan</button>
+                </div>
+
+                <div id="quiz-main-container-daskespro" class="hidden">
+                    <div class="progress-bar-bg">
+                        <div id="quiz-progress-fill-daskespro" class="progress-bar-fill"></div>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <span class="palette-title">Navigasi Nomor Soal:</span>
+                        <div id="quiz-number-palette-daskespro" class="palette-grid"></div>
+                    </div>
+
+                    <div id="quiz-card-daskespro">
+                        <div class="quiz-card-header">
+                            <span id="quiz-topic-tag-daskespro" class="topic-tag">Topik</span>
+                            <span class="question-counter">Soal <strong id="quiz-current-num-daskespro">1</strong> dari <strong id="quiz-total-num-daskespro">40</strong></span>
+                        </div>
+
+                        <h3 id="quiz-question-daskespro" class="question-text">Memuat soal...</h3>
+                        <div id="quiz-options-daskespro" class="options-container"></div>
+                        <div id="quiz-feedback-daskespro" class="info-box hidden"></div>
+
+                        <div class="quiz-nav-footer">
+                            <button id="quiz-prev-btn-daskespro" type="button" class="btn-secondary hidden">&larr; Soal Sebelumnya</button>
+                            <button id="quiz-next-btn-daskespro" type="button" class="btn-primary" style="margin-left: auto;">Soal Selanjutnya &rarr;</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="quiz-result-card-daskespro" class="hidden result-banner">
+                    <h3>Latihan Selesai</h3>
+                    <div class="score-circle">
+                        <span id="quiz-final-score-val-daskespro" class="score-num">0</span>
+                        <span class="score-label">SKOR AKHIR</span>
+                    </div>
+                    <p id="quiz-final-detail-daskespro" class="score-detail"></p>
+                    <button id="quiz-restart-btn-daskespro" type="button" class="btn-primary" style="margin: 0 auto;" onclick="location.reload()">Coba Lagi</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. GENERATOR CITASI -->
         <section id="tab-citasi" class="tab-content">
             <div class="page-title">
                 <h2>Generator Referensi & Citasi Otomatis</h2>
@@ -479,6 +542,7 @@
     <script src="dinamika.js"></script>
     <script src="ergonomi.js"></script>
     <script src="gizi.js"></script>
+    <script src="daskespro.js"></script>
     <script>
         function switchMainTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
@@ -561,6 +625,18 @@
             
             if (typeof initGiziQuiz === 'function') {
                 initGiziQuiz();
+            }
+        }
+
+        function startDaskesproQuiz() {
+            const startScreen = document.getElementById("quiz-start-screen-daskespro");
+            const mainContainer = document.getElementById("quiz-main-container-daskespro");
+            
+            if (startScreen) startScreen.classList.add("hidden");
+            if (mainContainer) mainContainer.classList.remove("hidden");
+            
+            if (typeof initDaskesproQuiz === 'function') {
+                initDaskesproQuiz();
             }
         }
     </script>
