@@ -28,7 +28,7 @@
             <nav class="nav-links" id="navLinks">
                 <button class="nav-btn active" id="btn-home" onclick="switchMainTab('home')">Beranda</button>
 
-                <!-- DROPDOWN MENU BERSIH TANPA EMOJI -->
+                <!-- DROPDOWN MENU -->
                 <div class="dropdown">
                     <button class="nav-btn dropdown-toggle" onclick="toggleDropdown(event)">
                         Modul & Tools <span class="arrow">▾</span>
@@ -39,6 +39,7 @@
                         <button class="dropdown-item" id="btn-epidemiologi" onclick="switchMainTab('epidemiologi')">Epidemiologi</button>
                         <button class="dropdown-item" id="btn-dinamika" onclick="switchMainTab('dinamika')">Dinamika Kelompok</button>
                         <button class="dropdown-item" id="btn-ergonomi" onclick="switchMainTab('ergonomi')">Ergonomi & Lingkungan Kerja</button>
+                        <button class="dropdown-item" id="btn-gizi" onclick="switchMainTab('gizi')">Gizi Kesmas</button>
                         <button class="dropdown-item" id="btn-citasi" onclick="switchMainTab('citasi')">Generator Citasi</button>
                     </div>
                 </div>
@@ -104,6 +105,15 @@
                     </div>
                     <h3>Ergonomi & Lingkungan Kerja</h3>
                     <p>40 bank soal kuis seputar higiene industri, faktor bahaya K3, budaya 5R, dan investigasi lingkungan.</p>
+                    <span class="card-link">Mulai Kuis &rarr;</span>
+                </div>
+
+                <div class="feature-card" onclick="switchMainTab('gizi')">
+                    <div class="feature-icon icon-purple">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path d="M12 6v6l4 2"/></svg>
+                    </div>
+                    <h3>Gizi Kesehatan Masyarakat</h3>
+                    <p>40 bank soal kuis seputar gizi daur kehidupan, transisi epidemiologi, stunting, dan gizi kerja.</p>
                     <span class="card-link">Mulai Kuis &rarr;</span>
                 </div>
 
@@ -355,7 +365,60 @@
             </div>
         </section>
 
-        <!-- 7. GENERATOR CITASI -->
+        <!-- 7. GIZI KESEHATAN MASYARAKAT -->
+        <section id="tab-gizi" class="tab-content">
+            <div class="page-title">
+                <h2>Gizi Kesehatan Masyarakat & Daur Kehidupan</h2>
+                <p>Modul evaluasi mandiri seputar gizi daur kehidupan, transisi gizi, stunting, dan gizi kerja.</p>
+            </div>
+
+            <div class="card">
+                <div id="quiz-start-screen-gizi" class="start-banner">
+                    <h3>Modul Latihan Gizi Kesehatan Masyarakat</h3>
+                    <p>Terdiri dari 40 soal pilihan ganda acak dari materi Gizi Daur Kehidupan dan Kesmas.</p>
+                    <button type="button" class="btn-primary" onclick="startGiziQuiz()">Mulai Latihan</button>
+                </div>
+
+                <div id="quiz-main-container-gizi" class="hidden">
+                    <div class="progress-bar-bg">
+                        <div id="quiz-progress-fill-gizi" class="progress-bar-fill"></div>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <span class="palette-title">Navigasi Nomor Soal:</span>
+                        <div id="quiz-number-palette-gizi" class="palette-grid"></div>
+                    </div>
+
+                    <div id="quiz-card-gizi">
+                        <div class="quiz-card-header">
+                            <span id="quiz-topic-tag-gizi" class="topic-tag">Topik</span>
+                            <span class="question-counter">Soal <strong id="quiz-current-num-gizi">1</strong> dari <strong id="quiz-total-num-gizi">40</strong></span>
+                        </div>
+
+                        <h3 id="quiz-question-gizi" class="question-text">Memuat soal...</h3>
+                        <div id="quiz-options-gizi" class="options-container"></div>
+                        <div id="quiz-feedback-gizi" class="info-box hidden"></div>
+
+                        <div class="quiz-nav-footer">
+                            <button id="quiz-prev-btn-gizi" type="button" class="btn-secondary hidden">&larr; Soal Sebelumnya</button>
+                            <button id="quiz-next-btn-gizi" type="button" class="btn-primary" style="margin-left: auto;">Soal Selanjutnya &rarr;</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="quiz-result-card-gizi" class="hidden result-banner">
+                    <h3>Latihan Selesai</h3>
+                    <div class="score-circle">
+                        <span id="quiz-final-score-val-gizi" class="score-num">0</span>
+                        <span class="score-label">SKOR AKHIR</span>
+                    </div>
+                    <p id="quiz-final-detail-gizi" class="score-detail"></p>
+                    <button id="quiz-restart-btn-gizi" type="button" class="btn-primary" style="margin: 0 auto;" onclick="location.reload()">Coba Lagi</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. GENERATOR CITASI -->
         <section id="tab-citasi" class="tab-content">
             <div class="page-title">
                 <h2>Generator Referensi & Citasi Otomatis</h2>
@@ -415,6 +478,7 @@
     <script src="epidemiologi.js"></script>
     <script src="dinamika.js"></script>
     <script src="ergonomi.js"></script>
+    <script src="gizi.js"></script>
     <script>
         function switchMainTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
@@ -485,6 +549,18 @@
             
             if (typeof initErgonomiQuiz === 'function') {
                 initErgonomiQuiz();
+            }
+        }
+
+        function startGiziQuiz() {
+            const startScreen = document.getElementById("quiz-start-screen-gizi");
+            const mainContainer = document.getElementById("quiz-main-container-gizi");
+            
+            if (startScreen) startScreen.classList.add("hidden");
+            if (mainContainer) mainContainer.classList.remove("hidden");
+            
+            if (typeof initGiziQuiz === 'function') {
+                initGiziQuiz();
             }
         }
     </script>
