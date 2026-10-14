@@ -535,13 +535,13 @@ const ergonomiQuizData = [
   }
 ];
 
-// State Management
-let currentQuizData = [];
-let currentIndex = 0;
-let userAnswers = [];
+// State Management Spesifik Ergonomi
+let currentErgonomiQuizData = [];
+let currentErgonomiIndex = 0;
+let userErgonomiAnswers = [];
 
 // Algoritma Pengacak Array (Fisher-Yates)
-function shuffleArray(array) {
+function shuffleErgonomiArray(array) {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -550,39 +550,39 @@ function shuffleArray(array) {
   return shuffled;
 }
 
-function initQuiz() {
-  currentQuizData = shuffleArray(ergonomiQuizData);
-  currentIndex = 0;
-  userAnswers = new Array(currentQuizData.length).fill(null);
+function initErgonomiQuiz() {
+  currentErgonomiQuizData = shuffleErgonomiArray(ergonomiQuizData);
+  currentErgonomiIndex = 0;
+  userErgonomiAnswers = new Array(currentErgonomiQuizData.length).fill(null);
   
-  const totalNumEl = document.getElementById("quiz-total-num");
-  const resultCard = document.getElementById("quiz-result-card");
+  const totalNumEl = document.getElementById("quiz-total-num-ergonomi");
+  const resultCard = document.getElementById("quiz-result-card-ergonomi");
   
-  if (totalNumEl) totalNumEl.textContent = currentQuizData.length;
+  if (totalNumEl) totalNumEl.textContent = currentErgonomiQuizData.length;
   if (resultCard) resultCard.classList.add("hidden");
   
-  renderPalette();
-  renderQuestion();
+  renderErgonomiPalette();
+  renderErgonomiQuestion();
 }
 
-function renderPalette() {
-  const numberPalette = document.getElementById("quiz-number-palette");
+function renderErgonomiPalette() {
+  const numberPalette = document.getElementById("quiz-number-palette-ergonomi");
   if (!numberPalette) return;
   numberPalette.innerHTML = "";
 
-  currentQuizData.forEach((_, idx) => {
+  currentErgonomiQuizData.forEach((_, idx) => {
     const pBtn = document.createElement("button");
     pBtn.type = "button";
     pBtn.textContent = idx + 1;
     pBtn.style.cssText = "width: 32px; height: 32px; padding: 0; font-size: 0.8rem; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer;";
     
-    if (idx === currentIndex) {
+    if (idx === currentErgonomiIndex) {
       pBtn.style.border = "2px solid var(--accent-blue, #2563eb)";
       pBtn.style.fontWeight = "bold";
     }
     
-    if (userAnswers[idx] !== null) {
-      const isCorrect = userAnswers[idx] === currentQuizData[idx].answer;
+    if (userErgonomiAnswers[idx] !== null) {
+      const isCorrect = userErgonomiAnswers[idx] === currentErgonomiQuizData[idx].answer;
       pBtn.style.backgroundColor = isCorrect ? "#10b981" : "#ef4444";
       pBtn.style.color = "#ffffff";
       pBtn.style.border = "none";
@@ -593,52 +593,52 @@ function renderPalette() {
     }
 
     pBtn.onclick = () => {
-      currentIndex = idx;
-      renderQuestion();
+      currentErgonomiIndex = idx;
+      renderErgonomiQuestion();
     };
 
     numberPalette.appendChild(pBtn);
   });
 }
 
-function renderQuestion() {
-  resetQuizState();
-  renderPalette();
+function renderErgonomiQuestion() {
+  resetErgonomiQuizState();
+  renderErgonomiPalette();
 
-  const item = currentQuizData[currentIndex];
+  const item = currentErgonomiQuizData[currentErgonomiIndex];
 
-  const currentNumEl = document.getElementById("quiz-current-num");
-  const topicTag = document.getElementById("quiz-topic-tag");
-  const questionText = document.getElementById("quiz-question");
-  const progressFill = document.getElementById("quiz-progress-fill");
-  const prevButton = document.getElementById("quiz-prev-btn");
-  const nextButton = document.getElementById("quiz-next-btn");
-  const optionsGrid = document.getElementById("quiz-options");
+  const currentNumEl = document.getElementById("quiz-current-num-ergonomi");
+  const topicTag = document.getElementById("quiz-topic-tag-ergonomi");
+  const questionText = document.getElementById("quiz-question-ergonomi");
+  const progressFill = document.getElementById("quiz-progress-fill-ergonomi");
+  const prevButton = document.getElementById("quiz-prev-btn-ergonomi");
+  const nextButton = document.getElementById("quiz-next-btn-ergonomi");
+  const optionsGrid = document.getElementById("quiz-options-ergonomi");
 
-  if (currentNumEl) currentNumEl.textContent = currentIndex + 1;
+  if (currentNumEl) currentNumEl.textContent = currentErgonomiIndex + 1;
   if (topicTag) topicTag.textContent = item.topic;
   if (questionText) questionText.textContent = item.question;
 
-  const answeredCount = userAnswers.filter(a => a !== null).length;
-  const pct = (answeredCount / currentQuizData.length) * 100;
+  const answeredCount = userErgonomiAnswers.filter(a => a !== null).length;
+  const pct = (answeredCount / currentErgonomiQuizData.length) * 100;
   if (progressFill) progressFill.style.width = `${pct}%`;
 
   if (prevButton) {
-    if (currentIndex > 0) prevButton.classList.remove("hidden");
+    if (currentErgonomiIndex > 0) prevButton.classList.remove("hidden");
     else prevButton.classList.add("hidden");
     prevButton.onclick = () => {
-      if (currentIndex > 0) { currentIndex--; renderQuestion(); }
+      if (currentErgonomiIndex > 0) { currentErgonomiIndex--; renderErgonomiQuestion(); }
     };
   }
 
   if (nextButton) {
-    nextButton.textContent = (currentIndex === currentQuizData.length - 1) ? "Lihat Hasil Akhir 🎉" : "Soal Selanjutnya \u2192";
+    nextButton.textContent = (currentErgonomiIndex === currentErgonomiQuizData.length - 1) ? "Lihat Hasil Akhir 🎉" : "Soal Selanjutnya \u2192";
     nextButton.onclick = () => {
-      if (currentIndex < currentQuizData.length - 1) {
-        currentIndex++;
-        renderQuestion();
+      if (currentErgonomiIndex < currentErgonomiQuizData.length - 1) {
+        currentErgonomiIndex++;
+        renderErgonomiQuestion();
       } else {
-        renderResult();
+        renderErgonomiResult();
       }
     };
   }
@@ -650,30 +650,30 @@ function renderQuestion() {
       btn.className = "quiz-opt-btn";
       btn.innerHTML = `<span style="font-weight: 700; color: var(--text-muted, #64748b);">${String.fromCharCode(65 + idx)}.</span> <span>${optText}</span>`;
       
-      if (userAnswers[currentIndex] !== null) {
+      if (userErgonomiAnswers[currentErgonomiIndex] !== null) {
         btn.disabled = true;
         if (idx === item.answer) {
           btn.classList.add("is-correct");
         }
-        if (userAnswers[currentIndex] === idx && idx !== item.answer) {
+        if (userErgonomiAnswers[currentErgonomiIndex] === idx && idx !== item.answer) {
           btn.classList.add("is-wrong");
         }
       } else {
-        btn.onclick = () => handleSelectOption(idx);
+        btn.onclick = () => handleSelectErgonomiOption(idx);
       }
 
       optionsGrid.appendChild(btn);
     });
   }
 
-  if (userAnswers[currentIndex] !== null) {
-    showFeedback(userAnswers[currentIndex] === item.answer, item.explanation);
+  if (userErgonomiAnswers[currentErgonomiIndex] !== null) {
+    showErgonomiFeedback(userErgonomiAnswers[currentErgonomiIndex] === item.answer, item.explanation);
   }
 }
 
-function resetQuizState() {
-  const feedbackBox = document.getElementById("quiz-feedback");
-  const optionsGrid = document.getElementById("quiz-options");
+function resetErgonomiQuizState() {
+  const feedbackBox = document.getElementById("quiz-feedback-ergonomi");
+  const optionsGrid = document.getElementById("quiz-options-ergonomi");
 
   if (feedbackBox) {
     feedbackBox.className = "info-box hidden";
@@ -682,13 +682,13 @@ function resetQuizState() {
   if (optionsGrid) optionsGrid.innerHTML = "";
 }
 
-function handleSelectOption(chosenIdx) {
-  userAnswers[currentIndex] = chosenIdx;
-  renderQuestion();
+function handleSelectErgonomiOption(chosenIdx) {
+  userErgonomiAnswers[currentErgonomiIndex] = chosenIdx;
+  renderErgonomiQuestion();
 }
 
-function showFeedback(isCorrect, explanation) {
-  const feedbackBox = document.getElementById("quiz-feedback");
+function showErgonomiFeedback(isCorrect, explanation) {
+  const feedbackBox = document.getElementById("quiz-feedback-ergonomi");
   if (!feedbackBox) return;
 
   if (isCorrect) {
@@ -703,42 +703,33 @@ function showFeedback(isCorrect, explanation) {
   feedbackBox.classList.remove("hidden");
 }
 
-function renderResult() {
-  const mainContainer = document.getElementById("quiz-main-container");
-  const resultCard = document.getElementById("quiz-result-card");
-  const finalScoreVal = document.getElementById("quiz-final-score-val");
-  const finalDetailEl = document.getElementById("quiz-final-detail");
-  const restartBtn = document.getElementById("quiz-restart-btn");
+function renderErgonomiResult() {
+  const mainContainer = document.getElementById("quiz-main-container-ergonomi");
+  const resultCard = document.getElementById("quiz-result-card-ergonomi");
+  const finalScoreVal = document.getElementById("quiz-final-score-val-ergonomi");
+  const finalDetailEl = document.getElementById("quiz-final-detail-ergonomi");
+  const restartBtn = document.getElementById("quiz-restart-btn-ergonomi");
 
   if (mainContainer) mainContainer.classList.add("hidden");
   if (resultCard) resultCard.classList.remove("hidden");
 
   let correctCount = 0;
-  userAnswers.forEach((ans, idx) => {
-    if (ans === currentQuizData[idx].answer) correctCount++;
+  userErgonomiAnswers.forEach((ans, idx) => {
+    if (ans === currentErgonomiQuizData[idx].answer) correctCount++;
   });
 
-  const percentage = Math.round((correctCount / currentQuizData.length) * 100);
+  const percentage = Math.round((correctCount / currentErgonomiQuizData.length) * 100);
 
   if (finalScoreVal) finalScoreVal.textContent = percentage;
   if (finalDetailEl) {
-    finalDetailEl.innerHTML = `Kamu berhasil menjawab <strong>${correctCount} dari ${currentQuizData.length} soal</strong> dengan benar.`;
+    finalDetailEl.innerHTML = `Kamu berhasil menjawab <strong>${correctCount} dari ${currentErgonomiQuizData.length} soal</strong> dengan benar.`;
   }
 
   if (restartBtn) {
     restartBtn.onclick = () => {
       if (resultCard) resultCard.classList.add("hidden");
-      const startScreen = document.getElementById("quiz-start-screen");
+      const startScreen = document.getElementById("quiz-start-screen-ergonomi");
       if (startScreen) startScreen.classList.remove("hidden");
     };
   }
-}
-
-// Inisialisasi otomatis saat dimuat
-if (document.readyState === 'loading') {
-  document.addEventListener("DOMContentLoaded", () => {
-    if (typeof initQuiz === 'function') initQuiz();
-  });
-} else {
-  if (typeof initQuiz === 'function') initQuiz();
 }
