@@ -148,7 +148,7 @@ body {
     right: 0;
     top: 110%;
     background-color: #ffffff;
-    min-width: 200px;
+    min-width: 220px;
     box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.15);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
@@ -200,7 +200,7 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* LANDING PAGE HERO & SEARCH BOX (RATA DAN PRESISI) */
+/* LANDING PAGE HERO & SEARCH BOX */
 .hero-banner {
     text-align: center;
     padding: 3.5rem 2rem;
@@ -482,7 +482,7 @@ input[type="number"], input[type="text"] {
 .styled-table th, .styled-table td { padding: 9px 12px; text-align: center; border: 1px solid var(--border-color); }
 .styled-table th { background: #f8fafc; position: sticky; top: 0; z-index: 2; }
 
-/* EPIDEMIOLOGI & DINAMIKA QUIZ COMPONENTS */
+/* EPIDEMIOLOGI, DINAMIKA, & ERGONOMI QUIZ COMPONENTS */
 .start-banner {
     text-align: center;
     padding: 2.5rem 1rem;
