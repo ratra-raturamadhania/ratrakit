@@ -1,4 +1,37 @@
-// Render tabel Z secara otomatis saat dimuat
+// ==========================================
+// DARK MODE MANAGEMENT
+// ==========================================
+function initTheme() {
+    const savedTheme = localStorage.getItem("ratrakit-theme") || "light";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+    updateThemeIcon(savedTheme);
+}
+
+function toggleDarkMode() {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    
+    document.documentElement.setAttribute("data-theme", newTheme);
+    localStorage.setItem("ratrakit-theme", newTheme);
+    updateThemeIcon(newTheme);
+}
+
+function updateThemeIcon(theme) {
+    const btn = document.getElementById("themeToggleBtn");
+    if (btn) {
+        btn.innerHTML = theme === "dark" ? "☀️" : "🌙";
+    }
+}
+
+// Inisialisasi tema saat DOM siap
+document.addEventListener("DOMContentLoaded", () => {
+    initTheme();
+    generateZTables();
+});
+
+// ==========================================
+// RENDER TABEL Z SECARA OTOMATIS
+// ==========================================
 function generateZTables() {
     const posTable = document.getElementById('posZTable');
     const negTable = document.getElementById('negZTable');
@@ -36,6 +69,9 @@ function buildTableHTML(isNegative) {
     return html;
 }
 
+// ==========================================
+// KALKULATOR Z-SCORE & BELL CURVE
+// ==========================================
 function calculateZ() {
     generateZTables();
     const zInput = document.getElementById('zInput');
@@ -54,9 +90,9 @@ function calculateZ() {
     const outTwoTail = document.getElementById('outTwoTail');
 
     if (outZ) outZ.textContent = z.toFixed(2);
-    if (outProbLeft) outProbLeft.textContent = probLeft.toFixed(4);
-    if (outProbRight) outProbRight.textContent = probRight.toFixed(4);
-    if (outTwoTail) outTwoTail.textContent = twoTail.toFixed(4);
+    if (outProbLeft) outProbLeft.textContent = probLeft.toFixed(4) + ` (${(probLeft * 100).toFixed(2)}%)`;
+    if (outProbRight) outProbRight.textContent = probRight.toFixed(4) + ` (${(probRight * 100).toFixed(2)}%)`;
+    if (outTwoTail) outTwoTail.textContent = twoTail.toFixed(4) + ` (${(twoTail * 100).toFixed(2)}%)`;
 
     drawBellCurve(z);
 }
@@ -152,7 +188,9 @@ function switchTable(type) {
     }
 }
 
-// Fungsi Filter/Pencarian Modul di Beranda
+// ==========================================
+// FILTER PENCARIAN BERANDA
+// ==========================================
 function filterFeatures() {
     const input = document.getElementById('heroSearchInput');
     if (!input) return;
@@ -170,7 +208,9 @@ function filterFeatures() {
     });
 }
 
-// Fungsi Generator Citasi
+// ==========================================
+// GENERATOR CITASI
+// ==========================================
 function generateCitation() {
     const author = document.getElementById('citAuthor').value.trim();
     const year = document.getElementById('citYear').value.trim();
@@ -188,12 +228,10 @@ function generateCitation() {
     let result = '';
 
     if (style === 'apa') {
-        // APA 7th: Penulis. (Tahun). Judul. Nama Jurnal.
         const formattedYear = year ? `(${year})` : '(n.d.)';
         const formattedJournal = journal ? `<em>${journal}</em>.` : '';
-        result = `${author} ${formattedYear}. ${title}. ${formattedJournal}`;
+        result = `${author} ${formattedYear}. <i>${title}</i>. ${formattedJournal}`;
     } else if (style === 'vancouver') {
-        // Vancouver: Penulis. Judul. Nama Jurnal. Tahun.
         const vanAuthor = author.replace(/,/g, '');
         const formattedYear = year ? `${year}.` : '';
         const formattedJournal = journal ? `${journal}.` : '';
@@ -215,21 +253,18 @@ function copyCitation() {
     });
 }
 
-// Toggle Dropdown Menu
+// ==========================================
+// DROPDOWN MENU
+// ==========================================
 function toggleDropdown(event) {
     event.stopPropagation();
     const dropdown = document.getElementById('toolsDropdown');
     if (dropdown) dropdown.classList.toggle('show');
 }
 
-// Tutup dropdown kalau klik di luar area menu
 window.addEventListener('click', () => {
     const dropdown = document.getElementById('toolsDropdown');
     if (dropdown && dropdown.classList.contains('show')) {
         dropdown.classList.remove('show');
     }
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-    generateZTables();
 });
