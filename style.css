@@ -772,3 +772,38 @@ button.palette-btn.answered {
     color: #ffffff !important;
     border-color: var(--accent-blue) !important;
 }
+/* FIX FINAL: MENJAGA TANDA NOMOR SUDAH DIKERJAKAN (.answered) TETAP BIRU */
+.palette-grid button,
+.palette-grid .palette-btn,
+button.palette-btn {
+    background-color: var(--bg-color) !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+.palette-grid button:hover,
+.palette-grid .palette-btn:hover,
+button.palette-btn:hover {
+    border-color: var(--accent-blue) !important;
+    color: var(--accent-blue) !important;
+}
+
+/* NOMOR SEDANG AKTIF DIBUKA */
+.palette-grid button.active,
+.palette-grid .palette-btn.active,
+button.palette-btn.active {
+    background-color: var(--info-bg) !important;
+    color: var(--accent-blue) !important;
+    border-color: var(--accent-blue) !important;
+    font-weight: 800 !important;
+}
+
+/* TANDA NOMOR SUDAH DIKERJAKAN (Latar Biru, Teks Putih) */
+.palette-grid button.answered,
+.palette-grid .palette-btn.answered,
+button.palette-btn.answered {
+    background-color: #2563eb !important;
+    background: #2563eb !important;
+    color: #ffffff !important;
+    border-color: #2563eb !important;
+}
