@@ -24,6 +24,64 @@
     --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* ==========================================
+   DARK MODE STYLES & VARIABLES
+   ========================================== */
+[data-theme="dark"] {
+    --primary-color: #f8fafc;
+    --primary-light: #e2e8f0;
+    --accent-blue: #60a5fa;
+    --accent-blue-hover: #3b82f6;
+    --accent-indigo: #818cf8;
+    --secondary-color: #34d399;
+    --secondary-hover: #10b981;
+    --danger-color: #f87171;
+    --danger-bg: #451a1a;
+    --bg-color: #0f172a;
+    --card-bg: #1e293b;
+    --text-color: #f8fafc;
+    --text-muted: #94a3b8;
+    --border-color: #334155;
+    --info-bg: #1e3a8a;
+    --info-border: #60a5fa;
+    --success-bg: #064e3b;
+}
+
+[data-theme="dark"] .top-nav {
+    background-color: rgba(15, 23, 42, 0.85);
+}
+
+[data-theme="dark"] .card,
+[data-theme="dark"] .feature-card,
+[data-theme="dark"] .dropdown-menu,
+[data-theme="dark"] .hero-banner,
+[data-theme="dark"] .uts-container-box,
+[data-theme="dark"] .citation-output,
+[data-theme="dark"] .styled-select,
+[data-theme="dark"] .palette-grid,
+[data-theme="dark"] input[type="text"],
+[data-theme="dark"] input[type="number"] {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .nav-btn:hover,
+[data-theme="dark"] .dropdown-item:hover {
+    background-color: #334155;
+}
+
+[data-theme="dark"] .palette-btn,
+[data-theme="dark"] .option-btn,
+[data-theme="dark"] .quiz-opt-btn {
+    background-color: #1e293b;
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .option-btn:hover:not(:disabled),
+[data-theme="dark"] .quiz-opt-btn:hover:not(:disabled) {
+    background-color: #334155;
+}
+
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -128,6 +186,26 @@ body {
 .nav-btn.active {
     color: var(--accent-blue);
     background-color: #eff6ff;
+}
+
+/* THEME TOGGLE BUTTON */
+.theme-toggle-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-fast);
+}
+
+.theme-toggle-btn:hover {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
 }
 
 /* DROPDOWN MENU STYLES */
