@@ -1,425 +1,621 @@
-// daskespro.js - Modul Kuis Dasar Kesehatan Reproduksi & Keluarga (Ratrakit)
+// ==========================================
+// BANK SOAL DASAR KESEHATAN REPRODUKSI (40 SOAL)
+// ==========================================
 
 const daskesproQuizData = [
-  {
-    question: "1. Pada tahun berapakah istilah 'kesehatan reproduksi' mulai populer secara internasional dalam Konferensi ICPD di Kairo?",
-    options: ["a. 1987", "b. 1990", "c. 1994", "d. 2009"],
-    answer: "c. 1994",
-    explanation: "Istilah 'kesehatan reproduksi' mulai populer tahun 1994 pada Konferensi Internasional tentang Kependudukan dan Pembangunan (ICPD) di Kairo."
-  },
-  {
-    question: "2. Undang-Undang Republik Indonesia Nomor berapakah yang mengatur tentang definisi kesehatan reproduksi pada Pasal 71?",
-    options: ["a. UU No. 36 Tahun 2009", "b. UU No. 52 Tahun 2009", "c. UU No. 17 Tahun 2023", "d. UU No. 16 Tahun 2019"],
-    answer: "a. UU No. 36 Tahun 2009",
-    explanation: "Pasal 71 UU No. 36 Tahun 2009 mengatur pengertian dan cakupan kesehatan reproduksi di Indonesia."
-  },
-  {
-    question: "3. Prinsip dasar kesehatan reproduksi yang menjamin kesetaraan hak dan peran antara laki-laki dan perempuan disebut...",
-    options: ["a. Universalitas", "b. Keadilan Gender", "c. Partisipasi Subjektif", "d. Kemandirian Fisiologis"],
-    answer: "b. Keadilan Gender",
-    explanation: "Keadilan dan kesetaraan gender menjamin hak serta tanggung jawab yang sama dalam kesehatan reproduksi."
-  },
-  {
-    question: "4. Berapa batasan usia remaja menurut Permenkes RI No. 25 Tahun 2014?",
-    options: ["a. 10 - 19 Tahun", "b. 10 - 18 Tahun", "c. 12 - 21 Tahun", "d. 15 - 24 Tahun"],
-    answer: "b. 10 - 18 Tahun",
-    explanation: "Permenkes RI No. 25 Tahun 2014 mendefinisikan remaja pada rentang usia 10-18 tahun (sedangkan WHO menetapkan 10-19 tahun)."
-  },
-  {
-    question: "5. Tahun berapakah program Pelayanan Kesehatan Peduli Remaja (PKPR) pertama kali diperkenalkan di Indonesia?",
-    options: ["a. 1997", "b. 2003", "c. 2014", "d. 2019"],
-    answer: "b. 2003",
-    explanation: "Program PKPR mulai diinisiasi pada tahun 2003 dan diperkuat dengan Standar Nasional PKPR pada tahun 2014."
-  },
-  {
-    question: "6. Berikut yang BUKAN merupakan salah satu dari 5 Standar Nasional PKPR adalah...",
-    options: [
-      "a. Sumber Daya Manusia (SDM) kesehatan",
-      "b. Jejaring dan Kerjasama Lintas Sektor",
-      "c. Pemberian Alat Kontrasepsi Bebas bagi Remaja Belum Menikah",
-      "d. Sarana dan Prasarana Kesehatan Remaja"
-    ],
-    answer: "c. Pemberian Alat Kontrasepsi Bebas bagi Remaja Belum Menikah",
-    explanation: "Standar PKPR mencakup SDM, sarana prasarana, keterlibatan remaja, jejaring lintas sektor, dan manajemen faskes."
-  },
-  {
-    question: "7. Pihak mana sajakah yang dapat memberikan layanan konseling kesehatan reproduksi remaja dalam skema PKPR?",
-    options: [
-      "a. Tenaga Kesehatan saja",
-      "b. Guru BK saja",
-      "c. Tenaga Kesehatan, Guru terlatih, dan Konselor Sebaya",
-      "d. Orang tua murid saja"
-    ],
-    answer: "c. Tenaga Kesehatan, Guru terlatih, dan Konselor Sebaya",
-    explanation: "Konseling PKPR memanfaatkan tenaga kesehatan, guru terlatih, serta konselor sebaya untuk pendekatan yang konsisttif."
-  },
-  {
-    question: "8. Peraturan Pemerintah nomor berapa yang memuat ketentuan khusus upaya kesehatan sistem reproduksi anak usia sekolah dan remaja?",
-    options: ["a. PP No. 61 Tahun 2014", "b. PP No. 28 Tahun 2024", "c. Permenkes No. 21 Tahun 2021", "d. UU No. 17 Tahun 2023"],
-    answer: "b. PP No. 28 Tahun 2024",
-    explanation: "PP No. 28 Tahun 2024 mengatur ketentuan pelaksana kesehatan reproduksi anak usia sekolah dan remaja."
-  },
-  {
-    question: "9. Berdasarkan UU No. 16 Tahun 2019, batas usia minimal perkawinan untuk pria dan wanita di Indonesia adalah...",
-    options: ["a. 16 Tahun", "b. 17 Tahun", "c. 18 Tahun", "d. 19 Tahun"],
-    answer: "d. 19 Tahun",
-    explanation: "UU No. 16 Tahun 2019 menaikkan batas minimal usia pernikahan bagi wanita menjadi 19 tahun, setara dengan pria."
-  },
-  {
-    question: "10. Provinsi di Indonesia yang mencatatkan proporsi pernikahan dini anak (10-14 tahun) tertinggi periode 2020-2022 adalah...",
-    options: ["a. Papua Barat", "b. Jawa Timur", "c. Sulawesi Barat", "d. DKI Jakarta"],
-    answer: "b. Jawa Timur",
-    explanation: "Berdasarkan data statistik kependudukan, Jawa Timur mencatatkan persentase tertinggi untuk kelompok usia 10-14 tahun pada rentang periode tersebut."
-  },
-  {
-    question: "11. Infeksi Menular Seksual (IMS) yang menjadi faktor etiologi utama terjadinya kanker serviks pada wanita adalah...",
-    options: ["a. Neisseria gonorrhoeae", "b. Human Papillomavirus (HPV)", "c. Chlamydia trachomatis", "d. Treponema pallidum"],
-    answer: "b. Human Papillomavirus (HPV)",
-    explanation: "Infeksi persisten tipe HPV risiko tinggi (seperti HPV 16 dan 18) memicu displasia serviks hingga kanker serviks."
-  },
-  {
-    question: "12. Mengapa remaja perempuan secara biologis lebih rentan terhadap komplikasi Infeksi Menular Seksual (IMS)?",
-    options: [
-      "a. Ektropion serviks/pematangan serviks belum sempurna serta ektopi serviks yang luas",
-      "b. Sistem imunitas tubuh belum terbentuk sama sekali",
-      "c. Tingkat keasaman (pH) vagina yang terlalu tinggi",
-      "d. Volume darah menstruasi yang sedikit"
-    ],
-    answer: "a. Ektropion serviks/pematangan serviks belum sempurna serta ektopi serviks yang luas",
-    explanation: "Secara anatomi, ektropion serviks pada remaja masih berkembang sehingga sel epitel kolumnar lebih terpapar patogen."
-  },
-  {
-    question: "13. Lembaga Keluarga Berencana Nasional (LKBN) bertransformasi menjadi BKKBN melalui Keppres No. 8 pada tahun...",
-    options: ["a. 1957", "b. 1967", "c. 1970", "d. 2009"],
-    answer: "c. 1970",
-    explanation: "BKKBN resmi dibentuk pada tahun 1970 untuk mengkoordinasikan pelaksanaan program KB nasional."
-  },
-  {
-    question: "14. Sistem informasi pencatatan dan pelaporan pelayanan KB digital yang diterapkan secara terintegrasi oleh BKKBN adalah...",
-    options: ["a. e-Puskesmas", "b. SIGA (Sistem Informasi Keluarga)", "c. SIMKES", "d. SIKLINIK"],
-    answer: "b. SIGA (Sistem Informasi Keluarga)",
-    explanation: "SIGA menjadi sistem pendataan operasional keluarga berbasis digital di tingkat lapangan hingga pusat."
-  },
-  {
-    question: "15. Kelompok metode kontrasepsi berikut yang dikategorikan sebagai Metode Kontrasepsi Jangka Panjang (MKJP) adalah...",
-    options: [
-      "a. Kondom dan Pil KB",
-      "b. Suntik 3 Bulan dan MAL",
-      "c. IUD (AKDR), Implan, MOW (Tubektomi), dan MOP (Vasektomi)",
-      "d. Diafragma dan Spermisida"
-    ],
-    answer: "c. IUD (AKDR), Implan, MOW (Tubektomi), dan MOP (Vasektomi)",
-    explanation: "MKJP memberikan perlindungan kontrasepsi jangka panjang (3 tahun hingga permanen)."
-  },
-  {
-    question: "16. Langkah-langkah konseling KB terstandar yang terdiri dari 6 tahapan dikenal dengan rumus...",
-    options: ["a. BAKSOKU", "b. SATU TUJU", "c. 10 T", "d. GURIK MASS"],
-    answer: "b. SATU TUJU",
-    explanation: "SATU TUJU singkatan dari: Sapa, Tanya, Uraikan, Bantu, Jelaskan, dan Ulangi kunjungan."
-  },
-  {
-    question: "17. Pasangan Usia Subur (PUS) yang belum pernah mengalami kehamilan setelah 12 bulan berhubungan intim secara teratur tanpa kontrasepsi disebut...",
-    options: ["a. Infertilitas Sekunder", "b. Infertilitas Primer", "c. Unmet Need KB", "d. Amenorea Sekunder"],
-    answer: "b. Infertilitas Primer",
-    explanation: "Infertilitas primer merujuk pada kegagalan mencapai kehamilan pertama dalam kurun waktu minimal 1 tahun."
-  },
-  {
-    question: "18. Sebutkan 4 Pilar Utama dalam strategi Safe Motherhood menurut WHO!",
-    options: [
-      "a. KB, Asuhan Antenatal (ANC), Persalinan Bersih & Aman, Pelayanan Obstetri Esensial",
-      "b. Gizi, Sanitasi, Imunisasi, Pendidikan Kesehatan",
-      "c. Posyandu, Puskesmas, Rumah Sakit, PONEK",
-      "d. Remaja, Catin, Ibu Hamil, Ibu Nifas"
-    ],
-    answer: "a. KB, Asuhan Antenatal (ANC), Persalinan Bersih & Aman, Pelayanan Obstetri Esensial",
-    explanation: "Empat pilar tersebut ditopang oleh pelayanan kesehatan dasar dan kesetaraan gender."
-  },
-  {
-    question: "19. Batasan risiko kehamilan '4 Terlalu' mencakup faktor-faktor berikut, KECUALI...",
-    options: ["a. Terlalu Muda (<20 tahun)", "b. Terlalu Tua (>35 tahun)", "c. Terlalu Luas (Luas wilayah tempat tinggal)", "d. Terlalu Banyak (>4 anak)"],
-    answer: "c. Terlalu Luas (Luas wilayah tempat tinggal)",
-    explanation: "'4 Terlalu' meliputi: Terlalu Muda, Terlalu Tua, Terlalu Dekat jarak kelahiran, dan Terlalu Banyak anak."
-  },
-  {
-    question: "20. Berdasarkan standar ANC Terpadu Kemenkes RI terbaru, jumlah minimal kontak pemeriksaan kehamilan adalah...",
-    options: ["a. 4 kali", "b. 6 kali (Trimester I: 1x, Trimester II: 2x, Trimester III: 3x)", "c. 8 kali", "d. 12 kali"],
-    answer: "b. 6 kali (Trimester I: 1x, Trimester II: 2x, Trimester III: 3x)",
-    explanation: "Standar terbaru mewajibkan minimal 6 kali kunjungan ANC dengan sedikitnya 2 kali pemeriksaan oleh dokter."
-  },
-  {
-    question: "21. Perbedaan mendasar antara Maternal Mortality Ratio (MMR Rasio) dan Maternal Mortality Rate (MMR Rate) terletak pada pembaginya, yaitu...",
-    options: [
-      "a. MMR Rasio menggunakan pembagi Jumlah Kelahiran Hidup; MMR Rate menggunakan Jumlah Wanita Usia Subur (WUS)",
-      "b. MMR Rasio dihitung per 1.000 penduduk; MMR Rate per 100.000 penduduk",
-      "c. MMR Rasio khusus ibu usia muda; MMR Rate untuk semua usia ibu",
-      "d. Tidak ada perbedaan"
-    ],
-    answer: "a. MMR Rasio menggunakan pembagi Jumlah Kelahiran Hidup; MMR Rate menggunakan Jumlah Wanita Usia Subur (WUS)",
-    explanation: "Rasio AKI membandingkan kematian ibu dengan kelahiran hidup (per 100.000 KH), sedangkan Rate membandingkan dengan total WUS (per 1.000 WUS)."
-  },
-  {
-    question: "22. Etiologi utama Perdarahan Postpartum (PPH) dirumuskan dalam prinsip '4T', yaitu...",
-    options: [
-      "a. Tonus, Tissue, Trauma, Thrombin",
-      "b. Tekanan, Tensi, Tempat, Waktu",
-      "c. Toksisitas, Trauma, Tetanus, Trombosis",
-      "d. Tumor, TBC, Typhus, Toksoplasma"
-    ],
-    answer: "a. Tonus, Tissue, Trauma, Thrombin",
-    explanation: "4T melambangkan: Tonus (Atonia uteri), Tissue (Retensio plasenta), Trauma (Laserasi jalan lahir), dan Thrombin (Ganggual koagulasi)."
-  },
-  {
-    question: "23. Inovasi program pendampingan ibu hamil risiko tinggi secara terpadu di Kabupaten Banyumas dikenal dengan nama...",
-    options: ["a. Jampersal", "b. KIRANA", "c. EMAS", "d. SIJARIEMAS"],
-    answer: "b. KIRANA",
-    explanation: "Program KIRANA (Kawal Ibu Hamil Risiko Tinggi Terintegrasi dan Terpadu) merupakan inovasi penanganan risiko maternal lokal."
-  },
-  {
-    question: "24. Komponen kesiapan rujukan kebidanan 'BAKSOKU' untuk huruf 'K' pertama adalah...",
-    options: ["a. Keuangan", "b. Keluarga", "c. Kendaraan", "d. Keterampilan Klinik"],
-    answer: "c. Kendaraan",
-    explanation: "BAKSOKU: Bidan, Alat, Keluarga, Surat, Obat, Kendaraan, dan Uang."
-  },
-  {
-    question: "25. Rentang usia kehamilan fisiologis pada Trimester II berada pada usia gestasi...",
-    options: ["a. 0 - 13 minggu", "b. 14 - 27 minggu", "c. 28 - 40 minggu", "d. 12 - 24 minggu"],
-    answer: "b. 14 - 27 minggu",
-    explanation: "Trimester I (0-13 minggu), Trimester II (14-27 minggu), Trimester III (28-40 minggu)."
-  },
-  {
-    question: "26. Hormon glikoprotein yang dihasilkan oleh trofoblas pada awal kehamilan untuk mempertahankan korpus luteum adalah...",
-    options: ["a. Estrogen", "b. Progesteron", "c. human Chorionic Gonadotropin (hCG)", "d. Human Placental Lactogen (hPL)"],
-    answer: "c. human Chorionic Gonadotropin (hCG)",
-    explanation: "hCG disekresikan sejak awal implantasi untuk menstimulasi korpus luteum memproduksi progesteron."
-  },
-  {
-    question: "27. Kondisi penurunan kadar hemoglobin relatif pada ibu hamil akibat ekspansi volume plasma yang lebih besar dibanding eritrosit dinamakan...",
-    options: ["a. Hemodilusi Fisiologis", "b. Hemolisis Patologis", "c. Leukositosis Fisiologis", "d. Trombositopenia Gestasional"],
-    answer: "a. Hemodilusi Fisiologis",
-    explanation: "Peningkatan volume darah plasma menyebabkan pengenceran darah (hemodilusi) yang wajar terjadi pada masa kehamilan."
-  },
-  {
-    question: "28. Menurut Angka Kecukupan Gizi (AKG 2019), tambahan kebutuhan energi harian bagi ibu hamil Trimester II & III adalah...",
-    options: ["a. +180 kkal/hari", "b. +300 kkal/hari", "c. +450 kkal/hari", "d. +500 kkal/hari"],
-    answer: "b. +300 kkal/hari",
-    explanation: "Rekomendasi AKG menambah +180 kkal pada Trimester I dan +300 kkal pada Trimester II & III."
-  },
-  {
-    question: "29. Berapa tambahan asupan Protein harian yang direkomendasikan untuk ibu hamil Trimester III berdasarkan AKG 2019?",
-    options: ["a. +1 gram/hari", "b. +10 gram/hari", "c. +30 gram/hari", "d. +40 gram/hari"],
-    answer: "c. +30 gram/hari",
-    explanation: "Tambahan protein bertahap: Trimester I (+1g), Trimester II (+10g), dan Trimester III (+30g)."
-  },
-  {
-    question: "30. Suplementasi mikronutrien vital sebelum konsepsi dan awal kehamilan untuk mencegah Neural Tube Defects (NTD) adalah...",
-    options: ["a. Asam Folat", "b. Kalsium", "c. Vitamin C", "d. Seng (Zinc)"],
-    answer: "a. Asam Folat",
-    explanation: "Asam folat penting untuk penutupan bumbung saraf janin pada 28 hari pertama pascakonsepsi."
-  },
-  {
-    question: "31. Rekomendasi model pelayanan Antenatal Care (ANC) terbaru dari WHO menetapkan minimal...",
-    options: ["a. 4 kali kontak", "b. 6 kali kontak", "c. 8 kali kontak", "d. 10 kali kontak"],
-    answer: "c. 8 kali kontak",
-    explanation: "WHO ANC Model menyarankan 8 kali kontak untuk menurunkan angka kematian perinatal dan meningkatkan kepuasan ibu."
-  },
-  {
-    question: "32. Metode komunikasi edukasi kesehatan dengan meminta pasien menjelaskan kembali informasi menggunakan bahasanya sendiri dinamakan...",
-    options: ["a. One-Way Presentation", "b. Teach-Back Method", "c. Peer Educator", "d. Motivational Interviewing"],
-    answer: "b. Teach-Back Method",
-    explanation: "Teach-back method memastikan tingkat pemahaman pemahaman pasien secara akurat."
-  },
-  {
-    question: "33. Obat pilihan utama (gold standard) untuk penanganan serta pencegahan kejang pada kasus Preeklampsia Berat / Eklampsia adalah...",
-    options: ["a. Diazepam", "b. Magnesium Sulfat (MgSO4)", "c. Nifedipin", "d. Oksitosin"],
-    answer: "b. Magnesium Sulfat (MgSO4)",
-    explanation: "MgSO4 diberikan sebagai antikonvulsan lini pertama pada kasus preeklampsia berat dan eklampsia."
-  },
-  {
-    question: "34. Berdasarkan estimasi data BPS, proporsi populasi usia remaja (10-19 tahun) di Indonesia mencapai sekitar...",
-    options: ["a. 20 Juta jiwa", "b. 32 Juta jiwa", "c. 44 Juta jiwa", "d. 60 Juta jiwa"],
-    answer: "c. 44 Juta jiwa",
-    explanation: "Populasi remaja Indonesia berkisar 44 juta jiwa (sekitar 15-16% dari total penduduk)."
-  },
-  {
-    question: "35. Kebiasaan mengonsumsi teh segera setelah makan pada ibu hamil dapat memicu anemia karena kandungan tanin dalam teh...",
-    options: [
-      "a. Merusak eritrosit di intravascular",
-      "b. Menghambat absorpsi zat besi (Fe) non-heme di usus",
-      "c. Menghancurkan asam folat dalam lambung",
-      "d. Mempercepat ekskresi kalsium melalui urin"
-    ],
-    answer: "b. Menghambat absorpsi zat besi (Fe) non-heme di usus",
-    explanation: "Senyawa tanin dan polifenol mengikat zat besi membentuk senyawa tak larut yang sulit diserap usus."
-  },
-  {
-    question: "36. Kematian ibu yang disebabkan komplikasi obstetri langsung terjadi lebih dari 42 hari tetapi kurang dari 1 tahun pascapersalinan disebut...",
-    options: ["a. Direct Maternal Death", "b. Late Maternal Death", "c. Perinatal Mortality", "d. Non-Obstetric Death"],
-    answer: "b. Late Maternal Death",
-    explanation: "Kematian maternal akhir (Late Maternal Death) dicatat pada rentang >42 hari hingga <1 tahun pascapersalinan."
-  },
-  {
-    question: "37. Angka kelahiran total / Total Fertility Rate (TFR) sasaran untuk mencapai Replacement Level kependudukan adalah...",
-    options: ["a. 1.8", "b. 2.1", "c. 2.4", "d. 3.0"],
-    answer: "b. 2.1",
-    explanation: "TFR 2,1 berarti rata-rata seorang wanita melahirkan 2,1 anak selama masa reproduksinya untuk mempertahankan keseimbangan populasi."
-  },
-  {
-    question: "38. Tanda bahaya kehamilan Trimester III yang memerlukan penanganan darurat segera meliputi...",
-    options: [
-      "a. Nyeri punggung bawah dan sering buang air kecil",
-      "b. Perdarahan per vaginam, sakit kepala hebat disertai gangguan penglihatan, serta gerakan janin berkurang",
-      "c. Mual di pagi hari dan pembesaran payudara",
-      "d. Garis hitam di perut (linea nigra)"
-    ],
-    answer: "b. Perdarahan per vaginam, sakit kepala hebat disertai gangguan penglihatan, serta gerakan janin berkurang",
-    explanation: "Tanda tersebut mengindikasikan solusio plasenta, preeklampsia berat, atau gawat janin."
-  },
-  {
-    question: "39. Program Kampung KB (Kampung Keluarga Berkualitas) dicanangkan pertama kali secara nasional pada tahun...",
-    options: ["a. 2009", "b. 2012", "c. 2016", "d. 2022"],
-    answer: "c. 2016",
-    explanation: "Kampung KB resmi diluncurkan oleh Presiden RI pada Januari 2016 sebagai penguatan program kependudukan berbasis desa."
-  },
-  {
-    question: "40. Fasilitas kesehatan tingkat Rumah Sakit yang menyediakan Pelayanan Obstetrik Neonatal Emergensi Komprehensif selama 24 jam disebut...",
-    options: ["a. PONED", "b. PONEK", "c. Poskesdes", "d. Puskesmas Pembantu"],
-    answer: "b. PONEK",
-    explanation: "PONEK diselenggarakan di Rumah Sakit rujukan, sedangkan PONED diselenggarakan di Puskesmas rawat inap."
-  }
+    {
+        topic: "Ruang Lingkup & Konsep DasKesPro",
+        question: "Pada tahun berapakah istilah 'kesehatan reproduksi' mulai populer secara internasional dalam Konferensi ICPD di Kairo?",
+        options: [
+            "1987",
+            "1990",
+            "1994",
+            "2009"
+        ],
+        correct: 2,
+        explanation: "Istilah 'kesehatan reproduksi' mulai populer pada tahun 1994 saat Konferensi Internasional tentang Kependudukan dan Pembangunan (ICPD) di Kairo."
+    },
+    {
+        topic: "Ruang Lingkup & Konsep DasKesPro",
+        question: "Undang-Undang Republik Indonesia Nomor berapakah yang mengatur tentang definisi kesehatan reproduksi pada Pasal 71?",
+        options: [
+            "UU No. 36 Tahun 2009",
+            "UU No. 52 Tahun 2009",
+            "UU No. 17 Tahun 2023",
+            "UU No. 16 Tahun 2019"
+        ],
+        correct: 0,
+        explanation: "Pasal 71 UU No. 36 Tahun 2009 mengatur pengertian dan cakupan kesehatan reproduksi di Indonesia."
+    },
+    {
+        topic: "Ruang Lingkup & Konsep DasKesPro",
+        question: "Prinsip dasar kesehatan reproduksi yang menjamin kesetaraan hak dan peran antara laki-laki dan perempuan disebut...",
+        options: [
+            "Universalitas",
+            "Keadilan Gender",
+            "Partisipasi Subjektif",
+            "Kemandirian Fisiologis"
+        ],
+        correct: 1,
+        explanation: "Keadilan dan kesetaraan gender menjamin hak serta tanggung jawab yang sama antara laki-laki dan perempuan dalam kesehatan reproduksi."
+    },
+    {
+        topic: "Kesehatan Reproduksi Remaja & PKPR",
+        question: "Berapa batasan usia remaja menurut Permenkes RI No. 25 Tahun 2014?",
+        options: [
+            "10 – 19 Tahun",
+            "10 – 18 Tahun",
+            "12 – 21 Tahun",
+            "15 – 24 Tahun"
+        ],
+        correct: 1,
+        explanation: "Permenkes RI No. 25 Tahun 2014 mendefinisikan remaja pada rentang usia 10–18 tahun (sedangkan WHO menetapkan 10–19 tahun)."
+    },
+    {
+        topic: "Kesehatan Reproduksi Remaja & PKPR",
+        question: "Tahun berapakah program Pelayanan Kesehatan Peduli Remaja (PKPR) pertama kali diperkenalkan di Indonesia?",
+        options: [
+            "1997",
+            "2003",
+            "2014",
+            "2019"
+        ],
+        correct: 1,
+        explanation: "Program PKPR pertama kali diinisiasi pada tahun 2003 dan diperkuat melalui penerbitan Standar Nasional PKPR pada tahun 2014."
+    },
+    {
+        topic: "Kesehatan Reproduksi Remaja & PKPR",
+        question: "Berikut yang BUKAN merupakan salah satu dari 5 Standar Nasional PKPR adalah...",
+        options: [
+            "Sumber Daya Manusia (SDM) kesehatan",
+            "Jejaring dan Kerjasama Lintas Sektor",
+            "Pemberian Alat Kontrasepsi Bebas bagi Remaja Belum Menikah",
+            "Sarana dan Prasarana Kesehatan Remaja"
+        ],
+        correct: 2,
+        explanation: "5 Standar PKPR mencakup SDM kesehatan, sarana prasarana, remaja sebagai pengguna, jejaring/kerjasama lintas sektor, dan manajemen faskes."
+    },
+    {
+        topic: "Kesehatan Reproduksi Remaja & PKPR",
+        question: "Pihak mana sajakah yang dapat memberikan layanan konseling kesehatan reproduksi remaja dalam skema PKPR?",
+        options: [
+            "Tenaga Kesehatan saja",
+            "Guru BK saja",
+            "Tenaga Kesehatan, Guru terlatih, dan Konselor Sebaya",
+            "Orang tua murid saja"
+        ],
+        correct: 2,
+        explanation: "Konseling PKPR dilaksanakan oleh tenaga kesehatan, guru yang telah dilatih khusus, serta konselor sebaya."
+    },
+    {
+        topic: "Kesehatan Reproduksi Remaja & PKPR",
+        question: "Peraturan Pemerintah nomor berapa yang memuat ketentuan khusus upaya kesehatan sistem reproduksi anak usia sekolah dan remaja?",
+        options: [
+            "PP No. 61 Tahun 2014",
+            "PP No. 28 Tahun 2024",
+            "Permenkes No. 21 Tahun 2021",
+            "UU No. 17 Tahun 2023"
+        ],
+        correct: 1,
+        explanation: "PP No. 28 Tahun 2024 memuat ketentuan khusus terkait pelaksanaan pelayanan kesehatan sistem reproduksi bagi anak sekolah dan remaja."
+    },
+    {
+        topic: "Permasalahan Kespro Remaja & Perkawinan Dini",
+        question: "Berdasarkan UU No. 16 Tahun 2019, batas usia minimal perkawinan untuk pria dan wanita di Indonesia adalah...",
+        options: [
+            "16 Tahun",
+            "17 Tahun",
+            "18 Tahun",
+            "19 Tahun"
+        ],
+        correct: 3,
+        explanation: "UU No. 16 Tahun 2019 menaikkan batas minimal usia pernikahan bagi perempuan menjadi 19 tahun, menyamakan batas usia laki-laki."
+    },
+    {
+        topic: "Permasalahan Kespro Remaja & Perkawinan Dini",
+        question: "Provinsi di Indonesia yang mencatatkan proporsi pernikahan anak usia dini (10–14 tahun) tertinggi periode 2020–2022 adalah...",
+        options: [
+            "Papua Barat",
+            "Jawa Timur",
+            "Sulawesi Barat",
+            "DKI Jakarta"
+        ],
+        correct: 1,
+        explanation: "Data kependudukan mencatatkan Jawa Timur berada pada urutan tertinggi untuk persentase pernikahan anak usia 10–14 tahun periode 2020–2022."
+    },
+    {
+        topic: "Permasalahan Kespro Remaja & Perkawinan Dini",
+        question: "Infeksi Menular Seksual (IMS) yang menjadi faktor etiologi utama terjadinya kanker serviks pada wanita adalah...",
+        options: [
+            "Neisseria gonorrhoeae",
+            "Human Papillomavirus (HPV)",
+            "Chlamydia trachomatis",
+            "Treponema pallidum"
+        ],
+        correct: 1,
+        explanation: "Infeksi persisten strain HPV risiko tinggi (terutama tipe 16 dan 18) merupakan penyebab utama terjadinya kanker serviks."
+    },
+    {
+        topic: "Permasalahan Kespro Remaja & Perkawinan Dini",
+        question: "Mengapa remaja perempuan secara biologis lebih rentan terhadap komplikasi Infeksi Menular Seksual (IMS)?",
+        options: [
+            "Anatomi serviks yang masih berkembang (ektopi serviks) dan faktor hormonal",
+            "Sistem imunitas tubuh belum terbentuk sama sekali",
+            "Tingkat keasaman (pH) vagina yang terlalu tinggi",
+            "Volume darah menstruasi yang sedikit"
+        ],
+        correct: 0,
+        explanation: "Ektropion/ektopi serviks pada remaja belum matang sempurna sehingga sel epitel kolumnar lebih terpapar oleh patogen IMS."
+    },
+    {
+        topic: "Kependudukan & Keluarga Berencana (KB)",
+        question: "Lembaga Keluarga Berencana Nasional (LKBN) bertransformasi menjadi BKKBN melalui Keppres No. 8 pada tahun...",
+        options: [
+            "1957",
+            "1967",
+            "1970",
+            "2009"
+        ],
+        correct: 2,
+        explanation: "BKKBN resmi dibentuk melalui Keppres No. 8 Tahun 1970 sebagai lembaga pengelola program KB nasional."
+    },
+    {
+        topic: "Kependudukan & Keluarga Berencana (KB)",
+        question: "Sistem informasi pencatatan dan pelaporan pelayanan KB digital yang diterapkan secara terintegrasi oleh BKKBN adalah...",
+        options: [
+            "e-Puskesmas",
+            "SIGA (Sistem Informasi Keluarga)",
+            "SIMKES",
+            "SIKLINIK"
+        ],
+        correct: 1,
+        explanation: "SIGA merupakan portal sistem pendataan dan pelaporan operasional pelayanan KB digital berbasis lapangan."
+    },
+    {
+        topic: "Kependudukan & Keluarga Berencana (KB)",
+        question: "Kelompok metode kontrasepsi berikut yang dikategorikan sebagai Metode Kontrasepsi Jangka Panjang (MKJP) adalah...",
+        options: [
+            "Kondom dan Pil KB",
+            "Suntik 3 Bulan dan MAL",
+            "IUD (AKDR), Implan, MOW (Tubektomi), dan MOP (Vasektomi)",
+            "Diafragma dan Spermisida"
+        ],
+        correct: 2,
+        explanation: "MKJP memberikan perlindungan kontrasepsi jangka panjang efektivitas tinggi (3 tahun hingga permanen/sterilisasi)."
+    },
+    {
+        topic: "Kependudukan & Keluarga Berencana (KB)",
+        question: "Langkah-langkah konseling KB terstandar yang terdiri dari 6 tahapan dikenal dengan rumus...",
+        options: [
+            "BAKSOKU",
+            "SATU TUJU",
+            "10 T",
+            "GURIK MASS"
+        ],
+        correct: 1,
+        explanation: "SATU TUJU merupakan akronim konseling KB: Sapa, Tanya, Uraikan, Bantu tentukan, Jelaskan, dan Ulangi kunjungan."
+    },
+    {
+        topic: "Kependudukan & Keluarga Berencana (KB)",
+        question: "Pasangan Usia Subur (PUS) yang belum pernah mengalami kehamilan setelah 12 bulan berhubungan intim secara teratur tanpa kontrasepsi disebut...",
+        options: [
+            "Infertilitas Sekunder",
+            "Infertilitas Primer",
+            "Unmet Need KB",
+            "Amenorea Sekunder"
+        ],
+        correct: 1,
+        explanation: "Infertilitas primer merujuk pada kondisi belum pernah hamil sama sekali setelah 1 tahun berhubungan seksual teratur tanpa pelindung."
+    },
+    {
+        topic: "Safe Motherhood & Kesehatan Maternal",
+        question: "Sebutkan 4 Pilar Utama dalam strategi Safe Motherhood menurut WHO (1994)!",
+        options: [
+            "KB, Asuhan Antenatal (ANC), Persalinan Bersih & Aman, Pelayanan Obstetri Esensial",
+            "Gizi, Sanitasi, Imunisasi, Pendidikan Kesehatan",
+            "Posyandu, Puskesmas, Rumah Sakit, PONEK",
+            "Remaja, Catin, Ibu Hamil, Ibu Nifas"
+        ],
+        correct: 0,
+        explanation: "Empat pilar Safe Motherhood meliputi KB, Asuhan Antenatal (ANC), Persalinan Bersih dan Aman, serta Pelayanan Obstetri Esensial."
+    },
+    {
+        topic: "Safe Motherhood & Kesehatan Maternal",
+        question: "Batasan risiko kehamilan '4 Terlalu' mencakup faktor-faktor berikut, KECUALI...",
+        options: [
+            "Terlalu Muda (<20 tahun)",
+            "Terlalu Tua (>35 tahun)",
+            "Terlalu Luas (Luas wilayah tempat tinggal)",
+            "Terlalu Banyak (>4 anak)"
+        ],
+        correct: 2,
+        explanation: "'4 Terlalu' terdiri dari: Terlalu Muda (<20 thn), Terlalu Tua (>35 thn), Terlalu Dekat (<2 thn), dan Terlalu Banyak (>4 anak)."
+    },
+    {
+        topic: "Safe Motherhood & Kesehatan Maternal",
+        question: "Berdasarkan standar ANC Terpadu Kemenkes RI terbaru, jumlah minimal kontak pemeriksaan kehamilan adalah...",
+        options: [
+            "4 kali",
+            "6 kali (Trimester I: 1x, Trimester II: 2x, Trimester III: 3x)",
+            "8 kali",
+            "12 kali"
+        ],
+        correct: 1,
+        explanation: "Standar ANC Terpadu mensyaratkan minimal 6 kali kunjungan selama masa kehamilan, dengan minimal 2 kali pemeriksaan dokter."
+    },
+    {
+        topic: "Safe Motherhood & Kesehatan Maternal",
+        question: "Perbedaan mendasar antara Maternal Mortality Ratio (MMR Rasio) dan Maternal Mortality Rate (MMR Rate) terletak pada pembaginya, yaitu...",
+        options: [
+            "MMR Rasio menggunakan pembagi Jumlah Kelahiran Hidup; MMR Rate menggunakan Jumlah Wanita Usia Subur (WUS)",
+            "MMR Rasio dihitung per 1.000 penduduk; MMR Rate per 100.000 penduduk",
+            "MMR Rasio khusus ibu usia muda; MMR Rate untuk semua usia ibu",
+            "Tidak ada perbedaan sama sekali"
+        ],
+        correct: 0,
+        explanation: "MMR Rasio dihitung per 100.000 Kelahiran Hidup (KH), sedangkan MMR Rate membandingkan kematian ibu dengan total populasi WUS (per 1.000 WUS)."
+    },
+    {
+        topic: "Safe Motherhood & Kesehatan Maternal",
+        question: "Etiologi utama Perdarahan Postpartum (PPH) dirumuskan dalam prinsip '4T', yaitu...",
+        options: [
+            "Tonus, Tissue, Trauma, Thrombin",
+            "Tekanan, Tensi, Tempat, Waktu",
+            "Toksisitas, Trauma, Tetanus, Trombosis",
+            "Tumor, TBC, Typhus, Toksoplasma"
+        ],
+        correct: 0,
+        explanation: "4T melambangkan: Tonus (Atonia uteri), Tissue (Retensio plasenta), Trauma (Laserasi jalan lahir), dan Thrombin (Koagulopati)."
+    },
+    {
+        topic: "Safe Motherhood & Kesehatan Maternal",
+        question: "Inovasi program pendampingan ibu hamil risiko tinggi secara terpadu di Kabupaten Banyumas dikenal dengan nama...",
+        options: [
+            "Jampersal",
+            "KIRANA",
+            "EMAS",
+            "SIJARIEMAS"
+        ],
+        correct: 1,
+        explanation: "Program KIRANA (Kawal Ibu Hamil Risiko Tinggi Terintegrasi dan Terpadu) merupakan inovasi rujukan maternal lokal di Kabupaten Banyumas."
+    },
+    {
+        topic: "Safe Motherhood & Kesehatan Maternal",
+        question: "Komponen kesiapan rujukan kebidanan 'BAKSOKU' untuk huruf 'K' pertama merujuk pada...",
+        options: [
+            "Keuangan",
+            "Keluarga",
+            "Kendaraan",
+            "Keterampilan Klinik"
+        ],
+        correct: 2,
+        explanation: "BAKSOKU: Bidan, Alat, Keluarga, Surat, Obat, Kendaraan, dan Uang."
+    },
+    {
+        topic: "Kehamilan, Nutrisi, & Edukasi Kespro",
+        question: "Rentang usia kehamilan fisiologis pada Trimester II berada pada usia gestasi...",
+        options: [
+            "0 – 13 minggu",
+            "14 – 27 minggu",
+            "28 – 40 minggu",
+            "12 – 24 minggu"
+        ],
+        correct: 1,
+        explanation: "Trimester I (0–13 minggu), Trimester II (14–27 minggu), Trimester III (28–40 minggu)."
+    },
+    {
+        topic: "Kehamilan, Nutrisi, & Edukasi Kespro",
+        question: "Hormon glikoprotein yang dihasilkan oleh trofoblas pada awal kehamilan untuk mempertahankan korpus luteum adalah...",
+        options: [
+            "Estrogen",
+            "Progesteron",
+            "human Chorionic Gonadotropin (hCG)",
+            "Human Placental Lactogen (hPL)"
+        ],
+        correct: 2,
+        explanation: "hCG disekresikan sejak awal implantasi untuk merangsang korpus luteum terus memproduksi progesteron."
+    },
+    {
+        topic: "Kehamilan, Nutrisi, & Edukasi Kespro",
+        question: "Kondisi penurunan kadar hemoglobin relatif pada ibu hamil akibat ekspansi volume plasma yang lebih besar dibanding eritrosit dinamakan...",
+        options: [
+            "Hemodilusi Fisiologis",
+            "Hemolisis Patologis",
+            "Leukositosis Fisiologis",
+            "Trombositopenia Gestasional"
+        ],
+        correct: 0,
+        explanation: "Peningkatan volume plasma darah memicu hemodilusi fisiologis yang menyebabkan penurunan konsentrasi Hb secara relatif."
+    },
+    {
+        topic: "Kehamilan, Nutrisi, & Edukasi Kespro",
+        question: "Menurut Angka Kecukupan Gizi (AKG 2019), tambahan kebutuhan energi harian bagi ibu hamil Trimester II & III adalah...",
+        options: [
+            "+180 kkal/hari",
+            "+300 kkal/hari",
+            "+450 kkal/hari",
+            "+500 kkal/hari"
+        ],
+        correct: 1,
+        explanation: "Sesuai AKG 2019, tambahan energi Trimester I sebesar +180 kkal/hari, sedangkan Trimester II & III sebesar +300 kkal/hari."
+    },
+    {
+        topic: "Kehamilan, Nutrisi, & Edukasi Kespro",
+        question: "Berapa tambahan asupan Protein harian yang direkomendasikan untuk ibu hamil Trimester III berdasarkan AKG 2019?",
+        options: [
+            "+1 gram/hari",
+            "+10 gram/hari",
+            "+30 gram/hari",
+            "+40 gram/hari"
+        ],
+        correct: 2,
+        explanation: "Tambahan protein bertahap: Trimester I (+1g), Trimester II (+10g), dan Trimester III (+30g/hari)."
+    },
+    {
+        topic: "Kehamilan, Nutrisi, & Edukasi Kespro",
+        question: "Suplementasi mikronutrien vital sebelum konsepsi dan awal kehamilan untuk mencegah Neural Tube Defects (NTD) adalah...",
+        options: [
+            "Asam Folat",
+            "Kalsium",
+            "Vitamin C",
+            "Seng (Zinc)"
+        ],
+        correct: 0,
+        explanation: "Asam folat sangat penting untuk proses penutupan bumbung saraf janin pada awal kehamilan."
+    },
+    {
+        topic: "Kehamilan, Nutrisi, & Edukasi Kespro",
+        question: "Rekomendasi model pelayanan Antenatal Care (ANC) terbaru dari WHO menetapkan minimal...",
+        options: [
+            "4 kali kontak",
+            "6 kali kontak",
+            "8 kali kontak",
+            "10 kali kontak"
+        ],
+        correct: 2,
+        explanation: "WHO ANC Model merekomendasikan minimal 8 kali kontak pelayanan selama masa kehamilan."
+    },
+    {
+        topic: "Kehamilan, Nutrisi, & Edukasi Kespro",
+        question: "Metode komunikasi edukasi kesehatan dengan meminta pasien menjelaskan kembali informasi menggunakan bahasanya sendiri dinamakan...",
+        options: [
+            "One-Way Presentation",
+            "Teach-Back Method",
+            "Peer Educator",
+            "Motivational Interviewing"
+        ],
+        correct: 1,
+        explanation: "Teach-Back Method dilakukan dengan meminta ibu menceritakan kembali pemahamannya untuk memastikan efektivitas komunikasi."
+    },
+    {
+        topic: "Kehamilan, Nutrisi, & Edukasi Kespro",
+        question: "Obat pilihan utama (gold standard) untuk penanganan serta pencegahan kejang pada kasus Preeklampsia Berat / Eklampsia adalah...",
+        options: [
+            "Diazepam",
+            "Magnesium Sulfat (MgSO4)",
+            "Nifedipin",
+            "Oksitosin"
+        ],
+        correct: 1,
+        explanation: "MgSO4 merupakan lini pertama antikonvulsan pencegah dan penangan kejang eklampsia di fasilitas layanan kesehatan."
+    },
+    {
+        topic: "Kehamilan, Nutrisi, & Edukasi Kespro",
+        question: "Berdasarkan estimasi data BPS, proporsi populasi usia remaja (10–19 tahun) di Indonesia mencapai sekitar...",
+        options: [
+            "20 Juta jiwa",
+            "32 Juta jiwa",
+            "44 Juta jiwa",
+            "60 Juta jiwa"
+        ],
+        correct: 2,
+        explanation: "Populasi remaja Indonesia berkisar 44 juta jiwa (sekitar 15,3% dari total penduduk)."
+    },
+    {
+        topic: "Kehamilan, Nutrisi, & Edukasi Kespro",
+        question: "Kebiasaan mengonsumsi teh segera setelah makan pada ibu hamil dapat memicu anemia karena kandungan tanin dalam teh...",
+        options: [
+            "Merusak eritrosit di intravascular",
+            "Menghambat absorpsi zat besi (Fe) non-heme di usus",
+            "Menghancurkan asam folat dalam lambung",
+            "Mempercepat ekskresi kalsium melalui urin"
+        ],
+        correct: 1,
+        explanation: "Senyawa tanin mengikat zat besi non-heme membentuk ikatan kompleks yang tidak dapat diserap oleh usus."
+    },
+    {
+        topic: "Kehamilan, Nutrisi, & Edukasi Kespro",
+        question: "Kematian ibu yang disebabkan komplikasi obstetri langsung terjadi lebih dari 42 hari tetapi kurang dari 1 tahun pascapersalinan disebut...",
+        options: [
+            "Direct Maternal Death",
+            "Late Maternal Death",
+            "Perinatal Mortality",
+            "Non-Obstetric Death"
+        ],
+        correct: 1,
+        explanation: "Kematian maternal akhir (Late Maternal Death) dicatat jika terjadi antara hari ke-43 hingga kurang dari 1 tahun pascapersalinan."
+    },
+    {
+        topic: "Kehamilan, Nutrisi, & Edukasi Kespro",
+        question: "Angka kelahiran total / Total Fertility Rate (TFR) sasaran untuk mencapai Replacement Level kependudukan adalah...",
+        options: [
+            "1.8",
+            "2.1",
+            "2.4",
+            "3.0"
+        ],
+        correct: 1,
+        explanation: "TFR 2,1 anak per wanita merupakan ambang tingkat penggantian (replacement level) kependudukan."
+    },
+    {
+        topic: "Kehamilan, Nutrisi, & Edukasi Kespro",
+        question: "Tanda bahaya kehamilan Trimester III yang memerlukan penanganan darurat segera meliputi...",
+        options: [
+            "Nyeri punggung bawah dan sering buang air kecil",
+            "Perdarahan per vaginam, sakit kepala hebat disertai gangguan penglihatan, serta gerakan janin berkurang",
+            "Mual di pagi hari dan pembesaran payudara",
+            "Garis hitam di perut (linea nigra)"
+        ],
+        correct: 1,
+        explanation: "Perdarahan, pusing berat/pandangan kabur (tanda preeklampsia), serta penurunan gerak janin adalah tanda bahaya cito."
+    },
+    {
+        topic: "Kehamilan, Nutrisi, & Edukasi Kespro",
+        question: "Program Kampung KB (Kampung Keluarga Berkualitas) dicanangkan pertama kali secara nasional pada tahun...",
+        options: [
+            "2009",
+            "2012",
+            "2016",
+            "2022"
+        ],
+        correct: 2,
+        explanation: "Kampung KB secara resmi dicanangkan pertama kali oleh Presiden RI pada Januari 2016."
+    },
+    {
+        topic: "Kehamilan, Nutrisi, & Edukasi Kespro",
+        question: "Fasilitas kesehatan tingkat Rumah Sakit yang menyediakan Pelayanan Obstetrik Neonatal Emergensi Komprehensif selama 24 jam disebut...",
+        options: [
+            "PONED",
+            "PONEK",
+            "Poskesdes",
+            "Puskesmas Pembantu"
+        ],
+        correct: 1,
+        explanation: "PONEK diselenggarakan di Rumah Sakit rujukan 24 jam, sedangkan PONED diselenggarakan di Puskesmas rawat inap."
+    }
 ];
 
-// Controller State
-let currentQuestionIndex = 0;
-let userAnswers = {};
+// STATE MANAJEMEN KUIS DASKESPRO
+let currentDaskesproIndex = 0;
+let userDaskesproAnswers = new Array(daskesproQuizData.length).fill(null);
 
-// UI Engine Implementation
-function initDasKesProQuiz() {
-  const container = document.getElementById("quiz-container");
-  if (!container) return;
-
-  renderQuizUI(container);
+function initDaskesproQuiz() {
+    currentDaskesproIndex = 0;
+    userDaskesproAnswers = new Array(daskesproQuizData.length).fill(null);
+    renderDaskesproPalette();
+    showDaskesproQuestion(0);
 }
 
-function renderQuizUI(container) {
-  const q = daskesproQuizData[currentQuestionIndex];
-  const total = daskesproQuizData.length;
-  const isAnswered = userAnswers[currentQuestionIndex] !== undefined;
-  const selectedAns = userAnswers[currentQuestionIndex];
+function renderDaskesproPalette() {
+    const paletteGrid = document.getElementById("quiz-number-palette-daskespro");
+    if (!paletteGrid) return;
 
-  let optionsHTML = q.options.map((opt) => {
-    let btnStyle = "btn-outline-primary";
-    if (isAnswered) {
-      if (opt === q.answer) {
-        btnStyle = "btn-success";
-      } else if (opt === selectedAns) {
-        btnStyle = "btn-danger";
-      } else {
-        btnStyle = "btn-light";
-      }
-    } else if (opt === selectedAns) {
-      btnStyle = "btn-primary";
+    paletteGrid.innerHTML = "";
+    daskesproQuizData.forEach((_, idx) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "palette-btn";
+        btn.innerText = idx + 1;
+        btn.onclick = () => showDaskesproQuestion(idx);
+        paletteGrid.appendChild(btn);
+    });
+    updateDaskesproPaletteStatus();
+}
+
+function updateDaskesproPaletteStatus() {
+    const paletteBtns = document.querySelectorAll("#quiz-number-palette-daskespro .palette-btn");
+    paletteBtns.forEach((btn, idx) => {
+        btn.classList.remove("active", "answered");
+        if (idx === currentDaskesproIndex) {
+            btn.classList.add("active");
+        }
+        if (userDaskesproAnswers[idx] !== null) {
+            btn.classList.add("answered");
+        }
+    });
+}
+
+function showDaskesproQuestion(index) {
+    currentDaskesproIndex = index;
+    const qData = daskesproQuizData[index];
+
+    // Elemen UI
+    document.getElementById("quiz-topic-tag-daskespro").innerText = qData.topic;
+    document.getElementById("quiz-current-num-daskespro").innerText = index + 1;
+    document.getElementById("quiz-total-num-daskespro").innerText = daskesproQuizData.length;
+    document.getElementById("quiz-question-daskespro").innerText = qData.question;
+
+    // Update Progress Bar
+    const progressFill = document.getElementById("quiz-progress-fill-daskespro");
+    if (progressFill) {
+        const percent = ((index + 1) / daskesproQuizData.length) * 100;
+        progressFill.style.width = percent + "%";
     }
 
-    return `
-      <button class="btn ${btnStyle} option-btn text-start w-100 mb-2" 
-              onclick="selectAnswer('${opt}')" 
-              ${isAnswered ? 'disabled' : ''}>
-        ${opt}
-      </button>
-    `;
-  }).join("");
+    // Render Pilihan
+    const optionsContainer = document.getElementById("quiz-options-daskespro");
+    optionsContainer.innerHTML = "";
 
-  let explanationHTML = "";
-  if (isAnswered) {
-    const isCorrect = selectedAns === q.answer;
-    explanationHTML = `
-      <div class="alert ${isCorrect ? 'alert-success' : 'alert-danger'} mt-3">
-        <strong>${isCorrect ? '✓ Benar!' : '✗ Salah!'}</strong><br>
-        <strong>Kunci Jawaban:</strong> ${q.answer}<br>
-        <hr class="my-2">
-        <strong>Pembahasan:</strong> ${q.explanation}
-      </div>
-    `;
-  }
+    qData.options.forEach((optText, optIdx) => {
+        const optBtn = document.createElement("button");
+        optBtn.type = "button";
+        optBtn.className = "option-btn";
+        optBtn.innerText = optText;
 
-  container.innerHTML = `
-    <div class="card shadow-sm border-0">
-      <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Dasar Kesehatan Reproduksi & Keluarga</h5>
-        <span class="badge bg-primary">Soal ${currentQuestionIndex + 1} / ${total}</span>
-      </div>
-      <div class="card-body">
-        <p class="card-text fw-bold fs-5">${q.question}</p>
-        <div class="options-group mt-3">
-          ${optionsHTML}
-        </div>
-        ${explanationHTML}
-      </div>
-      <div class="card-footer bg-light d-flex justify-content-between">
-        <button class="btn btn-secondary" onclick="prevQuestion()" ${currentQuestionIndex === 0 ? 'disabled' : ''}>
-          &laquo; Sebelumnya
-        </button>
-        ${currentQuestionIndex === total - 1 ? `
-          <button class="btn btn-success" onclick="finishQuiz()" ${!isAnswered ? 'disabled' : ''}>
-            Selesai & Lihat Skor
-          </button>
-        ` : `
-          <button class="btn btn-primary" onclick="nextQuestion()" ${!isAnswered ? 'disabled' : ''}>
-            Selanjutnya &raquo;
-          </button>
-        `}
-      </div>
-    </div>
-  `;
-}
+        // Cek status jawaban
+        if (userDaskesproAnswers[index] !== null) {
+            optBtn.disabled = true;
+            if (optIdx === qData.correct) {
+                optBtn.classList.add("correct");
+            }
+            if (userDaskesproAnswers[index] === optIdx && optIdx !== qData.correct) {
+                optBtn.classList.add("wrong");
+            }
+        } else {
+            optBtn.onclick = () => selectDaskesproAnswer(optIdx);
+        }
 
-function selectAnswer(opt) {
-  userAnswers[currentQuestionIndex] = opt;
-  renderQuizUI(document.getElementById("quiz-container"));
-}
+        optionsContainer.appendChild(optBtn);
+    });
 
-function nextQuestion() {
-  if (currentQuestionIndex < daskesproQuizData.length - 1) {
-    currentQuestionIndex++;
-    renderQuizUI(document.getElementById("quiz-container"));
-  }
-}
-
-function prevQuestion() {
-  if (currentQuestionIndex > 0) {
-    currentQuestionIndex--;
-    renderQuizUI(document.getElementById("quiz-container"));
-  }
-}
-
-function finishQuiz() {
-  let score = 0;
-  daskesproQuizData.forEach((q, idx) => {
-    if (userAnswers[idx] === q.answer) {
-      score++;
+    // Render Pembahasan
+    const feedbackBox = document.getElementById("quiz-feedback-daskespro");
+    if (userDaskesproAnswers[index] !== null) {
+        feedbackBox.classList.remove("hidden");
+        feedbackBox.innerHTML = `<strong>Pembahasan:</strong> ${qData.explanation}`;
+    } else {
+        feedbackBox.classList.add("hidden");
     }
-  });
 
-  const percentage = ((score / daskesproQuizData.length) * 100).toFixed(1);
-  const container = document.getElementById("quiz-container");
+    // Navigasi
+    const prevBtn = document.getElementById("quiz-prev-btn-daskespro");
+    const nextBtn = document.getElementById("quiz-next-btn-daskespro");
 
-  container.innerHTML = `
-    <div class="card shadow-sm border-0 text-center p-4">
-      <h3 class="fw-bold">Kuis Selesai! 🎉</h3>
-      <div class="display-3 my-3 text-primary fw-bold">${percentage}%</div>
-      <p class="fs-5">Anda menjawab <strong>${score}</strong> dari <strong>${daskesproQuizData.length}</strong> soal dengan benar.</p>
-      <div class="d-flex justify-content-center gap-2 mt-3">
-        <button class="btn btn-outline-primary" onclick="restartQuiz()">Ulangi Kuis</button>
-      </div>
-    </div>
-  `;
+    if (index === 0) {
+        prevBtn.classList.add("hidden");
+    } else {
+        prevBtn.classList.remove("hidden");
+        prevBtn.onclick = () => showDaskesproQuestion(index - 1);
+    }
+
+    if (index === daskesproQuizData.length - 1) {
+        nextBtn.innerText = "Selesaikan Kuis";
+        nextBtn.onclick = finishDaskesproQuiz;
+    } else {
+        nextBtn.innerText = "Soal Selanjutnya \u2192";
+        nextBtn.onclick = () => showDaskesproQuestion(index + 1);
+    }
+
+    updateDaskesproPaletteStatus();
 }
 
-function restartQuiz() {
-  currentQuestionIndex = 0;
-  userAnswers = {};
-  initDasKesProQuiz();
+function selectDaskesproAnswer(selectedOptIdx) {
+    userDaskesproAnswers[currentDaskesproIndex] = selectedOptIdx;
+    showDaskesproQuestion(currentDaskesproIndex);
 }
 
-// Auto-init saat DOM dimuat
-document.addEventListener("DOMContentLoaded", initDasKesProQuiz);
+function finishDaskesproQuiz() {
+    let score = 0;
+    userDaskesproAnswers.forEach((ans, idx) => {
+        if (ans === daskesproQuizData[idx].correct) {
+            score += 2.5; // Total 40 Soal = Skor 100
+        }
+    });
+
+    document.getElementById("quiz-main-container-daskespro").classList.add("hidden");
+    const resultCard = document.getElementById("quiz-result-card-daskespro");
+    resultCard.classList.remove("hidden");
+
+    document.getElementById("quiz-final-score-val-daskespro").innerText = Math.round(score);
+    document.getElementById("quiz-final-detail-daskespro").innerText = `Kamu berhasil menjawab ${userDaskesproAnswers.filter((a, i) => a === daskesproQuizData[i].correct).length} dari 40 soal dengan benar.`;
+}
