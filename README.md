@@ -6,12 +6,16 @@
 
 ---
 
-## 🚀 Key Modules & Features
+### 🚀 Key Modules & Features
 
 * **Z-Score Visualizer & Calculator:** Computes $P(Z < z)$, $P(Z > z)$, and two-tailed probabilities with real-time normal distribution curve rendering via HTML5 Canvas.
 * **Biostatistics Exam Suite:** Interactive step-by-step examination module for Poisson, Binomial, and Normal distributions using MathJax rendering.
 * **Epidemiology Assessment:** A 40-question randomized CBT-style quiz suite with question palette navigation, immediate feedback, and score visualization.
-
+* **Group Dynamics (Dinamika Kelompok) Suite:** A 30-question interactive assessment covering group formation stages, Tuckman's model, team building, and Johari Window dynamics.
+* **Ergonomics & Work Environment Assessment:** A 40-question quiz module covering industrial hygiene, occupational hazards, 5S methodology, and workplace risk evaluation.
+* **Public Health Nutrition (Gizi Kesmas) Suite:** A 40-question assessment covering life-cycle nutrition, epidemiological transitions, stunting interventions, and occupational nutrition.
+* **Reproductive Health (DasKesPro) Assessment:** A 40-question CBT-style module covering adolescent reproductive health, family planning (KB), Safe Motherhood, and integrated ANC standards.
+* **Citation Generator:** Instant reference generator supporting APA 7th Edition and Vancouver formatting with one-click clipboard copying.
 ---
 
 ## 🛠️ Tech Stack & Engineering Concepts
