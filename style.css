@@ -39,7 +39,7 @@
     --text-color: #f8fafc;
     --text-muted: #94a3b8;
     --border-color: #334155;
-    --info-bg: #1e293b;
+    --info-bg: #0f172a;
     --info-border: #3b82f6;
     --success-bg: #064e3b;
 }
@@ -149,7 +149,7 @@ body {
     background-color: var(--info-bg);
 }
 
-/* THEME TOGGLE BUTTON */
+/* THEME TOGGLE BUTTON (SVG ICON) */
 .theme-toggle-btn {
     background: transparent;
     border: 1px solid var(--border-color);
@@ -161,6 +161,8 @@ body {
     align-items: center;
     justify-content: center;
     transition: var(--transition-fast);
+    width: 36px;
+    height: 36px;
 }
 
 .theme-toggle-btn svg {
@@ -249,7 +251,7 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* LANDING PAGE HERO */
+/* HERO BANNER */
 .hero-banner {
     text-align: center;
     padding: 3.5rem 2rem;
@@ -531,17 +533,28 @@ input[type="number"], input[type="text"] {
 .progress-bar-fill { background-color: var(--secondary-color); height: 100%; width: 0%; transition: width 0.3s ease; }
 
 .palette-title { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 0.5rem; }
-.palette-grid { display: flex; flex-wrap: wrap; gap: 0.4rem; max-height: 120px; overflow-y: auto; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); background-color: var(--bg-color); }
+.palette-grid { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 0.4rem; 
+    max-height: 120px; 
+    overflow-y: auto; 
+    padding: 0.6rem; 
+    border: 1px solid var(--border-color); 
+    border-radius: var(--radius-sm); 
+    background-color: var(--card-bg); 
+}
 
+/* PALETTE BUTTON FIX UNTUK KONTRAST TEKS NOMOR SOAL */
 .palette-btn {
     width: 32px;
     height: 32px;
     border-radius: 6px;
     border: 1px solid var(--border-color);
-    background-color: var(--card-bg);
+    background-color: var(--bg-color);
     font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--text-color);
+    font-weight: 700;
+    color: var(--text-color) !important;
     cursor: pointer;
     transition: var(--transition-fast);
     display: flex;
@@ -549,9 +562,23 @@ input[type="number"], input[type="text"] {
     justify-content: center;
 }
 
-.palette-btn:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
-.palette-btn.active { border-color: var(--accent-blue); background-color: var(--info-bg); color: var(--accent-blue); font-weight: 800; }
-.palette-btn.answered { background-color: var(--accent-blue); color: #ffffff; border-color: var(--accent-blue); }
+.palette-btn:hover { 
+    border-color: var(--accent-blue); 
+    color: var(--accent-blue) !important; 
+}
+
+.palette-btn.active { 
+    border-color: var(--accent-blue); 
+    background-color: var(--info-bg); 
+    color: var(--accent-blue) !important; 
+    font-weight: 800; 
+}
+
+.palette-btn.answered { 
+    background-color: var(--accent-blue); 
+    color: #ffffff !important; 
+    border-color: var(--accent-blue); 
+}
 
 .quiz-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
 .topic-tag { background-color: var(--bg-color); color: var(--text-color); padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 600; font-size: 0.8rem; border: 1px solid var(--border-color); }
