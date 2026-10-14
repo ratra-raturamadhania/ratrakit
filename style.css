@@ -712,3 +712,28 @@ footer a { color: var(--accent-blue); text-decoration: none; font-weight: 600; }
     .quiz-nav-footer button { width: 100%; }
     .styled-table th, .styled-table td { padding: 6px 8px; font-size: 0.75rem; }
 }
+
+/* FIX INSTAN: PAKSA TIMPA INLINE STYLE DARI JS */
+.palette-grid button.palette-btn[style],
+button.palette-btn[style] {
+    background-color: var(--bg-color) !important;
+    background: var(--bg-color) !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+.palette-grid button.palette-btn.active[style],
+button.palette-btn.active[style] {
+    background-color: var(--info-bg) !important;
+    background: var(--info-bg) !important;
+    color: var(--accent-blue) !important;
+    border-color: var(--accent-blue) !important;
+}
+
+.palette-grid button.palette-btn.answered[style],
+button.palette-btn.answered[style] {
+    background-color: var(--accent-blue) !important;
+    background: var(--accent-blue) !important;
+    color: #ffffff !important;
+    border-color: var(--accent-blue) !important;
+}
